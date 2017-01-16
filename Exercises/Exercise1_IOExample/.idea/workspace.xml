@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="97710be1-1fd0-4c89-932e-27a51610ee94" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/exercise1_ioexample/Part5.java" afterPath="$PROJECT_DIR$/src/com/exercise1_ioexample/Part5.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,8 +59,8 @@
       <file leaf-file-name="Part4.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="30">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="5" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -69,11 +68,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Part5.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Part5.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part5.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IOHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/IOHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Part6.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part6.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -102,8 +123,10 @@
         <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part1.java" />
         <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part2.java" />
         <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part3.java" />
-        <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part4.java" />
         <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part5.java" />
+        <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part4.java" />
+        <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/IOHelper.java" />
+        <option value="$PROJECT_DIR$/src/com/exercise1_ioexample/Part6.java" />
       </list>
     </option>
   </component>
@@ -182,27 +205,7 @@
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager" selected="Application.Part5">
-    <configuration default="false" name="Part1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.exercise1_ioexample.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.exercise1_ioexample.Part1" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Exercise1_IOExample" />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.Part6">
     <configuration default="false" name="Part2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -271,6 +274,26 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="com.exercise1_ioexample.Part5" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Exercise1_IOExample" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Part6" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.exercise1_ioexample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.exercise1_ioexample.Part6" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -664,19 +687,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.Part1" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Part2" />
-      <item index="2" class="java.lang.String" itemvalue="Application.Part3" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Part4" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Part5" />
+      <item index="0" class="java.lang.String" itemvalue="Application.Part2" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Part3" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Part4" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Part5" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Part6" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Part5" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Part4" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Part3" />
-        <item index="3" class="java.lang.String" itemvalue="Application.Part2" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Part1" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Part6" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Part5" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Part4" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Part3" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Part2" />
       </list>
     </recent_temporary>
   </component>
@@ -691,12 +714,12 @@
       <option name="presentableId" value="Default" />
       <updated>1484594262009</updated>
       <workItem from="1484594263269" duration="1781000" />
-      <workItem from="1484596259781" duration="2885000" />
+      <workItem from="1484596259781" duration="3859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4666000" />
+    <option name="totallyTimeSpent" value="5640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="945" extended-state="6" />
@@ -810,20 +833,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="5" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part5.java">
+    <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/IOHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/exercise1_ioexample/Part6.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding />
         </state>
       </provider>
