@@ -9,7 +9,7 @@ public class Part6 {
     public static void main(String[] args) {
         //define string to get user input and show dialogue box
         String userInput = JOptionPane.showInputDialog("Enter a number");
-        //get the integer from the users input
+        //get the integer from the users input, must parse it from the string
         int userNum = Integer.parseInt(userInput);
         //show dialogue message to the user
         JOptionPane.showMessageDialog(null, "Your number is: " + userNum);
