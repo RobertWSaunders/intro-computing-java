@@ -83,6 +83,7 @@ public class Assn1_15rws {
      * Begins a round.
      */
     public static void beginRound() {
+        //only increment the round number if the next turn is the player's
         if (turn == Turn.player) {
             //increment the round number
             round++;
@@ -160,7 +161,7 @@ public class Assn1_15rws {
                     //in the event that the dice are matching, just don't ask user if they want to roll again
                     //also always allow the computer to roll, computer logic
                 else {
-                    if (combination != DiceCombination.matching) {
+                    if (combination == DiceCombination.matching) {
                         printMatchingMustRoll();
                     }
                     return true;
@@ -358,19 +359,20 @@ public class Assn1_15rws {
         }
     }
 
+    /**
+     * Prints a message saying that whoever's turn it is has to roll again, happens when matching rolls occur.
+     */
     public static void printMatchingMustRoll() {
         //determine whose turn it is
         switch (turn) {
             case player:
-
                 System.out.print("Player must roll again!\n");
                 break;
             case computer:
-                System.out.print("Player must roll again!\n");
+                System.out.print("Computer must roll again!\n");
                 break;
         }
     }
-
 
     /**
      * Prints the turn summary in the format "Player's turn sum is: 6 and game sum is: 6"
@@ -389,12 +391,17 @@ public class Assn1_15rws {
         }
     }
 
-    //prints turn summary
+    /**
+     * Prints a turns summary in the format "Player's sum is: 4, Computer's sum is: 10."
+     */
     public static void printTurnSummary() {
         System.out.printf("\nPlayer's sum is: %d, Computer's sum is: %d.\n",playerSum,computerSum);
     }
 
-    //prints when round over
+    /**
+     * Determines if the user wants to start a new round.
+     * @return True when user puts the correct input in.
+     */
     public static boolean startNewRound() {
         return getUserInput(String.format("\nPlayer's sum is: %d, Computer's sum is: %d. Press <space><enter> to start round %d.",playerSum,computerSum, round), UserInputType.startRound);
     }
@@ -530,8 +537,6 @@ public class Assn1_15rws {
     public static String numToString(int num) {
         //switch statement for passed num
         switch(num) {
-            case 0:
-                return "zero";
             case 1:
                 return "one";
             case 2:
@@ -563,7 +568,7 @@ public class Assn1_15rws {
         //seed the random generator with the current time in milliseconds
         Random generator = new Random();
         //the string of the random number
-        return generator.nextInt(DICE_SIDES+1);
+        return generator.nextInt(DICE_SIDES)+1;
     }
 
     /**
