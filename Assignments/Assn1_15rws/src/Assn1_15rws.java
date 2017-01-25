@@ -1,11 +1,14 @@
-/*
- * Assn1_15rws
- * Purpose: The purpose of this assignment is to practice designing methods, using loops, conditionals and this
- * console I/O. This program allows a user to play against a computer in the two dice variation of the Game of Pig.
- * Version 1.0
- * January 24th, 2017
- * Author: Robert Saunders (10194030)
+/**
+ * The purpose of this assignment is to practice designing methods, using loops, conditionals and console I/O.
+ * This program allows a user to play against a computer in the two dice variation of the Game of Pig. This
+ * implementation is configurable to play the n dice variation (default 2), a larger winning score (default
+ * 100) and even the number of sides on the dice.
+ *
+ * @author Robert Saunders (10194030)
+ * @version 1.0.0
  */
+
+import b.b.b.a.U;
 
 import java.util.Random;
 import java.io.IOException;
@@ -37,10 +40,16 @@ public class Assn1_15rws {
         random //random, when dice are all different
     }
 
+    //define the different dice combinations either the computer or player could role
+    private enum UserInputType {
+        rollAgain, //snakeeyes, when all dice are 1's
+        startRound, //singleone, one dice is 1
+    }
+
     //create flag to keep track of whose turn it is, by default player gets first turn
     private static Turn turn = Turn.player;
     //define a counter for rounds in the game
-    private static int round = 0;
+    private static int round = 1;
     //define counter for turn sum, gets reset every turn
     private static int turnSum;
     //define counter for players game sum
@@ -48,15 +57,15 @@ public class Assn1_15rws {
     //define counter for computers game sum
     private static int computerSum = 0;
 
+    ///////////////////////////
+    /* MAIN EXECUTION METHOD */
+    ///////////////////////////
+
     /**
      * Main method of the program.
      * @param args
      */
     public static void main(String[] args) {
-
-        //IMPROVMENT: WANT TO CHECK IF WON AFTER EVERY ROLL
-        //REWORK THIS
-
         // play the game as long as no has won the game
         while (!gameComplete()) {
             //if no one has won then begin turn
@@ -66,19 +75,42 @@ public class Assn1_15rws {
         printWinner();
     }
 
+    /////////////////////////
+    /* GAME LOGIC METHODS */
+    ///////////////////////
+
     /**
-     * Begins a turn
+     * Begins a round.
+     */
+    public static void beginRound() {
+        if (turn == Turn.player) {
+            //increment the round number
+            round++;
+        }
+        //begin a turn in the round
+        beginTurn();
+    }
+
+    /**
+     * Ends a round.
+     */
+    public static void endRound() {
+        if (startNewRound()) {
+            switchTurns();
+            beginRound();
+        }
+    }
+
+    /**
+     * Begins a turn.
      */
     public static void beginTurn() {
-
         //print whose turn it is
         printWhoseTurn();
-
         //gets reset every turn
         turnSum = 0;
         //define array that will hold NUMBER_ROLLS_PER_TURN rolls as ints
         int[] rolls;
-
         //Perform the turn
         do {
             //fill the rolls array with NUMBER_ROLLS_PER_TURN of rolls
@@ -90,19 +122,19 @@ public class Assn1_15rws {
         endTurn();
     }
 
-
     /**
-     * Ends a turn
+     * Ends a turn.
      */
     public static void endTurn() {
+        //if the game is not over, end the turn, otherwise end the game
         if (!gameComplete()) {
-            //print the turn summary
-            printTurnSummary();
             //because players always go first we know that the end of the round is when it's the computers turn
             if (turn == Turn.computer) {
                 //end the round
                 endRound();
             } else {
+                //print the turn summary
+                printTurnSummary();
                 //otherwise switch turns
                 switchTurns();
             }
@@ -110,58 +142,7 @@ public class Assn1_15rws {
     }
 
     /**
-     * Begins a round
-     */
-    public static void beginRound() {
-        round++;
-        beginTurn();
-    }
-
-    /**
-     * Ends a round
-     */
-    public static void endRound() {
-        printRoundOver();
-    }
-
-    /**
-     * Returns the combination that the dice that were roll are in.
-     * @param rolls An array of full of ints that represent the rolls.
-     * @return The correct DiceCombination enum for the given dice combination.
-     */
-    public static DiceCombination getDiceCombination(int[] rolls) {
-        //must use a for loop because can be n number of rolls
-        //checks first case, are all rolls the same
-        for(int i=1; i<rolls.length; i++){
-            //check if all rolls are the same and equal to 1
-            if((rolls[0] == rolls[i]) && (rolls[0] == 1)){
-                //return the snake eyes combination
-                return DiceCombination.snakeeyes;
-            }
-        }
-        //checks second case, if any rolls equal one
-        for(int roll : rolls){
-            //check if roll equals 1
-            if(roll == 1) {
-                //return the singleone combination
-                return DiceCombination.singleone;
-            }
-        }
-
-        //checks third case, if rolls all match
-        for(int i=1; i<rolls.length; i++){
-            //check if all rolls match
-            if(rolls[0] == rolls[i]){
-                //return the matching combination
-                return DiceCombination.matching;
-            }
-        }
-        //otherwise return the random combination
-        return DiceCombination.random;
-    }
-
-    /**
-     * Asks the user if they want to roll again, called when the user is able to roll again using game rules.
+     * Determines if the
      * @return True if the user does want to roll again, false otherwise.
      */
     public static boolean rollAgain(int[] rolls) {
@@ -175,14 +156,17 @@ public class Assn1_15rws {
                 //if the combination is not matching and its the player's turn
                 if ((combination != DiceCombination.matching) && (turn == Turn.player))
                     //ask the user if they want to roll again
-                    return promptUser();
-                //in the event that the dice are matching, just don't ask user if they want to roll again
-                //also always allow the computer to roll, computer logic
+                    return getUserInput("Roll again? (y/n)",UserInputType.rollAgain);
+                    //in the event that the dice are matching, just don't ask user if they want to roll again
+                    //also always allow the computer to roll, computer logic
                 else {
+                    if (combination != DiceCombination.matching) {
+                        printMatchingMustRoll();
+                    }
                     return true;
                 }
             else {
-                //someone has won the game, do not allow the another roll
+                //someone has won the game, do not allow another roll
                 return false;
             }
         }
@@ -190,94 +174,126 @@ public class Assn1_15rws {
         return false;
     }
 
-
+    /**
+     * Determines if the player or computer is allowed to roll by comparing what they rolled against the game rules.
+     * @param rolls An array full of ints that represent the rolls.
+     * @param combination The combination the dice are in.
+     * @return True if the user is allowed to roll again, false otherwise.
+     */
     public static boolean isAllowedToRollAgain(int[] rolls, DiceCombination combination) {
-
         //set the roll sum by calculating it
         int rollSum = calculateRollSum(rolls);
-
-        //computer logic
-        //if the computer exceeds 40 points in the turn just end the turn
-        if (turn == Turn.computer && turnSum > COMPUTER_TURN_SUM_BOUND) {
-            endTurn();
+        //computer logic, if the computer exceeds COMPUTER_TURN_SUM_BOUND points in the turn, then just end the turn
+        if (turn == Turn.computer && turnSum >= COMPUTER_TURN_SUM_BOUND) {
+            //by default return false
+            return false;
         }
         //shared logic for both computer and player
         else {
-            //get the dice combination
+            //switch case through each die combinations
             switch (combination) {
-                //if all dice are 1's
+                //if all dice are ones
                 case snakeeyes:
                     //set the turn sum to zero
                     turnSum = 0;
                     //reset the game sum for whoever got snake eyes
                     resetGameSum();
+                    //if snakeeyes cannot roll again
                     return false;
                 case singleone:
-                    //set turn sum to zero
-                    subtractFromGameSum(turnSum);
-                    turnSum = 0;
+                    //set the turn sum to zero
+                    resetTurnSum();
+                    //if there is a single one cannot roll again
                     return false;
-                case matching:
+                default:
                     //add the roll sum to the turn sum
                     turnSum += rollSum;
                     //add the turn sum to the game sum
                     addToGameSum(rollSum);
                     //print the turn sum
                     printTurnSum();
-                    switch (turn) {
-                        case computer:
-                            System.out.println("Computer must roll again!");
-                            break;
-                        case player:
-                            System.out.println("Player must roll again!");
-                            break;
-                    }
+                    //for both matching and random combinations allow roll again
                     return true;
-                case random:
-                    //add the roll sum to the turn sum
-                    turnSum += rollSum;
-                    //add the turn sum to the game sum
-                    addToGameSum(rollSum);
-                    //print the turn sum
-                    printTurnSum();
+            }
+        }
+    }
+
+    /**
+     * Returns the combination that the dice are in.
+     * @param rolls An array full of ints that represent the rolls.
+     * @return The correct DiceCombination enum for the given dice combination.
+     */
+    public static DiceCombination getDiceCombination(int[] rolls) {
+        //must use a for loop because can be n number of rolls
+        //checks first case, are all rolls the same
+        for(int i=1; i<rolls.length; i++){
+            //check if all rolls are the same and equal to 1
+            if((rolls[0] == rolls[i]) && (rolls[0] == 1))
+                //return the snake eyes combination
+                return DiceCombination.snakeeyes;
+        }
+        //checks second case, if any rolls equal one
+        for(int roll : rolls){
+            //check if roll equals 1
+            if(roll == 1)
+                //return the singleone combination
+                return DiceCombination.singleone;
+        }
+        //checks third case, if rolls all match
+        for(int i=1; i<rolls.length; i++){
+            //check if all rolls match
+            if(rolls[0] == rolls[i])
+                //return the matching combination
+                return DiceCombination.matching;
+        }
+        //otherwise return the random combination
+        return DiceCombination.random;
+    }
+
+
+    /**
+     * Prompts user to see if they want to roll again.
+     * @return True if the user does want to roll again, false otherwise.
+     */
+    public static boolean getUserInput(String message, UserInputType type) {
+        //never ask the computer if its wants to roll again, defaults to true
+        //only ask the user if they want to roll again if the dice are random
+        boolean inputOk = false;
+        //create array of type byte, holds one bytes, only looking for one response
+        byte[] buffer = new byte[1];
+        //ask the user if they want to roll again
+        System.out.printf("%s ",message);
+        while (!inputOk) {
+            //try catch block to handle exception
+            try {
+                //returns number of bytes in buffer
+                System.in.read(buffer);
+            } catch (IOException e) {
+                //output to user if an exception is caught
+                System.out.println("Should not have got here!");
+            }
+            if (type == UserInputType.rollAgain) {
+                if ((char) buffer[0] == 'y') {
+                    //if yes then return true
                     return true;
+                } else if ((char) buffer[0] == 'n') {
+                    //if no then return false
+                    return false;
+                }
+            }
+            if (type == UserInputType.startRound) {
+                if ((char) buffer[0] == ' ') {
+                    //if yes then return true
+                    return true;
+                }
             }
         }
         return false;
     }
 
-public static boolean promptUser() {
-    //never ask the computer if its wants to roll again, defaults to true
-    //only ask the user if they want to roll again if the dice are random
-    boolean inputOk = false;
-    //create array of type byte, holds one bytes, only looking for one response
-    byte[] buffer = new byte[1];
-    //ask the user if they want to roll again
-    System.out.print("Roll again? (y/n) ");
-    while (!inputOk) {
-        //try catch block to handle exception
-        try {
-            //returns number of bytes in buffer
-            System.in.read(buffer);
-        } catch (IOException e) {
-            //output to user if an exception is caught
-            System.out.println("Should not have got here!");
-        }
-        //check response
-        if ((char) buffer[0] == 'y') {
-            //if yes then return true
-            return true;
-        } else if ((char) buffer[0] == 'n') {
-            //if no then return false
-            return false;
-        }
-    }
-    return false;
-}
-
-
-
-    /* PRINTING METHODS */
+    //////////////////////////////
+    /* CONSOLE PRINTING METHODS */
+    //////////////////////////////
 
     /**
      * Prints the winner of the game.
@@ -333,18 +349,31 @@ public static boolean promptUser() {
         switch (turn) {
             case player:
                 //print players turn
-                System.out.printf("Player's turn:\n",turn);
+                System.out.printf("\nPlayer's turn:\n",turn);
                 break;
             case computer:
                 //print computers turn
-                System.out.printf("Computer's turn:\n",turn);
+                System.out.printf("\nComputer's turn:\n",turn);
                 break;
         }
     }
 
+    public static void printMatchingMustRoll() {
+        //determine whose turn it is
+        switch (turn) {
+            case player:
+
+                System.out.print("Player must roll again!\n");
+                break;
+            case computer:
+                System.out.print("Player must roll again!\n");
+                break;
+        }
+    }
+
+
     /**
      * Prints the turn summary in the format "Player's turn sum is: 6 and game sum is: 6"
-     * @param turnSum The current turns sum to be printed.
      */
     public static void printTurnSum() {
         //determine whose turn it is
@@ -362,48 +391,31 @@ public static boolean promptUser() {
 
     //prints turn summary
     public static void printTurnSummary() {
-        System.out.printf("\nPlayer's sum is: %d, Computer's sum is: %d.\n\n",playerSum,computerSum);
+        System.out.printf("\nPlayer's sum is: %d, Computer's sum is: %d.\n",playerSum,computerSum);
     }
 
     //prints when round over
-    public static void printRoundOver() {
-        //create array of type byte, holds one bytes, only looking for one response
-        byte[] buffer = new byte[1];
-        //declare integer to count how many characters were entered
-        int numRead = -1;
-        //ask the user to type something
-        System.out.printf("Player's sum is: %d, Computer's sum is: %d. Press <enter> to start round %d.\n\n",playerSum,computerSum, round);
-        //try catch block to handle exception
-        try {
-            //returns number of bytes in buffer
-            numRead = System.in.read(buffer);
-        } catch (IOException e) {
-            //output to user if an exception is caught
-            System.out.println("Should not have got here!");
-        }
-
-        if (buffer[0] == '\n') {
-            switchTurns();
-            beginRound();
-        }
+    public static boolean startNewRound() {
+        return getUserInput(String.format("\nPlayer's sum is: %d, Computer's sum is: %d. Press <space><enter> to start round %d.",playerSum,computerSum, round), UserInputType.startRound);
     }
 
-
+    ///////////////////////////
+    /* GAME UTILITY METHODS */
+    /////////////////////////
 
     /**
      * Checks if the game is complete based off of the WINNING_SCORE.
-     * @return True if the game has been won, false otherwise.
+     * @return True if the game has been won, false otherwise, does not tell us who won.
      */
     public static boolean gameComplete() {
         //check if either the computer score or user score is above the score needed to win the game
-        if (playerSum > WINNING_SCORE || computerSum > WINNING_SCORE) {
+        if (playerSum >= WINNING_SCORE || computerSum >= WINNING_SCORE) {
             //if either score is over the winning score return true
             return true;
         }
         //otherwise keep playing the game, no one has won
         return false;
     }
-
 
     /**
      * Sets the 'turn' class variable to the inverse of what it currently is, essentially switching turns.
@@ -440,6 +452,10 @@ public static boolean promptUser() {
         }
     }
 
+    /**
+     * Subtracts a given amount to either the player game sum or computer game sum based off of whose turn it is.
+     * @param amountSubtracted The amount being subtracted to either the player sum or computer sum.
+     */
     public static void subtractFromGameSum(int amountSubtracted) {
         //determine whose turn it is
         switch (turn) {
@@ -454,30 +470,56 @@ public static boolean promptUser() {
         }
     }
 
+    /**
+     * Calculates the sum of the rolls inside a given array of rolls.
+     * @param rolls Array of ints that represent a die roll.
+     * @return The sum of rolls.
+     */
     public static int calculateRollSum(int[] rolls) {
         //add sum of rolls to get the roll sum
         return IntStream.of(rolls).sum();
     }
 
-
     /**
      * Resets either the player game sum or the game sum to zero based off of whose turn it is.
-     * Also prints a message to the console to let the player know a game sum is being set to zero.
+     * Also prints a message to the console to let the player know a game sum is being set to zero and their turn will be over.
      */
     public static void resetGameSum() {
         //determine whose turn it is
         switch (turn) {
             //reset the player sum to zero and print to console
             case player:
-                System.out.print("Setting Player's game sum to zero!\n");
+                System.out.print("TURN OVER! Setting player's game sum to zero!\n");
                 playerSum = 0;
                 break;
             //reset the computer sum to zero and print to console
             case computer:
-                System.out.print("Setting Computer's game sum to zero!\n");
+                System.out.print("TURN OVER! Setting computer's game sum to zero!\n");
                 computerSum = 0;
                 break;
         }
+    }
+
+    /**
+     * Resets either the turn sum for whoever's turn it is.
+     * Also prints a message to the console to let the player know that the turn sum is being set to zero and their turn will be over.
+     */
+    public static void resetTurnSum() {
+        //subtract the turn sum from the game sum
+        subtractFromGameSum(turnSum);
+        //determine whose turn it is
+        switch (turn) {
+            //reset the player sum to zero and print to console
+            case player:
+                System.out.print("TURN OVER! Setting player's turn sum to zero!\n");
+                break;
+            //reset the computer sum to zero and print to console
+            case computer:
+                System.out.print("TURN OVER! Setting computer's turn sum to zero!\n");
+                break;
+        }
+        //reset the turn sum
+        turnSum = 0;
     }
 
     /**
@@ -507,6 +549,10 @@ public static boolean promptUser() {
                 return "Number outside of the bounds for current game implementation.";
         }
     }
+
+    ///////////////////////////
+    /* DICE ROLLING METHODS */
+    //////////////////////////
 
     /**
      * Rolls a virtual dice and returns the dice number as an int.
