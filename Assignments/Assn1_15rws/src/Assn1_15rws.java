@@ -587,11 +587,12 @@ public class Assn1_15rws {
 
     /**
      * Rolls a virtual dice and returns the dice number as an int.
-     * @return A random number between 0 and DICE_SIDES as an int.
+     * @return A random number between 1 and DICE_SIDES as an int.
      * NOTE: DICE_SIDES constant is used as bound for random generator.
      */
     public static int rollDice() {
-        //seed the random generator with the current time in milliseconds
+        //because computer can call this method very fast because it has to roll again seeded with current
+        //time in millisecond is not viable, actually results in same rolls
         Random generator = new Random();
         //the string of the random number
         return generator.nextInt(DICE_SIDES)+1;
