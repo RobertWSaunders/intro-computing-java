@@ -40,6 +40,8 @@ public class Assn1_15rws {
     private static final int NUMBER_ROLLS_PER_TURN = 2;
     //define the amount of turn sum the computer can accumulate before ending a turn
     private static final int COMPUTER_TURN_SUM_BOUND = 30;
+    //define the amount of time that you want as a delay between computer actions, to prevent from jarring output (seconds)
+    private static final int COMPUTER_SEQUENCE_DELAY = 1;
 
     //define the different type of turns
     private enum Turn {
@@ -97,7 +99,7 @@ public class Assn1_15rws {
     /**
      * Begins a round.
      */
-    public static void beginRound() {
+    private static void beginRound() {
         //only increment the round number if the next turn is the player's
         if (turn == Turn.player) {
             //increment the round number
@@ -110,7 +112,7 @@ public class Assn1_15rws {
     /**
      * Ends a round.
      */
-    public static void endRound() {
+    private static void endRound() {
         //wait till the user wants to start a new round
         if (startNewRound()) {
             //switch turns at the end of the round
@@ -121,7 +123,7 @@ public class Assn1_15rws {
     /**
      * Begins a turn.
      */
-    public static void beginTurn() {
+    private static void beginTurn() {
         //print whose turn it is
         printWhoseTurn();
         //gets reset every turn
@@ -142,7 +144,7 @@ public class Assn1_15rws {
     /**
      * Ends a turn.
      */
-    public static void endTurn() {
+    private static void endTurn() {
         //if the game is not over, end the turn, otherwise end the game
         if (!gameComplete()) {
             //because players always go first we know that the end of the round is when it's the computers turn
@@ -163,7 +165,7 @@ public class Assn1_15rws {
      * @param rolls the rolls for the current turn
      * @return True if the user does want to roll again, false otherwise.
      */
-    public static boolean rollAgain(int[] rolls) {
+    private static boolean rollAgain(int[] rolls) {
         //get the combination the dice are in
         DiceCombination combination = getDiceCombination(rolls);
         //check if the given dice is allowed to roll again.
@@ -181,6 +183,11 @@ public class Assn1_15rws {
                     //if the dice are matching tell the user they must roll again
                     if (combination == DiceCombination.matching) {
                         printMatchingMustRoll();
+                        return true;
+                    }
+                    //check if the computer has exceeded the turn sum
+                    if (turn == Turn.computer && turnSum >= COMPUTER_TURN_SUM_BOUND) {
+                        return false;
                     }
                     return true;
                 }
@@ -195,11 +202,9 @@ public class Assn1_15rws {
      * @param combination The combination the dice are in.
      * @return True if the user is allowed to roll again, false otherwise.
      */
-    public static boolean isAllowedToRollAgain(int[] rolls, DiceCombination combination) {
+    private static boolean isAllowedToRollAgain(int[] rolls, DiceCombination combination) {
         //set the roll sum by calculating it
         int rollSum = calculateRollSum(rolls);
-        //computer logic, if the computer exceeds COMPUTER_TURN_SUM_BOUND points in the turn, then just end the turn
-        if (turn == Turn.player || (turn == Turn.computer && turnSum <= COMPUTER_TURN_SUM_BOUND)) {
             //switch case through each die combinations
             switch (combination) {
                 //if all dice are ones
@@ -225,9 +230,6 @@ public class Assn1_15rws {
                     //for both matching and random combinations allow roll again
                     return true;
             }
-        }
-        //return false if the computer has exceeded its turn bound
-        return false;
     }
 
     /**
@@ -235,7 +237,7 @@ public class Assn1_15rws {
      * @param rolls An array full of ints that represent the rolls.
      * @return The correct DiceCombination enum for the given dice combination.
      */
-    public static DiceCombination getDiceCombination(int[] rolls) {
+    private static DiceCombination getDiceCombination(int[] rolls) {
         //must use a for loop because can be n number of rolls
         //checks first case, are all rolls the same
         //flag to keep track of the dice, will be set to false if any dice do not equal
@@ -274,7 +276,7 @@ public class Assn1_15rws {
      * @param type the type of input we are looking for, UserInputType
      * @return True if the user does want to roll again, false otherwise.
      */
-    public static boolean getUserInput(String message, UserInputType type) {
+    private static boolean getUserInput(String message, UserInputType type) {
         //never ask the computer if its wants to roll again, defaults to true
         //only ask the user if they want to roll again if the dice are random
         boolean inputOk = false;
@@ -322,7 +324,7 @@ public class Assn1_15rws {
     /**
      * Prints the winner of the game.
      */
-    public static void printWinner() {
+    private static void printWinner() {
         //check to see if the computer sum is greater than the player sum
         if (computerSum > playerSum) {
             //therefore the computer has won
@@ -340,7 +342,7 @@ public class Assn1_15rws {
      * Prints a roll in the format "Player rolled two + five", can support n rolls
      * @param rolls Rolls to be printed, can be n number of rolls.
      */
-    public static void printRoll(int ... rolls) {
+    private static void printRoll(int ... rolls) {
         //define a string builder
         StringBuilder stringBuilder = new StringBuilder();
         //append corresponding string depending on whose turn it is
@@ -349,6 +351,8 @@ public class Assn1_15rws {
                 stringBuilder.append("Player rolled ");
                 break;
             case computer:
+                //delay so computer output isn't jarring to the user
+                delay();
                 stringBuilder.append("Computer rolled ");
                 break;
         }
@@ -372,7 +376,7 @@ public class Assn1_15rws {
     /**
      * Prints whoever's turn it is in the format "Player's turn:"
      */
-    public static void printWhoseTurn() {
+    private static void printWhoseTurn() {
         //determine whose turn it is
         switch (turn) {
             case player:
@@ -389,13 +393,15 @@ public class Assn1_15rws {
     /**
      * Prints a message saying that whoever's turn it is has to roll again, happens when matching rolls occur.
      */
-    public static void printMatchingMustRoll() {
+    private static void printMatchingMustRoll() {
         //determine whose turn it is
         switch (turn) {
             case player:
                 System.out.print("Player must roll again!\n");
                 break;
             case computer:
+                //delay so computer output isn't jarring to the user
+                delay();
                 System.out.print("Computer must roll again!\n");
                 break;
         }
@@ -404,7 +410,7 @@ public class Assn1_15rws {
     /**
      * Prints the turn summary in the format "Player's turn sum is: 6 and game sum is: 6"
      */
-    public static void printTurnSum() {
+    private static void printTurnSum() {
         //determine whose turn it is
         switch (turn) {
             case player:
@@ -412,8 +418,10 @@ public class Assn1_15rws {
                 System.out.printf("Player's turn sum is: %d and game sum is: %d.\n",turnSum,playerSum);
                 break;
             case computer:
+                //delay so computer output isn't jarring to the user
+                delay();
                 //print computer version
-                System.out.printf("Computers's turn sum is: %d and game sum is: %d.\n",turnSum,computerSum);
+                System.out.printf("Computer's turn sum is: %d and game sum is: %d.\n",turnSum,computerSum);
                 break;
         }
     }
@@ -421,14 +429,14 @@ public class Assn1_15rws {
     /**
      * Prints a turns summary in the format "Player's sum is: 4, Computer's sum is: 10."
      */
-    public static void printTurnSummary() {
+    private static void printTurnSummary() {
         System.out.printf("\nPlayer's sum is: %d, Computer's sum is: %d.\n",playerSum,computerSum);
     }
 
     /**
      * @return True when user puts the correct input in.
      */
-    public static boolean startNewRound() {
+    private static boolean startNewRound() {
         return getUserInput(String.format("\nPlayer's sum is: %d, Computer's sum is: %d. Press <space><enter> to start round %d.",playerSum,computerSum, round), UserInputType.startRound);
     }
 
@@ -440,7 +448,7 @@ public class Assn1_15rws {
      * Checks if the game is complete based off of the WINNING_SCORE.
      * @return True if the game has been won, false otherwise, does not tell us who won.
      */
-    public static boolean gameComplete() {
+    private static boolean gameComplete() {
         //check if either the computer score or user score is above the score needed to win the game
         if (playerSum >= WINNING_SCORE || computerSum >= WINNING_SCORE) {
             //if either score is over the winning score return true
@@ -453,7 +461,7 @@ public class Assn1_15rws {
     /**
      * Sets the 'turn' class variable to the inverse of what it currently is, essentially switching turns.
      */
-    public static void switchTurns() {
+    private static void switchTurns() {
         //determine whose turn it currently is
         switch (turn) {
             case player:
@@ -471,7 +479,7 @@ public class Assn1_15rws {
      * Adds a given amount to either the player game sum or computer game sum based off of whose turn it is.
      * @param amountAdded The amount being added to either the player sum or computer sum.
      */
-    public static void addToGameSum(int amountAdded) {
+    private static void addToGameSum(int amountAdded) {
         //determine whose turn it is
         switch (turn) {
             case player:
@@ -489,7 +497,7 @@ public class Assn1_15rws {
      * Subtracts a given amount to either the player game sum or computer game sum based off of whose turn it is.
      * @param amountSubtracted The amount being subtracted to either the player sum or computer sum.
      */
-    public static void subtractFromGameSum(int amountSubtracted) {
+    private static void subtractFromGameSum(int amountSubtracted) {
         //determine whose turn it is
         switch (turn) {
             case player:
@@ -508,7 +516,7 @@ public class Assn1_15rws {
      * @param rolls Array of ints that represent a die roll.
      * @return The sum of rolls.
      */
-    public static int calculateRollSum(int[] rolls) {
+    private static int calculateRollSum(int[] rolls) {
         //add sum of rolls to get the roll sum
         return IntStream.of(rolls).sum();
     }
@@ -517,7 +525,7 @@ public class Assn1_15rws {
      * Resets either the player game sum or the game sum to zero based off of whose turn it is.
      * Also prints a message to the console to let the player know a game sum is being set to zero and their turn will be over.
      */
-    public static void resetGameSum() {
+    private static void resetGameSum() {
         //determine whose turn it is
         switch (turn) {
             //reset the player sum to zero and print to console
@@ -527,6 +535,7 @@ public class Assn1_15rws {
                 break;
             //reset the computer sum to zero and print to console
             case computer:
+                delay();
                 System.out.print("TURN OVER! Setting computer's game sum to zero!\n");
                 computerSum = 0;
                 break;
@@ -537,7 +546,7 @@ public class Assn1_15rws {
      * Resets either the turn sum for whoever's turn it is.
      * Also prints a message to the console to let the player know that the turn sum is being set to zero and their turn will be over.
      */
-    public static void resetTurnSum() {
+    private static void resetTurnSum() {
         //subtract the turn sum from the game sum
         subtractFromGameSum(turnSum);
         //determine whose turn it is
@@ -548,6 +557,7 @@ public class Assn1_15rws {
                 break;
             //reset the computer sum to zero and print to console
             case computer:
+                delay();
                 System.out.print("TURN OVER! Setting computer's turn sum to zero!\n");
                 break;
         }
@@ -560,7 +570,7 @@ public class Assn1_15rws {
      * @param num Integer that gets converted to its word equivalent.
      * @return The english word (string) equivalent to passed num, default to "" if num outside bounds.
      */
-    public static String numToString(int num) {
+    private static String numToString(int num) {
         //switch statement for passed num
         switch(num) {
             case 1:
@@ -581,16 +591,29 @@ public class Assn1_15rws {
         }
     }
 
+    /**
+     * Delays time for COMPUTER_SEQUENCE_DELAY seconds.
+     * Used to make the computers output not jarring.
+     */
+    private static void delay() {
+        try {
+            Thread.sleep(COMPUTER_SEQUENCE_DELAY*1000);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     ///////////////////////////
     /* DICE ROLLING METHODS */
     //////////////////////////
 
-    /**
+    /**y
+     *
      * Rolls a virtual dice and returns the dice number as an int.
      * @return A random number between 1 and DICE_SIDES as an int.
      * NOTE: DICE_SIDES constant is used as bound for random generator.
      */
-    public static int rollDice() {
+    private static int rollDice() {
         //because computer can call this method very fast because it has to roll again seeded with current
         //time in millisecond is not viable, actually results in same rolls
         Random generator = new Random();
@@ -602,7 +625,7 @@ public class Assn1_15rws {
      * Will collect n (represented by NUMBER_ROLLS_PER_TURN) rolls and return an array full of ints.
      * @return An array with n (represented by NUMBER_ROLLS_PER_TURN) ints that represent the dice rolls.
      */
-    public static int[] collectRolls(int numberOfRolls) {
+    private static int[] collectRolls(int numberOfRolls) {
         //create array of size numberOfRolls
         int[] rolls = new int[numberOfRolls];
         //add rolls into the array
