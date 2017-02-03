@@ -17,7 +17,7 @@
  * The computer will continue to roll as long as its turn sum is less than or equal to COMPUTER_TURN_SUM_BOUND (default 30)
  * or the game rules do not permit it to continue to roll.
  *
- * @author Robert Saunders (10194030)
+ * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
  */
 
@@ -65,7 +65,7 @@ public class Assn1_15rws {
 
     //create flag to keep track of whose turn it is, by default player gets first turn
     private static Turn turn = Turn.player;
-    //define a counter for rounds in the game
+    //define a counter for rounds in the game, starts on round 1
     private static int round = 1;
     //define counter for turn sum, gets reset every turn
     private static int turnSum;

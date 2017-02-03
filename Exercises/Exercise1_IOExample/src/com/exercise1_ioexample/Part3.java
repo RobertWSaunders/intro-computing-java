@@ -11,6 +11,7 @@ public class Part3 {
         //define test value
         int testVal = 20;
         //show the test value in a message dialog
-        JOptionPane.showMessageDialog(null, "The number is " + testVal);
+        //JOptionPane.showMessageDialog(null, "The number is " + testVal);
+        JOptionPane.showInputDialog(null,"y","x",JOptionPane.QUESTION_MESSAGE);
     }
 }
