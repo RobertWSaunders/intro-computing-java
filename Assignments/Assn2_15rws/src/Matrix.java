@@ -10,10 +10,14 @@
 import java.io.FileReader;
 //used for file i/o, buffers file reader characters for efficiency.
 import java.io.BufferedReader;
+//used for file i/o, will write to a file.
+import java.io.FileWriter;
 //used for file i/o, file not found exception.
 import java.io.FileNotFoundException;
 //used for file i/o, catches input exceptions.
 import java.io.IOException;
+//used for user input
+import java.util.Scanner;
 
 public class Matrix {
 
@@ -33,7 +37,21 @@ public class Matrix {
      * Default constructor that prompts the user with questions to create a matrix.
      */
     Matrix() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How many rows would you like in the matrix?");
+        this.m = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("How many columns would you like in the matrix?");
+        this.n = scanner.nextInt();
+        this.matrix = new double[getM()][getN()];
 
+        for (int row = 0; row < getM(); row++) {
+            for (int column = 0; column < getN(); column++) {
+                System.out.printf("Enter element [%d,%d]:",row,column);
+                this.matrix[row][column] = scanner.nextDouble();
+                scanner.nextLine();
+            }
+        }
     }
 
     /**
@@ -42,6 +60,7 @@ public class Matrix {
      * @param columns Number of columns in the matrix.
      */
     Matrix(int rows, int columns) {
+        //set values of class attributes
         this.m = rows;
         this.n = columns;
         this.matrix = new double[rows][columns];
@@ -101,8 +120,7 @@ public class Matrix {
                     //close the reader
                     reader.close();
                 } catch (IOException e) {
-                    //handle closing exception, just print the stack
-                    e.printStackTrace();
+                    System.out.print("Error closing reader.");
                 }
             }
         }
@@ -112,36 +130,87 @@ public class Matrix {
     /* GETTERS */
     ////////////
 
+    /**
+     * Gets the value for m class attribute, represents rows in the matrix.
+     * @return Integer value for m class attribute.
+     */
     private int getM() {
         return m;
     }
 
+    /**
+     * Gets the value for n class attribute, represents columns in the matrix.
+     * @return Integer value for n class attribute.
+     */
     public int getN() {
         return n;
     }
-    //where i is the row and j is column
+
+    /**
+     * Gets the value in the matrix at the i and j entry, where i is rows and j is columns.
+     * @return Decimal value in the matrix at the i and j entry.
+     */
     public double get(int i, int j) {
         return matrix[i][j];
     }
 
-    //Operations
+    /////////////////
+    /* OPERATIONS */
+    ///////////////
 
     public Matrix add(Matrix m) {
-        return new Matrix(5,6);
+        //first check that the matrices are the same size, they must for addition or subtraction
+        if (isSameDimensions(m)) {
+            //create the resulting matrix, would be the same size as current matrix
+            Matrix resultMatrix = new Matrix(getM(), getN());
+            //iterate through each of the matrix
+            for (int row = 0; row < getM(); row++) {
+                //iterate through each column of the matrix
+                for (int column = 0; column < getN(); column++) {
+                    //input the added value of both matrices into the result matrix
+                    resultMatrix.matrix[row][column] = m.get(row,column) + get(row,column);
+                }
+            }
+            //return the result matrix
+            return resultMatrix;
+        }
+        //return null otherwise, the two matrices cannot be added together.
+        return null;
     }
-
 
     public Matrix subtract(Matrix m) {
+        //first check that the matrices are the same size, they must for addition or subtraction
+        if (isSameDimensions(m)) {
+            //create the resulting matrix, would be the same size as current matrix
+            Matrix resultMatrix = new Matrix(getM(), getN());
+            //iterate through each of the matrix
+            for (int row = 0; row < getM(); row++) {
+                //iterate through each column of the matrix
+                for (int column = 0; column < getN(); column++) {
+                    //input the added value of both matrices into the result matrix
+                    resultMatrix.matrix[row][column] = m.get(row,column) - get(row,column);
+                }
+            }
+            //return the result matrix
+            return resultMatrix;
+        }
+        //return null otherwise, the two matrices cannot be subtracted together.
         return null;
-
     }
+
 
     public Matrix multiply(Matrix m) {
         return null;
     }
 
     public Matrix multiply(double x) {
-        return null;
+        Matrix resultMatrix = new Matrix(getM(), getN());
+        for (int row = 0; row < getM(); row++) {
+            for (int column = 0; column < getN(); column++) {
+                resultMatrix.matrix[row][column] = get(row,column) * x;
+            }
+        }
+        return resultMatrix;
     }
 
     public Matrix divide(Matrix m) {
@@ -153,40 +222,143 @@ public class Matrix {
     }
 
     public Matrix inverse() {
+        if (isSquare()) {
+
+        }
         return null;
     }
 
+    /**
+     * Checks to see if a matrix is square.
+     * @return True if the matrix is square, otherwise returns false.
+     */
     public boolean isSquare() {
+        //if the columns are equal to the rows then the matrix is square
+        if (getM() == getN()) {
+            //return true if this is the case
+            return true;
+        }
+        //otherwise return false
         return false;
     }
 
+    /**
+     * Returns the transpose of the matrix.
+     * @return The transpose of the current matrix.
+     */
     public Matrix transpose() {
-        return null;
+        //create the transpose matrix, where the number of rows and column are flipped.
+        Matrix transposeMatrix = new Matrix(getN(),getM());
+        for (int row = 0; row < getM(); row++) {
+            for (int column = 0; column < getN(); column++) {
+                transposeMatrix.matrix[column][row] = get(row,column);
+            }
+        }
+        return transposeMatrix;
     }
 
-    //Other
+    ////////////
+    /* OTHER */
+    //////////
 
-    public String toString(Matrix m) {
-        return null;
+    /**
+     * Returns a string representation of the matrix.
+     * @return The string representation of the matrix.
+     */
+    public String toString() {
+        String stringRepresentation = "";
+        for (int row = 0; row < getM(); row++) {
+            for (int column = 0; column < getN(); column++) {
+                matrix[column][row] = get(row,column);
+            }
+        }
+        return stringRepresentation;
     }
 
+    /**
+     * Prints the matrix to a file whose name is passed to the method.
+     * @param fileName Desired name and output location of output file.
+     */
     public void print(String fileName) {
+        //define the file writer
+        FileWriter fileWriter = null;
+        try {
+            //create a new file writer and pass file name
+            fileWriter = new FileWriter(fileName);
+            //input the row value into file
+            fileWriter.append(String.valueOf(getM()));
+            //add delimiter bewtween value
+            fileWriter.append(",");
+            //input the column value into file
+            fileWriter.append(String.valueOf(getN()));
+            fileWriter.append("\n");
 
+            //iterate through rows
+            for (int row = 0; row < getM(); row++) {
+                //iterate through columns
+                for (int column = 0; column < getN(); column++) {
+                    //input the value of matrix entry into file
+                    fileWriter.append(String.valueOf(get(row,column)));
+                    //if we aren't on the last column add the delimiter
+                    if (column+1 != getN()) {
+                        //append the delimiter
+                        fileWriter.append(",");
+                    }
+                }
+                //add the new line character before going to next row in matrix
+                fileWriter.append("\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Error in file writer.");
+        } finally {
+            //close and flush the file writer
+            try {
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                //catch the exception if the file writer can't be closed
+                System.out.print("Error closing/flushing writer.");
+            }
+        }
     }
 
+    /**
+     * Returns an identity matrix whose size is passed to the method.
+     * @param size The desired size of the identity matrix.
+     * @return The identity matrix.
+     */
     public static Matrix identity(int size) {
-        return null;
+        //create a matrix of the desired size
+        Matrix identityMatrix = new Matrix(size,size);
+        //iterate through the rows of the matrix
+        for (int row = 0; row < size; row++) {
+                //set the correct element in the row to one
+                identityMatrix.matrix[row][row] = 1.0;
+        }
+        //return the identity matrix
+        return identityMatrix;
     }
 
+    //////////////////////
+    /* UTILITY METHODS */
+    ////////////////////
+
+    /**
+     * Checks if the passed in matrix has the same dimensions of the instance matrix.
+     * @param m The matrix that is being compared to the current instance matrix.
+     * @return True if the matrices have the same dimensions.
+     */
+    private boolean isSameDimensions(Matrix m) {
+        //check if the instance has the same dimensions of passed matrix
+        if ((m.getN() == getN()) && (m.getM() == getM())) {
+            //if so return true
+            return true;
+        return false;
+    }
 
     //Used to test
     public static void main(String[] args) {
-        Matrix m = new Matrix(5,6);
-        System.out.printf("%d",m.getN());
-        System.out.printf("%d",m.getM());
 
-
-        Matrix fromCSV = new Matrix("./matrix.csv");
 
     }
 
