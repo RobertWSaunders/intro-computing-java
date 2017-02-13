@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 //used for user input
 import java.util.Scanner;
+//used to catch incorrect user input exception
+import java.util.InputMismatchException;
 
 public class Matrix {
 
@@ -28,30 +30,25 @@ public class Matrix {
     private int n;
     //two dimensional array that will represent the matrix
     private double[][] matrix;
+    //define a scanner class attribute that can be shared between methods
+    private Scanner scanner = new Scanner(System.in);
 
     ///////////////////
     /* CONSTRUCTORS */
     /////////////////
 
     /**
-     * Default constructor that prompts the user with questions to create a matrix.
+     * Default constructor that prompts the user with questions through the console to create a matrix.
      */
     Matrix() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("How many rows would you like in the matrix?");
-        this.m = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("How many columns would you like in the matrix?");
-        this.n = scanner.nextInt();
+        //set the value for m, by asking the user for it through the console
+        this.m = askUserNumber("How many rows would you like in the matrix?");
+        //set the value for n, by asking the user for it through the console
+        this.n = askUserNumber("How many columns would you like in the matrix?");
+        //create a matrix of the desired size the user chose
         this.matrix = new double[getM()][getN()];
-
-        for (int row = 0; row < getM(); row++) {
-            for (int column = 0; column < getN(); column++) {
-                System.out.printf("Enter element [%d,%d]:",row,column);
-                this.matrix[row][column] = scanner.nextDouble();
-                scanner.nextLine();
-            }
-        }
+        //ask the user to fill the values for the elements
+        askUserForElements();
     }
 
     /**
@@ -158,12 +155,17 @@ public class Matrix {
     /* OPERATIONS */
     ///////////////
 
+    /**
+     *
+     * @param m
+     * @return
+     */
     public Matrix add(Matrix m) {
-        //first check that the matrices are the same size, they must for addition or subtraction
+        //first check that the matrices are the same size, they must for addition
         if (isSameDimensions(m)) {
             //create the resulting matrix, would be the same size as current matrix
             Matrix resultMatrix = new Matrix(getM(), getN());
-            //iterate through each of the matrix
+            //iterate through the row of the matrix
             for (int row = 0; row < getM(); row++) {
                 //iterate through each column of the matrix
                 for (int column = 0; column < getN(); column++) {
@@ -174,16 +176,21 @@ public class Matrix {
             //return the result matrix
             return resultMatrix;
         }
-        //return null otherwise, the two matrices cannot be added together.
+        //return null otherwise, the two matrices cannot be added together
         return null;
     }
 
+    /**
+     *
+     * @param m
+     * @return
+     */
     public Matrix subtract(Matrix m) {
-        //first check that the matrices are the same size, they must for addition or subtraction
+        //first check that the matrices are the same size, they must for subtraction
         if (isSameDimensions(m)) {
             //create the resulting matrix, would be the same size as current matrix
             Matrix resultMatrix = new Matrix(getM(), getN());
-            //iterate through each of the matrix
+            //iterate through the row of the matrix
             for (int row = 0; row < getM(); row++) {
                 //iterate through each column of the matrix
                 for (int column = 0; column < getN(); column++) {
@@ -194,7 +201,7 @@ public class Matrix {
             //return the result matrix
             return resultMatrix;
         }
-        //return null otherwise, the two matrices cannot be subtracted together.
+        //return null otherwise, the two matrices cannot be subtracted together
         return null;
     }
 
@@ -353,10 +360,84 @@ public class Matrix {
         if ((m.getN() == getN()) && (m.getM() == getM())) {
             //if so return true
             return true;
+        }
         return false;
     }
 
-    //Used to test
+    /**
+     * Asks the user to enter a number through the console, also prompts user with question that is passed to method.
+     * @param question Question that prompts the user.
+     * @return Returns the number the user entered.
+     */
+    private int askUserNumber(String question) {
+        int userNumber = 0;
+        //define a boolean to check if the user input is good
+        boolean inputOK = false;
+        //define dump string to clear keyboard buffer, scanner caveat
+        String dump;
+        while (!inputOK) {
+            try {
+                //ask the user how many rows they want in the matrix
+                System.out.println(question);
+                //get the response from the user
+                userNumber = scanner.nextInt();
+                //clear the buffer
+                dump = scanner.nextLine();
+                //input is ok
+                inputOK = true;
+            } catch (InputMismatchException e) {
+                //clear the keyboard buffer
+                dump = scanner.nextLine();
+                //notify user that exception occurred
+                System.out.println("\"" + dump + "\" is not a legal integer, " +
+                        "please try again!");
+            }
+        }
+        //return the number the user has entered
+        return userNumber;
+    }
+
+    /**
+     * Asks the user to enter the elements in the matrix they are creating through the console.
+     */
+    private void askUserForElements() {
+        //define dump string to clear keyboard buffer, scanner caveat
+        String dump;
+        //iterate through rows of matrix
+        for (int row = 0; row < getM(); row++) {
+            //iterate through columns of matrix
+            for (int column = 0; column < getN(); column++) {
+                //boolean to check if the user input is ok
+                boolean inputOK = false;
+                //check if the input is ok
+                while (!inputOK) {
+                    try {
+                        //ask the user for the element in the matrix
+                        System.out.printf("Enter element [%d,%d]:",row+1,column+1);
+                        //get the users input
+                        double userVal = scanner.nextDouble();
+                        //clear the keyboard buffer
+                        dump = scanner.nextLine();
+                        //set the matrix value to the user value
+                        this.matrix[row][column] = userVal;
+                        //input is ok
+                        inputOK = true;
+                    } catch (InputMismatchException e) {
+                        //clear the keyboard buffer
+                        dump = scanner.nextLine();
+                        //notify user that exception occurred
+                        System.out.println("\"" + dump + "\" is not a legal double, " +
+                                "please try again!");
+                    }
+                }
+            }
+        }
+    }
+
+    //////////////////////
+    /* TESTING METHODS */
+    ////////////////////
+
     public static void main(String[] args) {
 
 

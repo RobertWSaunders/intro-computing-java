@@ -17,7 +17,7 @@ public class TestMatrix {
 
         Matrix test = new Matrix();
         */
-        Matrix test = new Matrix("./matrix.csv");
+        Matrix test = new Matrix();
         test.print("./output.csv");
     }
 }
