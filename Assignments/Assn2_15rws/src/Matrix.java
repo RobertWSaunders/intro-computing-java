@@ -100,7 +100,7 @@ public class Matrix {
                     //iterate through the columns in the current row
                     for (int column = 0; column < getN(); column++) {
                         //store the current column value into the current row in the matrix
-                        this.matrix[lineCounter][column] = Double.parseDouble(values[column]);
+                        set(lineCounter,column,Double.parseDouble(values[column]));
                     }
                 }
                 //increment to the line counter to proceed to the next row
@@ -174,53 +174,52 @@ public class Matrix {
     /**
      * Adds a matrix to the current instance, returns the resulting matrix.
      * @param m The matrix to be added to the current instance.
-     * @return The resultant matrix after addition, if matrices are not same size returns null.
+     * @return The resultant matrix after addition.
      */
     public Matrix add(Matrix m) {
+        //create the resulting matrix, would be the same size as current matrix
+        Matrix resultMatrix = new Matrix(getM(), getN());
         //first check that the matrices are the same size, they must for addition
         if (isSameDimensions(m)) {
-            //create the resulting matrix, would be the same size as current matrix
-            Matrix resultMatrix = new Matrix(getM(), getN());
             //iterate through the row of the matrix
             for (int row = 0; row < getM(); row++) {
                 //iterate through each column of the matrix
                 for (int column = 0; column < getN(); column++) {
                     //input the added value of both matrices into the result matrix
-                    resultMatrix.matrix[row][column] = m.get(row,column) + get(row,column);
+                    resultMatrix.set(row,column,(m.get(row,column) + get(row,column)));
                 }
             }
             //return the result matrix
             return resultMatrix;
         }
         System.out.print("The matrices are not the same size, therefore cannot be added.");
-        //return null otherwise, the two matrices cannot be added together
-        return null;
+        //return empty matrix, the two matrices cannot be added together
+        return resultMatrix;
     }
 
     /**
      * Subtracts a matrix to the current instance, returns the resulting matrix.
      * @param m The matrix to be subtracted to the current instance.
-     * @return The subtraction matrix after addition, if matrices are not same size returns null.
+     * @return The subtraction matrix after addition.
      */
     public Matrix subtract(Matrix m) {
+        Matrix resultMatrix = new Matrix(getM(), getN());
         //first check that the matrices are the same size, they must for subtraction
         if (isSameDimensions(m)) {
-            //create the resulting matrix, would be the same size as current matrix
-            Matrix resultMatrix = new Matrix(getM(), getN());
             //iterate through the row of the matrix
             for (int row = 0; row < getM(); row++) {
                 //iterate through each column of the matrix
                 for (int column = 0; column < getN(); column++) {
                     //input the added value of both matrices into the result matrix
-                    resultMatrix.matrix[row][column] = m.get(row,column) - get(row,column);
+                    resultMatrix.set(row,column,m.get(row,column) - get(row,column));
                 }
             }
             //return the result matrix
             return resultMatrix;
         }
         System.out.print("The matrices are not the same size, therefore cannot be subtracted.");
-        //return null otherwise, the two matrices cannot be subtracted together
-        return null;
+        //return empty matrix, the two matrices cannot be subtracted together
+        return resultMatrix;
     }
 
     /**
@@ -259,7 +258,7 @@ public class Matrix {
             //iterate through the columns
             for (int column = 0; column < getN(); column++) {
                 //input the result of multiplication into the resulting matrix
-                resultMatrix.matrix[row][column] = get(row,column) * x;
+                resultMatrix.set(row,column,get(row,column) * x);
             }
         }
         //return the resulting matrix
@@ -305,44 +304,44 @@ public class Matrix {
     /**
      * Returns the inverse of the matrix.
      * @return The inverse matrix, if the matrix is not square or bigger than 3x3 returns null.
-     * NOTE: if the matrix has a determinant of zero then it will also return null.
+     * NOTE: if the matrix has a determinant of zero then it will also return an empty matrix.
      */
     public Matrix inverse() {
+        //create the inverse matrix
+        Matrix inverseMatrix = new Matrix(getM(), getN());
         //first check if we can calculate the determinant, must be square and less than 3x3
         if (satisfiesDimensionRequirement(this)) {
             //determinat of matrix cannot be zero when calculating the inverse
             if (determinant() != 0) {
-                //create the inverse matrix
-                Matrix inverseMatrix = new Matrix(getM(), getN());
                 switch (getM()) {
                     //if the matrix is a 1x1 just return the single element as the determinant
                     case 1:
-                        inverseMatrix.matrix[0][0] = 1 / matrix[0][0];
+                        inverseMatrix.set(0,0,1 / matrix[0][0]);
                         break;
                     //if the matrix is a 2x2 compute the determinant
                     case 2:
                         //swap the value of a with d
-                        inverseMatrix.matrix[0][0] = matrix[1][1];
+                        inverseMatrix.set(0,0,matrix[1][1]);
                         //swap the value of d with a
-                        inverseMatrix.matrix[1][1] = matrix[0][0];
+                        inverseMatrix.set(1,1,matrix[0][0]);
                         //multiply c and d with negative
-                        inverseMatrix.matrix[0][1] = matrix[0][1] * -1;
-                        inverseMatrix.matrix[1][0] = matrix[1][0] * -1;
+                        inverseMatrix.set(0,1,matrix[0][1] * -1);
+                        inverseMatrix.set(1,0,matrix[1][0] * -1);
                         //multiply new inverted matrix by 1/determinant of original matrix
                         inverseMatrix = inverseMatrix.multiply(1 / determinant());
                         break;
                     //if the matrix is a 3x3 compute the determinant
                     case 3:
                         //perform computations to calculate inverse elements
-                        inverseMatrix.matrix[0][0] = matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1];
-                        inverseMatrix.matrix[0][1] = matrix[0][2]*matrix[2][1]-matrix[0][1]*matrix[2][2];
-                        inverseMatrix.matrix[0][2] = matrix[0][1]*matrix[1][2]-matrix[0][2]*matrix[1][1];
-                        inverseMatrix.matrix[1][0] = matrix[1][2]*matrix[2][0]-matrix[1][0]*matrix[2][2];
-                        inverseMatrix.matrix[1][1] = matrix[0][0]*matrix[2][2]-matrix[0][2]*matrix[2][0];
-                        inverseMatrix.matrix[1][2] = matrix[0][2]*matrix[1][0]-matrix[0][0]*matrix[1][2];
-                        inverseMatrix.matrix[2][0] = matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0];
-                        inverseMatrix.matrix[2][1] = matrix[0][1]*matrix[2][0]-matrix[0][0]*matrix[2][1];
-                        inverseMatrix.matrix[2][2] = matrix[0][0]*matrix[1][1]-matrix[0][1]*matrix[1][0];
+                        inverseMatrix.set(0,0,matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1]);
+                        inverseMatrix.set(0,1,matrix[0][2]*matrix[2][1]-matrix[0][1]*matrix[2][2]);
+                        inverseMatrix.set(0,2,matrix[0][1]*matrix[1][2]-matrix[0][2]*matrix[1][1]);
+                        inverseMatrix.set(1,0,matrix[1][2]*matrix[2][0]-matrix[1][0]*matrix[2][2]);
+                        inverseMatrix.set(1,1,matrix[0][0]*matrix[2][2]-matrix[0][2]*matrix[2][0]);
+                        inverseMatrix.set(1,2,matrix[0][2]*matrix[1][0]-matrix[0][0]*matrix[1][2]);
+                        inverseMatrix.set(2,0,matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0]);
+                        inverseMatrix.set(2,1,matrix[0][1]*matrix[2][0]-matrix[0][0]*matrix[2][1]);
+                        inverseMatrix.set(2,2,matrix[0][0]*matrix[1][1]-matrix[0][1]*matrix[1][0]);
                         //multiply new inverted matrix by 1/determinant of original matrix
                         inverseMatrix = inverseMatrix.multiply(1 / determinant());
                         break;
@@ -351,9 +350,9 @@ public class Matrix {
                 return inverseMatrix;
             }
         }
-        System.out.print("The matrix is bigger than 3x3, not square or the determinant is zero.");
+        System.out.print("The matrix is bigger than 3x3, not square or the determinant is zero, returning an empty matrix.");
         //return null otherwise
-        return null;
+        return inverseMatrix;
     }
 
     /**
@@ -379,7 +378,7 @@ public class Matrix {
         Matrix transposeMatrix = new Matrix(getN(),getM());
         for (int row = 0; row < getM(); row++) {
             for (int column = 0; column < getN(); column++) {
-                transposeMatrix.matrix[column][row] = get(row,column);
+                transposeMatrix.set(column,row,get(row,column));
             }
         }
         return transposeMatrix;
@@ -394,12 +393,15 @@ public class Matrix {
      * @return The string representation of the matrix.
      */
     public String toString() {
+        //create a string builder
         StringBuilder stringBuilder = new StringBuilder();
+        //append the row and columns
         stringBuilder.append(String.format("%d",getM()));
         stringBuilder.append(",");
         stringBuilder.append(String.format("%d",getN()));
         stringBuilder.append("\n");
 
+        //now append the matrix values
         for (int row = 0; row < getM(); row++) {
             for (int column = 0; column < getN(); column++) {
                 stringBuilder.append(String.format("%.1f",get(row,column)));
@@ -409,6 +411,7 @@ public class Matrix {
             }
             stringBuilder.append("\n");
         }
+        //return the string builder in string format
         return stringBuilder.toString();
     }
 
@@ -470,7 +473,7 @@ public class Matrix {
         //iterate through the rows of the matrix
         for (int row = 0; row < size; row++) {
                 //set the correct element in the row to one
-                identityMatrix.matrix[row][row] = 1.0;
+                identityMatrix.set(row,row,1.0);
         }
         //return the identity matrix
         return identityMatrix;
@@ -588,56 +591,70 @@ public class Matrix {
      */
     public static void main(String[] args) {
 
+        System.out.println("Creating an empty 2x3 matrix:");
         //create a new 2x3 matrix
         Matrix m1 = new Matrix(2,3);
         //output the new empty 2x3 matrix
         System.out.println(m1.toString());
+        System.out.println("Adding the matrix in ./example.csv to that matrix:");
         //create a new matrix that is equal to the matrix defined in the csv added with m1
         Matrix m2 = m1.add(new Matrix("./example.csv"));
         //output the new matrix after addition
         System.out.println(m2.toString());
+        System.out.println("Finding transpose of previous matrix:");
         //create the transpose of m2
         Matrix transposem2 = m2.transpose();
         //output the transpose of m2
         System.out.println(transposem2.toString());
+        System.out.println("Multiplying the transpose matrix by 4:");
         //multiply the transpose matrix by 4
         Matrix transposem2multiplied = transposem2.multiply(4);
         //output the multiplied transpose matrix
         System.out.println(transposem2multiplied.toString());
 
+        System.out.println("Subtracting second matrix from itself and outputing result below and in ./output.csv:");
         //create new matrix that is equal to the m2 subtracted from m2
         Matrix m3 = m2.subtract(m2);
         //output the new matrix after subtraction
         System.out.println(m3.toString());
         //output m3 to a csv
-        m3.print("./m3.csv");
+        m3.print("./output.csv");
 
+        System.out.println("Please create a matrix, preferably a small square matrix:");
         //get the user to create a matrix, make square so inverse works
         Matrix userMatrix = new Matrix();
+        System.out.println("Outputting your matrix:");
         //output user matrix
         System.out.println(userMatrix.toString());
+        System.out.println("Outputting the inverse of your matrix:");
         //create the inverse of user matrix
         Matrix userMatrixInverse = userMatrix.inverse();
         //output the inverse of user matrix
         System.out.println(userMatrixInverse.toString());
         //output some information about userMatrix
+        System.out.println("Some calculations on your matrix:");
         System.out.printf("\nUser Matrix Characteristics:\nDeterminant: %.1f\nSquare: %s\n\n",userMatrix.determinant(),String.valueOf(userMatrix.isSquare()));
+        System.out.println("Please create another matrix that we will multiply to your other matrix:");
         //multiply the userMatrix by another user matrix
         Matrix userMultiplied = userMatrix.multiply(new Matrix());
+        System.out.println("After multiplying I got this:");
         //output resultant matrix
         System.out.println(userMultiplied.toString());
+        System.out.println("Now I am dividing your original matrix by the one just above:");
         //divide the userMatrix by userMultiplied matrix
         Matrix userDivided = userMatrix.divide(userMultiplied);
         //output resultant matrix
         System.out.println(userDivided.toString());
 
-
+        System.out.println("Ok, check out this 4x4 identity matrix:");
         //create 4x4 identity matrix
         Matrix identity = Matrix.identity(4);
         //print the identity matrix
         System.out.println(identity.toString());
+        System.out.println("That matrix has also been outputted to ./identity.csv.");
         //output identity matrix to a csv
         m3.print("./identity.csv");
+        System.out.println("All done.");
     }
 
 }
