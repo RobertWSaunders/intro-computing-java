@@ -42,9 +42,9 @@ public class Matrix {
      */
     Matrix() {
         //set the value for m, by asking the user for it through the console
-        this.m = askUserNumber("How many rows would you like in the matrix?");
+        setM(askUserNumber("How many rows would you like in the matrix?"));
         //set the value for n, by asking the user for it through the console
-        this.n = askUserNumber("How many columns would you like in the matrix?");
+        setN(askUserNumber("How many columns would you like in the matrix?"));
         //create a matrix of the desired size the user chose
         this.matrix = new double[getM()][getN()];
         //ask the user to fill the values for the elements
@@ -58,8 +58,8 @@ public class Matrix {
      */
     Matrix(int rows, int columns) {
         //set values of class attributes
-        this.m = rows;
-        this.n = columns;
+        setM(rows);
+        setN(columns);
         this.matrix = new double[rows][columns];
     }
 
@@ -89,9 +89,9 @@ public class Matrix {
                 //see if this is the first line in the file
                 if (lineCounter == -1) {
                     //set the value of m
-                    this.m = Integer.parseInt(values[0]);
+                    setM(Integer.parseInt(values[0]));
                     //set the value of n
-                    this.n = Integer.parseInt(values[1]);
+                    setN(Integer.parseInt(values[1]));
                     //create the matrix for the instance
                     this.matrix = new double[getM()][getN()];
                 }
@@ -167,6 +167,22 @@ public class Matrix {
         this.matrix[i][j] = value;
     }
 
+    /**
+     * Sets the value of m.
+     * @param value The value that m is going to be set to.
+     */
+    public void setM(int value) {
+        this.m = value;
+    }
+
+    /**
+     * Sets the value of n.
+     * @param value The value that n is going to be set to.
+     */
+    public void setN(int value) {
+        this.n = value;
+    }
+
     /////////////////
     /* OPERATIONS */
     ///////////////
@@ -239,7 +255,6 @@ public class Matrix {
                     resultMatrix.matrix[i][j] += get(i,k) * m.get(k,j);
                 }
             }
-
         }
         //return the resulting matrix
         return resultMatrix;
@@ -311,7 +326,7 @@ public class Matrix {
         Matrix inverseMatrix = new Matrix(getM(), getN());
         //first check if we can calculate the determinant, must be square and less than 3x3
         if (satisfiesDimensionRequirement(this)) {
-            //determinat of matrix cannot be zero when calculating the inverse
+            //determinant of matrix cannot be zero when calculating the inverse
             if (determinant() != 0) {
                 switch (getM()) {
                     //if the matrix is a 1x1 just return the single element as the determinant
@@ -656,5 +671,4 @@ public class Matrix {
         m3.print("./identity.csv");
         System.out.println("All done.");
     }
-
 }
