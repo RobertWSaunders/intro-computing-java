@@ -297,7 +297,7 @@ public class Matrix {
                     return (matrix[0][0]*(matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1]))-(matrix[0][1]*(matrix[1][0]*matrix[2][2]-matrix[1][2]*matrix[2][0]))+(matrix[0][2]*(matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0]));
             }
         }
-        System.out.print("The matrix is bigger than 3x3 or not square.");
+        System.out.print("The matrix is bigger than 3x3 or not square, therefore the determinant cannot be calculated.");
         //return zero if the matrix is not square or bigger than 3x3
         return 0.0;
     }
@@ -351,7 +351,7 @@ public class Matrix {
                 return inverseMatrix;
             }
         }
-        System.out.print("The matrix is bigger than 3x3 or not square.");
+        System.out.print("The matrix is bigger than 3x3, not square or the determinant is zero.");
         //return null otherwise
         return null;
     }
@@ -588,6 +588,56 @@ public class Matrix {
      */
     public static void main(String[] args) {
 
+        //create a new 2x3 matrix
+        Matrix m1 = new Matrix(2,3);
+        //output the new empty 2x3 matrix
+        System.out.println(m1.toString());
+        //create a new matrix that is equal to the matrix defined in the csv added with m1
+        Matrix m2 = m1.add(new Matrix("./example.csv"));
+        //output the new matrix after addition
+        System.out.println(m2.toString());
+        //create the transpose of m2
+        Matrix transposem2 = m2.transpose();
+        //output the transpose of m2
+        System.out.println(transposem2.toString());
+        //multiply the transpose matrix by 4
+        Matrix transposem2multiplied = transposem2.multiply(4);
+        //output the multiplied transpose matrix
+        System.out.println(transposem2multiplied.toString());
+
+        //create new matrix that is equal to the m2 subtracted from m2
+        Matrix m3 = m2.subtract(m2);
+        //output the new matrix after subtraction
+        System.out.println(m3.toString());
+        //output m3 to a csv
+        m3.print("./m3.csv");
+
+        //get the user to create a matrix, make square so inverse works
+        Matrix userMatrix = new Matrix();
+        //output user matrix
+        System.out.println(userMatrix.toString());
+        //create the inverse of user matrix
+        Matrix userMatrixInverse = userMatrix.inverse();
+        //output the inverse of user matrix
+        System.out.println(userMatrixInverse.toString());
+        //output some information about userMatrix
+        System.out.printf("\nUser Matrix Characteristics:\nDeterminant: %.1f\nSquare: %s\n\n",userMatrix.determinant(),String.valueOf(userMatrix.isSquare()));
+        //multiply the userMatrix by another user matrix
+        Matrix userMultiplied = userMatrix.multiply(new Matrix());
+        //output resultant matrix
+        System.out.println(userMultiplied.toString());
+        //divide the userMatrix by userMultiplied matrix
+        Matrix userDivided = userMatrix.divide(userMultiplied);
+        //output resultant matrix
+        System.out.println(userDivided.toString());
+
+
+        //create 4x4 identity matrix
+        Matrix identity = Matrix.identity(4);
+        //print the identity matrix
+        System.out.println(identity.toString());
+        //output identity matrix to a csv
+        m3.print("./identity.csv");
     }
 
 }
