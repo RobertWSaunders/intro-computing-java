@@ -23,7 +23,7 @@ public class TestMatrix {
         Matrix output = test.multiply(other);
         output.print("./mul.csv");
         //Matrix inverse = test.inverse();
-        System.out.print("Hey");
+        System.out.print(output.toString());
 
     }
 }

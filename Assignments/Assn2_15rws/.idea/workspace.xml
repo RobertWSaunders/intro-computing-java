@@ -19,10 +19,10 @@
       <file leaf-file-name="Matrix.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Matrix.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="716">
-              <caret line="290" column="23" lean-forward="true" selection-start-line="290" selection-start-column="23" selection-end-line="290" selection-end-column="23" />
+            <state relative-caret-position="-1729">
+              <caret line="432" column="34" lean-forward="true" selection-start-line="432" selection-start-column="34" selection-end-line="432" selection-end-column="34" />
               <folding>
-                <element signature="e#0#23693#0" expanded="true" />
+                <element signature="e#0#24374#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -32,8 +32,8 @@
       <file leaf-file-name="TestMatrix.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TestMatrix.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="45" lean-forward="true" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+            <state relative-caret-position="345">
+              <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -585,12 +585,12 @@
       <workItem from="1486927241837" duration="20305000" />
       <workItem from="1486948309578" duration="226000" />
       <workItem from="1487002418416" duration="4124000" />
-      <workItem from="1487015781865" duration="1896000" />
+      <workItem from="1487015781865" duration="3020000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30486000" />
+    <option name="totallyTimeSpent" value="31610000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="946" extended-state="6" />
@@ -606,7 +606,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32971016" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971016" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -635,14 +635,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/TestMatrix.java</url>
-          <line>25</line>
-          <properties />
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
@@ -657,7 +649,7 @@
         <state relative-caret-position="7815">
           <caret line="527" column="61" lean-forward="true" selection-start-line="527" selection-start-column="61" selection-end-line="527" selection-end-column="61" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -676,7 +668,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -695,7 +687,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -714,7 +706,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -725,7 +717,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -736,7 +728,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -751,18 +743,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TestMatrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="45" lean-forward="true" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state relative-caret-position="345">
+          <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Matrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="290" column="23" lean-forward="true" selection-start-line="290" selection-start-column="23" selection-end-line="290" selection-end-column="23" />
+        <state relative-caret-position="-1729">
+          <caret line="432" column="34" lean-forward="true" selection-start-line="432" selection-start-column="34" selection-end-line="432" selection-end-column="34" />
           <folding>
-            <element signature="e#0#23693#0" expanded="true" />
+            <element signature="e#0#24374#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>

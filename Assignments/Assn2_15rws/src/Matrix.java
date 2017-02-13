@@ -267,12 +267,14 @@ public class Matrix {
     }
 
     /**
-     *
-     * @param m
-     * @return
+     * Divides the instance matrix with the passed matrix and returns the result.
+     * Matrix division is defined as multiplication of the inverse matrix. [A]/[B] = [A]*[B]^-1
+     * @param m The matrix that instance matrix will be divided by.
+     * @return The resulting matrix.
      */
     public Matrix divide(Matrix m) {
-        return null;
+        //return the resulting matrix
+        return this.multiply(m.inverse());
     }
 
     /**
@@ -354,8 +356,6 @@ public class Matrix {
         return null;
     }
 
-
-
     /**
      * Checks to see if a matrix is square.
      * @return True if the matrix is square, otherwise returns false.
@@ -394,13 +394,22 @@ public class Matrix {
      * @return The string representation of the matrix.
      */
     public String toString() {
-        String stringRepresentation = "";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("%d",getM()));
+        stringBuilder.append(",");
+        stringBuilder.append(String.format("%d",getN()));
+        stringBuilder.append("\n");
+
         for (int row = 0; row < getM(); row++) {
             for (int column = 0; column < getN(); column++) {
-                matrix[column][row] = get(row,column);
+                stringBuilder.append(String.format("%.1f",get(row,column)));
+                if (column+1 != getN()) {
+                    stringBuilder.append(",");
+                }
             }
+            stringBuilder.append("\n");
         }
-        return stringRepresentation;
+        return stringBuilder.toString();
     }
 
     /**
