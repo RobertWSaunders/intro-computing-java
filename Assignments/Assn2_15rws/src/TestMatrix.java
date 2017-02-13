@@ -18,6 +18,8 @@ public class TestMatrix {
         Matrix test = new Matrix();
         */
         Matrix test = new Matrix();
-        test.print("./output.csv");
+        //Matrix inverse = test.inverse();
+        System.out.print("Hey");
+
     }
 }

@@ -131,7 +131,7 @@ public class Matrix {
      * Gets the value for m class attribute, represents rows in the matrix.
      * @return Integer value for m class attribute.
      */
-    private int getM() {
+    public int getM() {
         return m;
     }
 
@@ -151,14 +151,18 @@ public class Matrix {
         return matrix[i][j];
     }
 
+    public void set(int i, int j, double value) {
+        this.matrix[i][j] = value;
+    }
+
     /////////////////
     /* OPERATIONS */
     ///////////////
 
     /**
-     *
-     * @param m
-     * @return
+     * Adds a matrix to the current instance, returns the resulting matrix.
+     * @param m The matrix to be added to the current instance.
+     * @return The resultant matrix after addition, if matrices are not same size returns null.
      */
     public Matrix add(Matrix m) {
         //first check that the matrices are the same size, they must for addition
@@ -176,14 +180,15 @@ public class Matrix {
             //return the result matrix
             return resultMatrix;
         }
+        System.out.print("The matrices are not the same size, therefore cannot be added.");
         //return null otherwise, the two matrices cannot be added together
         return null;
     }
 
     /**
-     *
-     * @param m
-     * @return
+     * Subtracts a matrix to the current instance, returns the resulting matrix.
+     * @param m The matrix to be subtracted to the current instance.
+     * @return The subtraction matrix after addition, if matrices are not same size returns null.
      */
     public Matrix subtract(Matrix m) {
         //first check that the matrices are the same size, they must for subtraction
@@ -201,39 +206,129 @@ public class Matrix {
             //return the result matrix
             return resultMatrix;
         }
+        System.out.print("The matrices are not the same size, therefore cannot be subtracted.");
         //return null otherwise, the two matrices cannot be subtracted together
         return null;
     }
 
-
+    /**
+     *
+     * @param m
+     * @return
+     */
     public Matrix multiply(Matrix m) {
         return null;
     }
 
+    /**
+     * Multiplies the current instance matrix by a given scalar and returns the result.
+     * @param x The scalar that will be multiplied with the matrix.
+     * @return The resulting matrix after being multiplied by the scalar.
+     */
     public Matrix multiply(double x) {
+        //create the resulting matrix
         Matrix resultMatrix = new Matrix(getM(), getN());
+        //iterate through the rows
         for (int row = 0; row < getM(); row++) {
+            //iterate through the columns
             for (int column = 0; column < getN(); column++) {
+                //input the result of multiplication into the resulting matrix
                 resultMatrix.matrix[row][column] = get(row,column) * x;
             }
         }
+        //return the resulting matrix
         return resultMatrix;
     }
 
+    /**
+     *
+     * @param m
+     * @return
+     */
     public Matrix divide(Matrix m) {
         return null;
     }
 
+    /**
+     * Calculates and returns the determinant of the matrix.
+     * @return The determinant of the matrix, if the matrix is not square or bigger than 3x3 returns null.
+     */
     public double determinant() {
-        return 1.0;
+        //first check if we can calculate the determinant, must be square and less than 3x3
+        if (satisfiesDimensionRequirement(this)) {
+            //check what type of square matrix it is
+            switch(getM()) {
+                //if the matrix is a 1x1 just return the single element as the determinant
+                case 1:
+                    return matrix[0][0];
+                //if the matrix is a 2x2 compute the determinant
+                case 2:
+                    return (matrix[0][0]*matrix[1][1]) - (matrix[0][1]*matrix[1][0]);
+                //if the matrix is a 3x3 compute the determinant
+                case 3:
+                    return (matrix[0][0]*(matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1]))-(matrix[0][1]*(matrix[1][0]*matrix[2][2]-matrix[1][2]*matrix[2][0]))+(matrix[0][2]*(matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0]));
+            }
+        }
+        System.out.print("The matrix is bigger than 3x3 or not square.");
+        //return zero if the matrix is not square or bigger than 3x3
+        return 0.0;
     }
 
+    /**
+     * Returns the inverse of the matrix.
+     * @return The inverse matrix, if the matrix is not square or bigger than 3x3 returns null.
+     * NOTE: if the matrix has a determinant of zero then it will also return null.
+     */
     public Matrix inverse() {
-        if (isSquare()) {
-
+        //first check if we can calculate the determinant, must be square and less than 3x3
+        if (satisfiesDimensionRequirement(this)) {
+            //determinat of matrix cannot be zero when calculating the inverse
+            if (determinant() != 0) {
+                //create the inverse matrix
+                Matrix inverseMatrix = new Matrix(getM(), getN());
+                switch (getM()) {
+                    //if the matrix is a 1x1 just return the single element as the determinant
+                    case 1:
+                        inverseMatrix.matrix[0][0] = 1 / matrix[0][0];
+                        break;
+                    //if the matrix is a 2x2 compute the determinant
+                    case 2:
+                        //swap the value of a with d
+                        inverseMatrix.matrix[0][0] = matrix[1][1];
+                        //swap the value of d with a
+                        inverseMatrix.matrix[1][1] = matrix[0][0];
+                        //multiply c and d with negative
+                        inverseMatrix.matrix[0][1] = matrix[0][1] * -1;
+                        inverseMatrix.matrix[1][0] = matrix[1][0] * -1;
+                        //multiply new inverted matrix by 1/determinant of original matrix
+                        inverseMatrix = inverseMatrix.multiply(1 / determinant());
+                        break;
+                    //if the matrix is a 3x3 compute the determinant
+                    case 3:
+                        //perform computations to calculate inverse elements
+                        inverseMatrix.matrix[0][0] = matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1];
+                        inverseMatrix.matrix[0][1] = matrix[0][2]*matrix[2][1]-matrix[0][1]*matrix[2][2];
+                        inverseMatrix.matrix[0][2] = matrix[0][1]*matrix[1][2]-matrix[0][2]*matrix[1][1];
+                        inverseMatrix.matrix[1][0] = matrix[1][2]*matrix[2][0]-matrix[1][0]*matrix[2][2];
+                        inverseMatrix.matrix[1][1] = matrix[0][0]*matrix[2][2]-matrix[0][2]*matrix[2][0];
+                        inverseMatrix.matrix[1][2] = matrix[0][2]*matrix[1][0]-matrix[0][0]*matrix[1][2];
+                        inverseMatrix.matrix[2][0] = matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0];
+                        inverseMatrix.matrix[2][1] = matrix[0][1]*matrix[2][0]-matrix[0][0]*matrix[2][1];
+                        inverseMatrix.matrix[2][2] = matrix[0][0]*matrix[1][1]-matrix[0][1]*matrix[1][0];
+                        //multiply new inverted matrix by 1/determinant of original matrix
+                        inverseMatrix = inverseMatrix.multiply(1 / determinant());
+                        break;
+                }
+                //return the inverse matrix
+                return inverseMatrix;
+            }
         }
+        System.out.print("The matrix is bigger than 3x3 or not square.");
+        //return null otherwise
         return null;
     }
+
+
 
     /**
      * Checks to see if a matrix is square.
@@ -365,6 +460,20 @@ public class Matrix {
     }
 
     /**
+     * Checks if the matrix is not greater than a 3x3 and that it is square.
+     * @param m The matrix to be checked, normally just passes "this" for instance matrix.
+     * @return True if the matrix is smaller than 3x3 and if it is square, false otherwise.
+     */
+    private boolean satisfiesDimensionRequirement(Matrix m) {
+        //if the matrix is square and smaller than a 4x4 matrix return true
+        if (m.isSquare() && (m.getM() <= 3)) {
+            return true;
+        }
+        //otherwise return false
+        return false;
+    }
+
+    /**
      * Asks the user to enter a number through the console, also prompts user with question that is passed to method.
      * @param question Question that prompts the user.
      * @return Returns the number the user entered.
@@ -416,12 +525,12 @@ public class Matrix {
                         System.out.printf("Enter element [%d,%d]:",row+1,column+1);
                         //get the users input
                         double userVal = scanner.nextDouble();
-                        //clear the keyboard buffer
-                        dump = scanner.nextLine();
                         //set the matrix value to the user value
-                        this.matrix[row][column] = userVal;
+                        set(row,column,userVal);
                         //input is ok
                         inputOK = true;
+                        //clear the keyboard buffer
+                        dump = scanner.nextLine();
                     } catch (InputMismatchException e) {
                         //clear the keyboard buffer
                         dump = scanner.nextLine();
@@ -438,8 +547,11 @@ public class Matrix {
     /* TESTING METHODS */
     ////////////////////
 
+    /**
+     * Used to test the Matrix class, utilizing every method.
+     * @param args
+     */
     public static void main(String[] args) {
-
 
     }
 
