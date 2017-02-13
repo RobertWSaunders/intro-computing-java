@@ -17,7 +17,11 @@ public class TestMatrix {
 
         Matrix test = new Matrix();
         */
-        Matrix test = new Matrix();
+        Matrix test = new Matrix("./test.csv");
+        Matrix other = new Matrix("./matrix.csv");
+
+        Matrix output = test.multiply(other);
+        output.print("./mul.csv");
         //Matrix inverse = test.inverse();
         System.out.print("Hey");
 

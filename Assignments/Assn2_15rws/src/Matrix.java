@@ -144,13 +144,25 @@ public class Matrix {
     }
 
     /**
-     * Gets the value in the matrix at the i and j entry, where i is rows and j is columns.
+     * Gets the value in the matrix at the i and j entry, where i is row and j is column.
+     * @param i Represents the row in the matrix.
+     * @param j Represents the column in the matrix.
      * @return Decimal value in the matrix at the i and j entry.
      */
     public double get(int i, int j) {
         return matrix[i][j];
     }
 
+    //////////////
+    /* SETTERS */
+    ////////////
+
+    /**
+     * Sets the value in the matrix at the i and j entry, where i is row and j is column.
+     * @param i Represents the row in the matrix.
+     * @param j Represents the column in the matrix.
+     * @param value The value to be set in the matrix.
+     */
     public void set(int i, int j, double value) {
         this.matrix[i][j] = value;
     }
@@ -212,12 +224,26 @@ public class Matrix {
     }
 
     /**
-     *
-     * @param m
-     * @return
+     * Multiplies a matrix to the current instance matrix, returns resulting matrix.
+     * @param m Matrix that is to be multiplied to the current instance matrix.
+     * @return The resulting matrix.
      */
     public Matrix multiply(Matrix m) {
-        return null;
+        //create the resulting matrix
+        Matrix resultMatrix = new Matrix(getM(), m.getN());
+        //iterate through the rows
+        for (int i = 0; i < getM(); i++) {
+            //iterate through the columns
+            for (int j = 0; j < m.getN(); j++) {
+                for (int k = 0; k < getN(); k++) {
+                    //input the result of multiplication into the resulting matrix
+                    resultMatrix.matrix[i][j] += get(i,k) * m.get(k,j);
+                }
+            }
+
+        }
+        //return the resulting matrix
+        return resultMatrix;
     }
 
     /**
