@@ -1,13 +1,13 @@
-import a.j.k.a.P;
+package library;
 
 /**
  * Created by robertsaunders on 2017-02-25.
  */
 public class Device extends Item {
-    public int rentalCost;
+    private int rentalCost;
 
-
-    public int getLateFees()
+    @Override
+    public int getLateFees(int lateDays)
     {
         return 0;
     }
