@@ -12,4 +12,17 @@ public class Device extends Item {
         return 0;
     }
 
+    @Override
+    public Device clone() {
+        //can use the copy constructor to clone the object
+
+    }
+
+    @Override
+    public String toString() {
+
+    }
+
+
+
 }

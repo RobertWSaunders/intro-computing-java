@@ -4,7 +4,7 @@ package library;
  * Created by robertsaunders on 2017-02-25.
  */
 public abstract class Item {
-    private int ID;
+    private int Id;
     private String name;
 
     //abstrace method, required in all classes that extend item
