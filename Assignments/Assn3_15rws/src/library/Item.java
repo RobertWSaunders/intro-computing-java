@@ -1,13 +1,18 @@
+/**
+ * Item is an abstract class that provides the underlining structure for all other objects in the library system.
+ *
+ * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
+ * @version 1.0.0
+ */
+
 package library;
 
-/**
- * Created by robertsaunders on 2017-02-25.
- */
 public abstract class Item {
     private int Id;
     private String name;
 
-    //abstrace method, required in all classes that extend item
+    //abstract method, required in all classes that extend item
+    //implementation not needed in the item class
     public abstract int getLateFees(int lateDays);
 
     //Copy constructor
@@ -20,6 +25,7 @@ public abstract class Item {
         name = copyItem.name;
     }
 
+    //general constructor
     public Item() {
 
     }
