@@ -16,4 +16,8 @@ public class LibrarySystem {
     public static void getTotalRentalCosts() {
 
     }
+
+    public static void main(String[] args) {
+
+    }
 }
