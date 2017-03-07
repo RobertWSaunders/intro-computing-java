@@ -25,6 +25,39 @@ public class Rental {
     private int numDaysLate;
 
 
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    /**
+     * Rental constructor that has every attribute.
+     * @param rentalItem The item that is being rented.
+     * @param customerId The identifier of the customer renting the item.
+     * @param numRentalDays The number of days the item is to be rented for.
+     * @param numDaysLate The number of days the item is late.
+     */
+    Rental(Item rentalItem, int customerId, int numRentalDays, int numDaysLate) {
+        setRentalItem(rentalItem);
+        setCustomerId(customerId);
+        setNumRentalDays(numRentalDays);
+        setNumDaysLate(numDaysLate);
+    }
+
+    /**
+     * Copy constructor for the rental class.
+     * @param copyRental The rental that is to be copied.
+     */
+    Rental(Rental copyRental) {
+        if (copyRental == null) {
+            System.out.print("Passing null object to copy, fatal error. [Rental --> Rental(Rental copyItem)]");
+            System.exit(0);
+        }
+        setRentalItem(copyRental.rentalItem);
+        setNumDaysLate(copyRental.numDaysLate);
+        setNumRentalDays(copyRental.numRentalDays);
+        setCustomerId(copyRental.customerId);
+    }
+
     //////////////
     /* SETTERS */
     ////////////
@@ -57,7 +90,7 @@ public class Rental {
      * Sets the number of days the item is late.
      * @param daysLate The number of days the item is late.
      */
-    public void numDaysLate(int daysLate) {
+    public void setNumDaysLate(int daysLate) {
         this.numDaysLate = daysLate;
     }
 
@@ -96,6 +129,4 @@ public class Rental {
     public int getNumDaysLate() {
         return numDaysLate;
     }
-
-
 }

@@ -7,26 +7,39 @@
 
 package library;
 
+//import the array list class
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LibrarySystem {
 
-    ///////////////////////
-    /* CLASS ATTRIBUTES */
-    /////////////////////
+    //////////////////////
+    /* CLASS VARIABLES */
+    ////////////////////
 
+    //create a list to store rentals
+    ArrayList rentalList = new ArrayList();
 
-    public static void addTransaction() {
+    ///////////////////////////
+    /* SYSTEM LOGIC METHODS */
+    /////////////////////////
 
+    public void addTransaction() {
+        Rental rental = new Rental();
+        rentalList.add(rental);
     }
 
-    public static void getTotalLateFees() {
-
+    public double getTotalLateFees() {
+        return 0.0;
     }
 
-    public static void getTotalRentalCosts() {
-
+    public double getTotalRentalCosts() {
+        return 0.0;
     }
+
+    /////////////////////////////
+    /* TESTING LIBRARY SYSTEM */
+    ///////////////////////////
 
     public static void main(String[] args) {
 
