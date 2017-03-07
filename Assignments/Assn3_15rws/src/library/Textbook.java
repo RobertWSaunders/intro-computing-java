@@ -8,6 +8,10 @@ package library;
 
 public class Textbook extends Book {
 
+    ////////////////
+    /* OVERRIDES */
+    //////////////
+
     /**
      * Calculates the late fees based off of how many days the device is late.
      * @param lateDays The number of days the device is late.
@@ -17,6 +21,6 @@ public class Textbook extends Book {
     @Override
     public double getLateFees(double lateDays) {
         //calculate and return the late fee, using the ceil function on lateDays
-        return (2*Math.ceil(lateDays))+(0.10*rentalCost);
+        return 1*Math.ceil(lateDays);
     }
 }

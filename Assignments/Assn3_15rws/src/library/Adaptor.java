@@ -22,7 +22,7 @@ public final class Adaptor extends Device {
     @Override
     public double getLateFees(double lateDays) {
         //calculate and return the late fee, using the ceil function on lateDays
-        return 0.5*Math.ceil(lateDays);
+        return (2.5*Math.ceil(lateDays))+(0.15*getRentalCost());
     }
 
 }

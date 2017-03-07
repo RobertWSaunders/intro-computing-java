@@ -7,7 +7,11 @@
 
 package library;
 
-public final class Magazine extends Book {
+public class Magazine extends Book {
+
+    ////////////////
+    /* OVERRIDES */
+    //////////////
 
     /**
      * Calculates the late fees based off of how many days the device is late.
@@ -18,7 +22,7 @@ public final class Magazine extends Book {
     @Override
     public double getLateFees(double lateDays) {
         //calculate and return the late fee, using the ceil function on lateDays
-        return (2*Math.ceil(lateDays))+(0.10*rentalCost);
+        return 0.75*Math.ceil(lateDays);
     }
 
 }
