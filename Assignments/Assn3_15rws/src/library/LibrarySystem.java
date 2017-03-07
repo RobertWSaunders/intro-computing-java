@@ -8,7 +8,7 @@
 package library;
 
 //import the array list class
-import java.lang.reflect.Array;
+//essentially creates a mutable array
 import java.util.ArrayList;
 
 public class LibrarySystem {
@@ -25,8 +25,7 @@ public class LibrarySystem {
     /////////////////////////
 
     public void addTransaction() {
-        Rental rental = new Rental();
-        rentalList.add(rental);
+
     }
 
     public double getTotalLateFees() {
@@ -42,6 +41,5 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
-
     }
 }

@@ -5,10 +5,8 @@
  * @version 1.0.0
  */
 
-//part of the library package
 package library;
 
-//class definition
 public class Device extends Item {
 
     ///////////////////////
@@ -16,7 +14,30 @@ public class Device extends Item {
     /////////////////////
 
     //define the rental cost for a device
-    private double rentalCost = 10.0;
+    private double rentalCost;
+
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    /**
+     * Device constructor that has every attribute.
+     * @param name The name of the device.
+     * @param rentalCost The rental cost of the device.
+     */
+    Device(String name, double rentalCost) {
+        super(name);
+        setRentalCost(rentalCost);
+    }
+
+    /**
+     * Copy constructor for the device class.
+     * @param copyDevice The device to be copied.
+     */
+    Device(Device copyDevice) {
+        super(copyDevice);
+        setRentalCost(copyDevice.getRentalCost());
+    }
 
     //////////////
     /* SETTERS */

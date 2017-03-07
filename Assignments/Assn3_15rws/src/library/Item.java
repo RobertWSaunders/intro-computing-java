@@ -5,10 +5,8 @@
  * @version 1.0.0
  */
 
-//part of the library package
 package library;
 
-//class definition
 public abstract class Item {
 
     ///////////////////////
@@ -51,6 +49,8 @@ public abstract class Item {
      Item(String name) {
         //set the name of the item
         setName(name);
+        //set the id of the item
+        setId();
     }
 
     /**

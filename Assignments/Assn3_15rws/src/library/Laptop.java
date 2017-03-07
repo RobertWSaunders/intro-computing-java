@@ -9,6 +9,29 @@ package library;
 
 public class Laptop extends Device {
 
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    /**
+     * Book constructor that has every attribute.
+     * @param name The name of the book.
+     * @param authors The authors of the book.
+     * @param publisher The publisher of the book.
+     * @param year The year of the book.
+     */
+    Laptop(String name, double rentalCost) {
+        super(name, rentalCost);
+    }
+
+    /**
+     * Copy constructor for the book class.
+     * @param copyBook The book to be copied.
+     */
+    Laptop(Laptop copyLaptop) {
+        super(copyLaptop);
+    }
+
     ////////////////
     /* OVERRIDES */
     //////////////

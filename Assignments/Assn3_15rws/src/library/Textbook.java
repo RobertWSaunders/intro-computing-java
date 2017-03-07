@@ -8,6 +8,29 @@ package library;
 
 public class Textbook extends Book {
 
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    /**
+     * Book constructor that has every attribute.
+     * @param name The name of the book.
+     * @param authors The authors of the book.
+     * @param publisher The publisher of the book.
+     * @param year The year of the book.
+     */
+    Textbook(String name, String[] authors, String publisher, int year) {
+        super(name, authors, publisher, year);
+    }
+
+    /**
+     * Copy constructor for the book class.
+     * @param copyTextbook The book to be copied.
+     */
+    Textbook(Textbook copyTextbook) {
+        super(copyTextbook);
+    }
+
     ////////////////
     /* OVERRIDES */
     //////////////

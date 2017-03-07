@@ -7,7 +7,31 @@
 
 package library;
 
-public final class Adaptor extends Device {
+public class Adaptor extends Device {
+
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    /**
+     * Book constructor that has every attribute.
+     * @param name The name of the book.
+     * @param authors The authors of the book.
+     * @param publisher The publisher of the book.
+     * @param year The year of the book.
+     */
+    Adaptor(String name, double rentalCost) {
+        super(name, rentalCost);
+    }
+
+    /**
+     * Copy constructor for the book class.
+     * @param copyAdaptor The book to be copied.
+     */
+    Adaptor(Adaptor copyAdaptor) {
+        super(copyAdaptor);
+    }
+
 
     ////////////////
     /* OVERRIDES */

@@ -1,13 +1,11 @@
 /**
- * Rental is an abstract class that provides the underlining structure for all other objects in the library system.
+ * Rental is a class that represents a rental within the library system.
  *
  * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
  */
 
 package library;
-
-import java.util.Date;
 
 public class Rental {
 
@@ -23,7 +21,6 @@ public class Rental {
     private int numRentalDays;
     //the number of days late
     private int numDaysLate;
-
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -49,7 +46,7 @@ public class Rental {
      */
     Rental(Rental copyRental) {
         if (copyRental == null) {
-            System.out.print("Passing null object to copy, fatal error. [Rental --> Rental(Rental copyItem)]");
+            System.out.print("Passing null object to copy, fatal error. [Rental --> Rental(Rental copyRental)]");
             System.exit(0);
         }
         setRentalItem(copyRental.rentalItem);

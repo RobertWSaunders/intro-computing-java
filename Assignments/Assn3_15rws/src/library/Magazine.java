@@ -9,6 +9,29 @@ package library;
 
 public class Magazine extends Book {
 
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    /**
+     * Book constructor that has every attribute.
+     * @param name The name of the book.
+     * @param authors The authors of the book.
+     * @param publisher The publisher of the book.
+     * @param year The year of the book.
+     */
+    Magazine(String name, String[] authors, String publisher, int year) {
+        super(name, authors, publisher, year);
+    }
+
+    /**
+     * Copy constructor for the book class.
+     * @param copyMagazine The book to be copied.
+     */
+    Magazine(Magazine copyMagazine) {
+        super(copyMagazine);
+    }
+
     ////////////////
     /* OVERRIDES */
     //////////////
