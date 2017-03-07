@@ -7,7 +7,14 @@
 
 package library;
 
+import java.util.ArrayList;
+
 public class LibrarySystem {
+
+    ///////////////////////
+    /* CLASS ATTRIBUTES */
+    /////////////////////
+
 
     public static void addTransaction() {
 
