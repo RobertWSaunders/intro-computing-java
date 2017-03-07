@@ -5,15 +5,80 @@
  * @version 1.0.0
  */
 
-//part of the library package
 package library;
 
-//class definition
 public class Book extends Item {
 
+    ///////////////////////
+    /* CLASS ATTRIBUTES */
+    /////////////////////
+
+    //a book can have authors, one or many
     private String[] authors;
+    //a book has a publisher
     private String publisher;
+    //a book has a year
     private int year;
+
+    //////////////
+    /* SETTERS */
+    ////////////
+
+    /**
+     * Sets the authors of the book.
+     * @param authors The authors of the book to be set.
+     */
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
+    }
+
+    /**
+     * Sets the publisher of the book.
+     * @param publisher The publisher of the book to be set.
+     */
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    /**
+     * Sets the year of the book.
+     * @param year The year of the book to be set.
+     */
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    //////////////
+    /* GETTERS */
+    ////////////
+
+    /**
+     * Gets the authors of the book.
+     * @return The authors as an array of strings.
+     */
+    public String[] getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Gets the publisher of the book.
+     * @return The publisher of the book as a string.
+     */
+    public String getPublisher() {
+        return publisher;
+    }
+
+    /**
+     * Gets the year of the book.
+     * @return The the year of the book as an integer.
+     */
+    public int getYear() {
+        return year;
+    }
+
+     ////////////////
+    /* OVERRIDES */
+    //////////////
 
     /**
      * Calculates the late fees based off of how many days the book is late.
@@ -21,10 +86,9 @@ public class Book extends Item {
      * @return The amount of fees that result because the item is late.
      * NOTE: Implementation includes Math.ceil to indicate that if the item is brought back the fee is rounded to the next day.
      */
+    @Override
     public double getLateFees(double lateDays) {
         //calculate and return the late fee, using the ceil function on lateDays
         return 0.5*Math.ceil(lateDays);
     }
-
-
 }

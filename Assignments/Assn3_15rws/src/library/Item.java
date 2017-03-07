@@ -109,6 +109,7 @@ public abstract class Item {
      * Implementation differs based on the type of item, therefore abstract method.
      * @param lateDays The number of days the item is late.
      * @return The amount of fees that result because the item is late.
+     * NOTE: Implementation includes Math.ceil to indicate that if the item is brought back the fee is rounded to the next day.
      */
     public abstract double getLateFees(double lateDays);
 
