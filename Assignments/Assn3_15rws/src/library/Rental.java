@@ -222,6 +222,4 @@ public class Rental {
         calendar.add(Calendar.DAY_OF_MONTH, rentalLength);
         return calendar.getTime();
     }
-
-
 }

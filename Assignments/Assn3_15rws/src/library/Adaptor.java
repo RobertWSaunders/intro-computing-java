@@ -14,19 +14,18 @@ public class Adaptor extends Device {
     /////////////////
 
     /**
-     * Book constructor that has every attribute.
-     * @param name The name of the book.
-     * @param authors The authors of the book.
-     * @param publisher The publisher of the book.
-     * @param year The year of the book.
+     * Adaptor constructor that has every attribute.
+     * @param name The name of the adaptor.
+     * @param rentalCost The rental cost of the adaptor.
      */
     Adaptor(String name, double rentalCost) {
+        //call the superclass constructor
         super(name, rentalCost);
     }
 
     /**
-     * Copy constructor for the book class.
-     * @param copyAdaptor The book to be copied.
+     * Copy constructor for the Adaptor class.
+     * @param copyAdaptor The adaptor to be copied.
      */
     Adaptor(Adaptor copyAdaptor) {
         super(copyAdaptor);
@@ -78,5 +77,4 @@ public class Adaptor extends Device {
         Adaptor adaptor = (Adaptor) obj;
         return (this == adaptor);
     }
-
 }

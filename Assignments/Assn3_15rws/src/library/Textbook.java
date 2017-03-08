@@ -13,19 +13,19 @@ public class Textbook extends Book {
     /////////////////
 
     /**
-     * Book constructor that has every attribute.
-     * @param name The name of the book.
-     * @param authors The authors of the book.
-     * @param publisher The publisher of the book.
-     * @param year The year of the book.
+     * Textbook constructor that has every attribute.
+     * @param name The name of the textbook.
+     * @param authors The authors of the textbook.
+     * @param publisher The publisher of the textbook.
+     * @param year The year of the textbook.
      */
     Textbook(String name, String[] authors, String publisher, int year) {
         super(name, authors, publisher, year);
     }
 
     /**
-     * Copy constructor for the book class.
-     * @param copyTextbook The book to be copied.
+     * Copy constructor for the Textbook class.
+     * @param copyTextbook The textbook to be copied.
      */
     Textbook(Textbook copyTextbook) {
         super(copyTextbook);
@@ -36,8 +36,8 @@ public class Textbook extends Book {
     //////////////
 
     /**
-     * Calculates the late fees based off of how many days the device is late.
-     * @param lateDays The number of days the device is late.
+     * Calculates the late fees based off of how many days the textbook is late.
+     * @param lateDays The number of days the textbook is late.
      * @return The amount of fees that result because the item is late.
      * NOTE: Implementation includes Math.ceil to indicate that if the item is brought back the fee is rounded to the next day.
      */

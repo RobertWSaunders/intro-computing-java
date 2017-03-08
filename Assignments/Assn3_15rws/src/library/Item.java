@@ -37,10 +37,10 @@ public abstract class Item {
             //exit the program as a result of a fatal error.
             System.exit(0);
         }
-        //set the id of the item to unique and increment from idIncrementer variable.
-        setId();
-        //set the name of the item to that of the copyItem
+        //set the name of the copy item to be that of the same as the copy item
         setName(copyItem.name);
+        //set the id of the copy item, note this is not copied, an item must have a unique id.
+        setId();
     }
 
     /**
@@ -115,6 +115,8 @@ public abstract class Item {
      */
     @Override
     public String toString() {
+        //if name is "Robert"
+        //output will be like "Robert [1]"
         return name+" "+"["+id+"]";
     }
 

@@ -26,7 +26,10 @@ public class Device extends Item {
      * @param rentalCost The rental cost of the device.
      */
     Device(String name, double rentalCost) {
+        //call superclass constructor
         super(name);
+        //set any extra class attributes not set by the superclass
+        //set the rental cost of the device
         setRentalCost(rentalCost);
     }
 
@@ -44,7 +47,7 @@ public class Device extends Item {
     ////////////
 
     /**
-     * Sets the name of the item.
+     * Sets the name of the device.
      * @param cost The rental cost of the device to be set.
      */
     public void setRentalCost(double cost) {

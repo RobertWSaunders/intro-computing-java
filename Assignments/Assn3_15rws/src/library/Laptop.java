@@ -14,19 +14,18 @@ public class Laptop extends Device {
     /////////////////
 
     /**
-     * Book constructor that has every attribute.
-     * @param name The name of the book.
-     * @param authors The authors of the book.
-     * @param publisher The publisher of the book.
-     * @param year The year of the book.
+     * Laptop constructor that has every attribute.
+     * @param name Name of the laptop.
+     * @param rentalCost Rental cost of the laptop.
      */
     Laptop(String name, double rentalCost) {
+        //call superclass constructor
         super(name, rentalCost);
     }
 
     /**
-     * Copy constructor for the book class.
-     * @param copyBook The book to be copied.
+     * Copy constructor for the Laptop class.
+     * @param copyLaptop The laptop to be copied.
      */
     Laptop(Laptop copyLaptop) {
         super(copyLaptop);

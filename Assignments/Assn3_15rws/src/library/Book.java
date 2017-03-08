@@ -32,9 +32,14 @@ public class Book extends Item {
      * @param year The year of the book.
      */
     Book(String name, String[] authors, String publisher, int year) {
+        //call superclass constructor
         super(name);
+        //set any extra class attributes not set by the superclass
+        //set the authors of the book
         setAuthors(authors);
+        //set the publisher of the book
         setPublisher(publisher);
+        //set the year of the book
         setYear(year);
     }
 

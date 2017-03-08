@@ -14,19 +14,20 @@ public class Magazine extends Book {
     /////////////////
 
     /**
-     * Book constructor that has every attribute.
-     * @param name The name of the book.
-     * @param authors The authors of the book.
-     * @param publisher The publisher of the book.
-     * @param year The year of the book.
+     * Magazine constructor that has every attribute.
+     * @param name The name of the magazine.
+     * @param authors The authors of the magazine.
+     * @param publisher The publisher of the magazine.
+     * @param year The year of the magazine.
      */
     Magazine(String name, String[] authors, String publisher, int year) {
+        //call the superclass constructor
         super(name, authors, publisher, year);
     }
 
     /**
-     * Copy constructor for the book class.
-     * @param copyMagazine The book to be copied.
+     * Copy constructor for the Magazine class.
+     * @param copyMagazine The magazine to be copied.
      */
     Magazine(Magazine copyMagazine) {
         super(copyMagazine);
@@ -37,8 +38,8 @@ public class Magazine extends Book {
     //////////////
 
     /**
-     * Calculates the late fees based off of how many days the device is late.
-     * @param lateDays The number of days the device is late.
+     * Calculates the late fees based off of how many days the magazine is late.
+     * @param lateDays The number of days the magazine is late.
      * @return The amount of fees that result because the item is late.
      * NOTE: Implementation includes Math.ceil to indicate that if the item is brought back the fee is rounded to the next day.
      */
