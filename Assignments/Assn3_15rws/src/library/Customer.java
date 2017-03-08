@@ -30,8 +30,22 @@ public class Customer {
     //define a incrementer for the item id, increments every time an item is created.
     private static int idIncrementer = -1;
 
-    Customer() {
+    Customer(String name, ArrayList customerRentals) {
+        setName(name);
+        setCustomerId();
+        setCustomerRentals(customerRentals);
+    }
 
+    Customer(Customer copyCustomer) {
+        if (copyCustomer == null) {
+            //let the user know the error and tell them where it is in the code
+            System.out.print("Passing null object to copy, fatal error. [Customer --> Customer(Customer copyCustomer)]");
+            //exit the program as a result of a fatal error.
+            System.exit(0);
+        }
+        setName(copyCustomer.name);
+        setCustomerId();
+        setCustomerRentals(copyCustomer.customerRentals);
     }
 
     //////////////
@@ -49,8 +63,16 @@ public class Customer {
     /**
      * Sets the id of the customer by incrementing the idIncrementer variable.
      */
-    public void setCustomerIdId() {
+    public void setCustomerId() {
         this.customerId = idIncrementer++;
+    }
+
+    /**
+     * Sets the customers rentals.
+     * @param customerRentals The customer rentals to be set.
+     */
+    public void setCustomerRentals(ArrayList customerRentals) {
+        this.customerRentals = customerRentals;
     }
 
     //////////////
@@ -58,20 +80,29 @@ public class Customer {
     ////////////
 
     /**
-     * Gets the id of the item.
+     * Gets the id of the customer.
      * @return The id as an integer.
      */
-    public int getCustomerIdId() {
+    public int getCustomerId() {
         return customerId;
     }
 
     /**
-     * Gets the name of the item.
+     * Gets the name of the customer.
      * @return The name as a string.
      */
     public String getName() {
         return name;
     }
+
+    /**
+     * Gets the customers rentals.
+     * @return The customer rentals as a ArrayList..
+     */
+    public ArrayList getCustomerRentals() {
+        return customerRentals;
+    }
+
 
     ////////////////
     /* OVERRIDES */
@@ -106,5 +137,4 @@ public class Customer {
         Customer customer = (Customer) obj;
         return (this == customer);
     }
-
 }
