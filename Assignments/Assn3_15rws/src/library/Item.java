@@ -69,7 +69,7 @@ public abstract class Item {
      * Sets the id of the item by incrementing the idIncrementer variable.
      */
     public void setId() {
-        this.id = idIncrementer++;
+        this.id = ++idIncrementer;
     }
 
     //////////////
@@ -117,7 +117,7 @@ public abstract class Item {
     public String toString() {
         //if name is "Robert"
         //output will be like "Robert [1]"
-        return name+" "+"["+id+"]";
+        return "\n"+getClass().getSimpleName() + " Name: "+name +"\n"+getClass().getSimpleName()+" ID: "+id;
     }
 
     /**

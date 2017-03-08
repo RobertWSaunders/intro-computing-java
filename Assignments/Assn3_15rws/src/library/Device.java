@@ -98,7 +98,7 @@ public class Device extends Item {
      */
     @Override
     public String toString() {
-        return super.toString()+" - Rental Cost: "+rentalCost;
+        return super.toString()+"\n"+getClass().getSimpleName()+" Rental Cost: "+rentalCost;
     }
 
     /**

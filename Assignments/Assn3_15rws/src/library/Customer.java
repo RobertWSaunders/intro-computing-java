@@ -21,7 +21,7 @@ public class Customer {
     //the id of the customer
     private int customerId;
     //the rentals the customer has
-    private ArrayList<Rental> customerRentals;
+    private ArrayList<Rental> customerRentals = new ArrayList<Rental>();
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -30,11 +30,9 @@ public class Customer {
     //define a incrementer for the item id, increments every time an item is created.
     private static int idIncrementer = -1;
 
-    Customer(String name, ArrayList customerRentals) {
+    Customer(String name) {
         //set the name of the customer
         setName(name);
-        //set the customer rentals
-        setCustomerRentals(customerRentals);
         //set the customer id
         setCustomerId();
     }
@@ -67,7 +65,7 @@ public class Customer {
      * Sets the id of the customer by incrementing the idIncrementer variable.
      */
     public void setCustomerId() {
-        this.customerId = idIncrementer++;
+        this.customerId = ++idIncrementer;
     }
 
     /**
@@ -181,7 +179,7 @@ public class Customer {
      */
     @Override
     public String toString() {
-        return name+" "+"["+customerId+"]";
+        return "\nCustomer Name: "+name+"\n"+"Customer ID: "+customerId;
     }
 
     /**
@@ -192,6 +190,25 @@ public class Customer {
     @Override
     public boolean equals(Object obj) {
         Customer customer = (Customer) obj;
-        return (this == customer);
+        return (this.getName() == customer.getName());
+    }
+
+    public String stringCustomerRentals() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n****************CUSTOMER RENTALS*****************\n");
+        builder.append(toString() + "\n");
+        if (customerRentals.size() == 0 ) {
+            builder.append("\nCustomer has no rentals!\n");
+        }
+        else {
+            for (Rental rental : customerRentals) {
+                builder.append("\nRental ID: " + rental.getRentalId() + "\n");
+                builder.append("Rental Item Type: " + rental.getRentalItem().getClass().getSimpleName() + "\n");
+                builder.append("Rental Item: " + rental.getRentalItem().toString());
+                builder.append("\n");
+            }
+        }
+        builder.append("\n**************************************************\n");
+        return builder.toString();
     }
 }

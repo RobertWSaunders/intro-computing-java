@@ -65,7 +65,7 @@ public class Magazine extends Book {
      */
     @Override
     public String toString() {
-        return super.toString()+" [Magazine]";
+        return super.toString();
     }
 
     /**

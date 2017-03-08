@@ -64,7 +64,7 @@ public class Adaptor extends Device {
      */
     @Override
     public String toString() {
-        return super.toString()+" [Adapter]";
+        return super.toString();
     }
 
     /**

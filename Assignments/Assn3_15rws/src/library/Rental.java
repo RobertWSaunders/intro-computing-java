@@ -27,6 +27,8 @@ public class Rental {
     private double numDaysLate;
 
     //NOTE: Extensions to assignment
+    //makes sense to have a rental id
+    private int rentalId;
     //date at which the rental occurred
     private Date rentalDate;
     //the expected return date
@@ -35,6 +37,9 @@ public class Rental {
     ///////////////////
     /* CONSTRUCTORS */
     /////////////////
+
+    //define a incrementer for the item id, increments every time an item is created.
+    private static int idIncrementer = -1;
 
     /**
      * Rental constructor that has every attribute.
@@ -57,6 +62,7 @@ public class Rental {
         //set and determine the number days the rental is late
         //note this will always most likely be zero but give flexibility to create a rental that may have not been logged at the time of rental
         setNumDaysLate(getExpectedReturnDate());
+        setRentalId();
     }
 
     /**
@@ -69,11 +75,12 @@ public class Rental {
             System.exit(0);
         }
         setRentalItem(copyRental.rentalItem);
-        setNumDaysLate(copyRental.numDaysLate);
+        setNumDaysLate(copyRental.getExpectedReturnDate());
         setNumRentalDays(copyRental.numRentalDays);
         setCustomerId(copyRental.customerId);
         setRentalDate(copyRental.rentalDate);
         setExpectedReturnDate(copyRental.expectedReturnDate);
+        setRentalId();
     }
 
     //////////////
@@ -128,6 +135,13 @@ public class Rental {
         this.expectedReturnDate = returnDate;
     }
 
+    /**
+     * Sets the id of the rental by incrementing the idIncrementer variable.
+     */
+    public void setRentalId() {
+        this.rentalId = ++idIncrementer;
+    }
+
     //////////////
     /* GETTERS */
     ////////////
@@ -160,7 +174,7 @@ public class Rental {
      * Gets the number of days the item is late.
      * @return The number of days the item late.
      */
-    public int getNumDaysLate() {
+    public double getNumDaysLate() {
         return numDaysLate;
     }
 
@@ -178,6 +192,10 @@ public class Rental {
      */
     public Date getExpectedReturnDate() {
         return expectedReturnDate;
+    }
+
+    public int getRentalId() {
+        return rentalId;
     }
 
     ////////////////
@@ -200,7 +218,7 @@ public class Rental {
      */
     @Override
     public String toString() {
-        return super.toString()+" [Rental]";
+        return "\nRental Type: "+ rentalItem.getClass().getSimpleName()+"\n"+"Rental Length: "+numRentalDays+" Days"+"\n"+rentalItem.toString();
     }
 
     /**

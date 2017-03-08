@@ -44,7 +44,10 @@ public class Laptop extends Device {
     @Override
     public double getLateFees(double lateDays) {
         //calculate and return the late fee, using the ceil function on lateDays
-        return (5*Math.ceil(lateDays))+(0.20*getRentalCost());
+        if (lateDays > 0) {
+            return (5 * Math.ceil(lateDays)) + (0.20 * getRentalCost());
+        }
+        return 0.0;
     }
 
     /**
@@ -63,7 +66,7 @@ public class Laptop extends Device {
      */
     @Override
     public String toString() {
-        return super.toString()+" [Laptop]";
+        return super.toString();
     }
 
     /**

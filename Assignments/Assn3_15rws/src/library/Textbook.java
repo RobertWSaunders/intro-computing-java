@@ -63,7 +63,7 @@ public class Textbook extends Book {
      */
     @Override
     public String toString() {
-        return super.toString()+" [Textbook]";
+        return super.toString();
     }
 
     /**

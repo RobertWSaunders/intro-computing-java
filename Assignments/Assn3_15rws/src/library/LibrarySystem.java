@@ -1,5 +1,6 @@
 /**
  * LibrarySystem is a class represents the entire library system.
+ * Library system can be used to test the entire library package as it encapsulates all of it.
  *
  * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
@@ -18,6 +19,22 @@ public class LibrarySystem {
 
     //create a list to store rentals
     private ArrayList<Rental> rentalList;
+
+    ///////////////////
+    /* CONSTRUCTORS */
+    /////////////////
+
+    LibrarySystem() {
+        rentalList = new ArrayList<Rental>();
+    }
+
+    LibrarySystem(LibrarySystem copyLibrarySystem) {
+        if (copyLibrarySystem == null) {
+            System.out.print("Passing null object to copy, fatal error. [LibrarySystem --> LibrarySystem(LibrarySystem copyLibrarySystem)]");
+            System.exit(0);
+        }
+        this.rentalList = copyLibrarySystem.rentalList;
+    }
 
     ///////////////////////////
     /* SYSTEM LOGIC METHODS */
@@ -66,26 +83,158 @@ public class LibrarySystem {
         return totalRentalCosts;
     }
 
+    ////////////////
+    /* OVERRIDES */
+    //////////////
+
+    /**
+     * Overrides default clone method in Object class.
+     * @return Returns a clone of current instance object.
+     * NOTE: Using copy constructor to create a clone.
+     */
+    @Override
+    public LibrarySystem clone() {
+        return new LibrarySystem(this);
+    }
+
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the LibrarySystem object.
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n*************LIBRARY SYSTEM RENTALS*************\n");
+        for (Rental rental : rentalList) {
+            builder.append("\nRental ID: "+rental.getRentalId()+"\n");
+            builder.append("Rental Customer ID: "+rental.getCustomerId()+"\n");
+            builder.append("Rental Item Type: "+rental.getRentalItem().getClass().getSimpleName()+"\n");
+            builder.append("Rental Item: "+rental.getRentalItem().toString());
+            builder.append("\n");
+        }
+        builder.append("\n*************************************************\n");
+        return builder.toString();
+    }
+
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        LibrarySystem librarySystem = (LibrarySystem)obj;
+        return (this == librarySystem);
+    }
+
     /////////////////////////////
     /* TESTING LIBRARY SYSTEM */
     ///////////////////////////
 
     public static void main(String[] args) {
-        /*
         //create a library system to rent from
         LibrarySystem librarySystem = new LibrarySystem();
-        //create a customer who will be renting things
-        Customer customer = new Customer();
+
+        //create a customer who will be renting things, this customer is named "Robert Saunders"
+        Customer customer = new Customer("Robert Saunders");
+
         //the customer wants to rent a book
         //create a book that will be rented by the customer
-        Book book = new Book();
-        //create the rental for the book
-        Rental rental = new Rental();
-        //let the customer rent the book
-        customer.rent(rental,librarySystem);
-        */
-        Date date = new Date();
+        //create an array for the authors of the book
+        String[] authors = new String[1];
+        //Add the author to the array
+        authors[0] = "Orson Scott Card";
+        //create the instance of the book
+        Book book = new Book("Ender's Game",authors,"Tor Books",1985);
 
-        System.out.print(Rental.determineNumberOfDaysLate(Rental.determineExpectedReturnDate(date, 4),date));
+        //create the rental for the book
+        //how many days is the book being rented?
+        int rentalDays = 5;
+        //create the rental date, for testing purposes it is being rented today
+        Date rentalDate = new Date();
+        //create the rental instance
+        Rental rental = new Rental(book,customer.getCustomerId(),rentalDays,rentalDate);
+
+        //now let the customer rent the book
+        customer.rent(rental,librarySystem);
+
+        //print the customer to the console
+        System.out.println(customer);
+        //print the customers rental to the console
+        System.out.println(rental);
+
+        //now the customer wants to rent a laptop
+        //create a laptop for the customer to rent, this MacBook Pro is $10 to rent
+        Laptop myLaptop = new Laptop("MacBook Pro",10.0);
+
+        //now create the rental for the customer
+        Rental laptopRental = new Rental(myLaptop,customer.getCustomerId(),rentalDays,rentalDate);
+
+        //now let the customer rent the laptop
+        customer.rent(laptopRental,librarySystem);
+        //now print the customers new laptop rental to the console
+        System.out.println(laptopRental);
+
+        //now lets print out all of the rentals in the library system
+        System.out.println(librarySystem.toString());
+
+        //now lets print out the customers rentals
+        System.out.println(customer.stringCustomerRentals());
+
+        //now lets print the customers total rental costs, should be 10.0 because the book has no rental cost
+        System.out.println("Customer Rental Costs: "+customer.getCustomersRentalCosts());
+
+        //now lets print the library systems total rental costs, should be 10.0 because only the laptop has a rental cost
+        System.out.println("Library System Rental Costs: "+librarySystem.getTotalRentalCosts());
+
+        //now lets print the customers total rental costs, should be 0 because no rental is late
+        System.out.println("Customer Rental Late Fees: "+customer.getCustomersLateFees());
+
+        //now lets print the library systems rental costs, should be 0 because no rentals are late
+        System.out.println("Library System Rental Costs: "+librarySystem.getTotalLateFees());
+
+        //now lets create another customer
+        Customer customer1 = new Customer("Johnny Appleseed");
+        //now lets print out the customers rentals
+        System.out.println(customer1.stringCustomerRentals());
+
+        //now the new customer wants to rent an adaptor
+        //lets create an adaptor, this adaptor costs $5
+        Adaptor adaptor = new Adaptor("MacBook Charger",5.0);
+        //now create the rental for the customer
+        Rental rental1 = new Rental(adaptor,customer1.getCustomerId(),rentalDays,rentalDate);
+        //now let the customer rent it
+        customer1.rent(rental1,librarySystem);
+
+        //now print the customers rentals
+        System.out.println(customer1.stringCustomerRentals());
+
+        //now lets print out all of the rentals in the library system
+        System.out.println(librarySystem.toString());
+
+        //now the customer wants another exact same adaptor
+        //lets create that adaptor using the copy constructor
+        Adaptor adaptor1 = new Adaptor(adaptor);
+        //now lets create another rental for the customer
+        Rental rental2 = new Rental(adaptor1,customer1.getCustomerId(),rentalDays,rentalDate);
+        //now let the customer rent it
+        customer1.rent(rental2,librarySystem);
+
+        //now print the customers rentals
+        System.out.println(customer1.stringCustomerRentals());
+
+        //now lets print out all of the rentals in the library system
+        System.out.println(librarySystem.toString());
+
+        //now the library wants to back up its system so it wants to make a clone
+        //lets clone it using the overridden method
+        LibrarySystem backupSystem = librarySystem.clone();
+        //lets print the backup system to show its the same
+        System.out.println(backupSystem.toString());
+
+        //now my manager suspects a customer is making a duplicate in the system, lets check if customer is equal to customer1
+        System.out.println("Are there duplicate customers? " +customer.equals(customer1));
+
+        //All done, hope I demonstrated enough. :)
     }
 }

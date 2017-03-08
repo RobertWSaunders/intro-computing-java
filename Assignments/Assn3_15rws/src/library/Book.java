@@ -142,7 +142,7 @@ public class Book extends Item {
      */
     @Override
     public String toString() {
-        return super.toString()+" [Book]";
+        return super.toString()+"\n"+getClass().getSimpleName()+" Publisher: "+publisher+"\n"+getClass().getSimpleName()+" Year: "+year;
     }
 
     /**
