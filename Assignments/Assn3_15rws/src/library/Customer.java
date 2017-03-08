@@ -33,10 +33,10 @@ public class Customer {
     Customer(String name, ArrayList customerRentals) {
         //set the name of the customer
         setName(name);
-        //set the customer id
-        setCustomerId();
         //set the customer rentals
         setCustomerRentals(customerRentals);
+        //set the customer id
+        setCustomerId();
     }
 
     Customer(Customer copyCustomer) {
@@ -47,8 +47,8 @@ public class Customer {
             System.exit(0);
         }
         setName(copyCustomer.name);
-        setCustomerId();
         setCustomerRentals(copyCustomer.customerRentals);
+        setCustomerId();
     }
 
     //////////////
@@ -124,12 +124,33 @@ public class Customer {
         addRentalToCustomerRentals(rental);
     }
 
+    /**
+     * Gets the customers late fees based on their rentals at the time.
+     * @return The late fee for the customers rentals as a double.
+     */
     public double getCustomersLateFees() {
         double lateFee = 0.0;
         for (Rental rental : customerRentals) {
             lateFee += rental.getRentalItem().getLateFees(rental.getNumDaysLate());
         }
+        return lateFee;
     }
+
+    /**
+     * Gets the customers rental costs for the items they have rented.
+     * @return The customers rental costs for items they are renting.
+     * NOTE: Only devices can have a rental cost.
+     */
+    public double getCustomersRentalCosts() {
+        double rentalCosts = 0.0;
+        for (Rental rental : customerRentals) {
+            if (rental.getRentalItem() instanceof Device) {
+                rentalCosts += ((Device) rental.getRentalItem()).getRentalCost();
+            }
+        }
+        return rentalCosts;
+    }
+
 
     /**
      * Adds a rental to the customers rental list.

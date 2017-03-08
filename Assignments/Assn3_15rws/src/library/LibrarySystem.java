@@ -8,6 +8,7 @@
 package library;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class LibrarySystem {
 
@@ -70,6 +71,7 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
+        /*
         //create a library system to rent from
         LibrarySystem librarySystem = new LibrarySystem();
         //create a customer who will be renting things
@@ -81,5 +83,9 @@ public class LibrarySystem {
         Rental rental = new Rental();
         //let the customer rent the book
         customer.rent(rental,librarySystem);
+        */
+        Date date = new Date();
+
+        System.out.print(Rental.determineNumberOfDaysLate(Rental.determineExpectedReturnDate(date, 4),date));
     }
 }
