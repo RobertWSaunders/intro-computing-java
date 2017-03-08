@@ -24,16 +24,58 @@ public class LibrarySystem {
     /* CONSTRUCTORS */
     /////////////////
 
+    /**
+     * Default constructor for the library system, initializes a empty rental list.
+     */
     LibrarySystem() {
-        rentalList = new ArrayList<Rental>();
+        setRentalList(new ArrayList<Rental>());
     }
 
+    /**
+     * Constructor to set a rental list.
+     * @param rentalList The rental list to be set.
+     */
+    LibrarySystem(ArrayList rentalList) {
+        //set the rental list
+        setRentalList(rentalList);
+    }
+
+    /**
+     * Copy constructor for a library system.
+     * @param copyLibrarySystem The library system to be copied.
+     */
     LibrarySystem(LibrarySystem copyLibrarySystem) {
+        //check if the copyLibrarySystem is null, cannot be copied if null
         if (copyLibrarySystem == null) {
             System.out.print("Passing null object to copy, fatal error. [LibrarySystem --> LibrarySystem(LibrarySystem copyLibrarySystem)]");
             System.exit(0);
         }
-        this.rentalList = copyLibrarySystem.rentalList;
+        //set the rental list
+        setRentalList(copyLibrarySystem.rentalList);
+    }
+
+    //////////////
+    /* SETTERS */
+    ////////////
+
+    /**
+     * Sets the rental list to the passed rental list.
+     * @param rentalList The rental list to be set.
+     */
+    public void setRentalList(ArrayList<Rental> rentalList) {
+        this.rentalList = rentalList;
+    }
+
+    //////////////
+    /* GETTERS */
+    ////////////
+
+    /**
+     * Gets the rental list for the system.
+     * @return The rental list for the system.
+     */
+    public ArrayList<Rental> getRentalList() {
+        return rentalList;
     }
 
     ///////////////////////////
@@ -73,9 +115,11 @@ public class LibrarySystem {
     public double getTotalRentalCosts() {
         //define the total rental costs
         double totalRentalCosts = 0.0;
+        //iterate through the rentals in the system
         for (Rental rental : rentalList) {
             //only devices have a rental cost so check if the item is an instance of Device
             if (rental.getRentalItem() instanceof Device) {
+                //add to the total rental costs
                 totalRentalCosts += ((Device) rental.getRentalItem()).getRentalCost();
             }
         }
@@ -94,25 +138,35 @@ public class LibrarySystem {
      */
     @Override
     public LibrarySystem clone() {
+        //call the library systems copy constructor
         return new LibrarySystem(this);
     }
 
     /**
-     * Overrides default toString method in Object class.
+     * Overrides default toString method in Object class, will print all of the rentals in the library system.
      * @return A string to represent the LibrarySystem object.
      */
     @Override
     public String toString() {
+        //create a string builder
         StringBuilder builder = new StringBuilder();
+        //add header to the string
         builder.append("\n*************LIBRARY SYSTEM RENTALS*************\n");
+        //iterate through the rental list to print the rentals in the library system
         for (Rental rental : rentalList) {
+            //print the rental id
             builder.append("\nRental ID: "+rental.getRentalId()+"\n");
+            //print the customer id for the rental
             builder.append("Rental Customer ID: "+rental.getCustomerId()+"\n");
+            //print the rental item type
             builder.append("Rental Item Type: "+rental.getRentalItem().getClass().getSimpleName()+"\n");
+            //print the rental item
             builder.append("Rental Item: "+rental.getRentalItem().toString());
             builder.append("\n");
         }
+        //add the footer of the note
         builder.append("\n*************************************************\n");
+        //return the built string
         return builder.toString();
     }
 
@@ -123,6 +177,7 @@ public class LibrarySystem {
      */
     @Override
     public boolean equals(Object obj) {
+        //cast the past object to of type library system
         LibrarySystem librarySystem = (LibrarySystem)obj;
         return (this == librarySystem);
     }

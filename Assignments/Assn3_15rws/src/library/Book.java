@@ -25,6 +25,18 @@ public class Book extends Item {
     /////////////////
 
     /**
+     * Default constructor for the book class.
+     */
+    Book() {
+        //set authors to an empty array
+        setAuthors(new String[1]);
+        //set publisher to an unknown value
+        setPublisher("Unknown");
+        //set the year to be current year
+        setYear(2017);
+    }
+
+    /**
      * Book constructor that has every attribute.
      * @param name The name of the book.
      * @param authors The authors of the book.
@@ -122,6 +134,7 @@ public class Book extends Item {
      */
     @Override
     public double getLateFees(double lateDays) {
+        //no need to check if late days is zero because multiplying
         //calculate and return the late fee, using the ceil function on lateDays
         return 0.5*Math.ceil(lateDays);
     }
@@ -152,7 +165,6 @@ public class Book extends Item {
      */
     @Override
     public boolean equals(Object obj) {
-        Book book = (Book) obj;
-        return (this == book);
+        return super.equals(obj);
     }
 }

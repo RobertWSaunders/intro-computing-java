@@ -1,5 +1,5 @@
 /**
- * Item is an abstract class that provides the underlining structure for all other objects in the library system.
+ * Item is an abstract class that provides the underlining structure for all other objects or items that could be rented in the library system.
  *
  * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
@@ -26,6 +26,26 @@ public abstract class Item {
     private static int idIncrementer = -1;
 
     /**
+     * Default constructor for an item.
+     */
+    Item() {
+        //set the name to an unknown value
+        setName("Unknown");
+        //set the id
+        setId();
+    }
+
+    /**
+     * General constructor that sets each class attribute.
+     */
+    Item(String name) {
+        //set the name of the item
+        setName(name);
+        //set the id of the item
+        setId();
+    }
+
+    /**
      * Copy constructor, takes a item and copy it to new item.
      * @param copyItem The item that is to be copied.
      */
@@ -40,16 +60,6 @@ public abstract class Item {
         //set the name of the copy item to be that of the same as the copy item
         setName(copyItem.name);
         //set the id of the copy item, note this is not copied, an item must have a unique id.
-        setId();
-    }
-
-    /**
-     * General constructor that sets each class attribute.
-     */
-     Item(String name) {
-        //set the name of the item
-        setName(name);
-        //set the id of the item
         setId();
     }
 
@@ -115,19 +125,19 @@ public abstract class Item {
      */
     @Override
     public String toString() {
-        //if name is "Robert"
-        //output will be like "Robert [1]"
+        //if item name is "Robert" and ID is 1 and item is a device
+        //output will be Name: Robert \n Device ID: 1
         return "\n"+getClass().getSimpleName() + " Name: "+name +"\n"+getClass().getSimpleName()+" ID: "+id;
     }
 
     /**
-     * Overrides default equals method in Object class.
+     * Overrides default equals method in Object class, compares the id's of the items.
      * @param obj The object to compare against current instance.
      * @return True if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
         Item item = (Item) obj;
-        return (this == item);
+        return (this.getId() == item.getId());
     }
 }

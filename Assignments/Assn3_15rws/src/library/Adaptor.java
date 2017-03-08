@@ -14,6 +14,14 @@ public class Adaptor extends Device {
     /////////////////
 
     /**
+     * Default constructor for adaptor class.
+     * Not needed as just calling super but here for consistency.
+     */
+    Adaptor() {
+        super();
+    }
+
+    /**
      * Adaptor constructor that has every attribute.
      * @param name The name of the adaptor.
      * @param rentalCost The rental cost of the adaptor.
@@ -44,8 +52,13 @@ public class Adaptor extends Device {
      */
     @Override
     public double getLateFees(double lateDays) {
-        //calculate and return the late fee, using the ceil function on lateDays
-        return (2.5*Math.ceil(lateDays))+(0.15*getRentalCost());
+        //if there are more than zero late days
+        if (lateDays > 0) {
+            //calculate and return the late fee, using the ceil function on lateDays
+            return (2.5*Math.ceil(lateDays))+(0.15*getRentalCost());
+        }
+        //return zero otherwise
+        return 0.0;
     }
 
     /**
@@ -74,7 +87,6 @@ public class Adaptor extends Device {
      */
     @Override
     public boolean equals(Object obj) {
-        Adaptor adaptor = (Adaptor) obj;
-        return (this == adaptor);
+        return super.equals(obj);
     }
 }

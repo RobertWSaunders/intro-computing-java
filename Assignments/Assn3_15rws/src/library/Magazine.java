@@ -14,6 +14,14 @@ public class Magazine extends Book {
     /////////////////
 
     /**
+     * Default constructor for magazine class.
+     * Not needed as just calling super but here for consistency.
+     */
+    Magazine() {
+        super();
+    }
+
+    /**
      * Magazine constructor that has every attribute.
      * @param name The name of the magazine.
      * @param authors The authors of the magazine.
@@ -45,6 +53,7 @@ public class Magazine extends Book {
      */
     @Override
     public double getLateFees(double lateDays) {
+        //no need to check if late days is zero because multiplying
         //calculate and return the late fee, using the ceil function on lateDays
         return 0.75*Math.ceil(lateDays);
     }
@@ -75,8 +84,7 @@ public class Magazine extends Book {
      */
     @Override
     public boolean equals(Object obj) {
-        Magazine magazine = (Magazine) obj;
-        return (this == magazine);
+        return super.equals(obj);
     }
 }
 

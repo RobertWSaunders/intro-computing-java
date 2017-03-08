@@ -21,6 +21,16 @@ public class Device extends Item {
     /////////////////
 
     /**
+     * Default constructor of a device.
+     */
+    Device() {
+        //call the superclass constructor
+        super();
+        //set the default rental cost be $10
+        setRentalCost(10.0);
+    }
+
+    /**
      * Device constructor that has every attribute.
      * @param name The name of the device.
      * @param rentalCost The rental cost of the device.
@@ -38,7 +48,9 @@ public class Device extends Item {
      * @param copyDevice The device to be copied.
      */
     Device(Device copyDevice) {
+        //call the super copy constructor
         super(copyDevice);
+        //set the rental cost to be the same as the copy devices
         setRentalCost(copyDevice.getRentalCost());
     }
 
@@ -79,7 +91,12 @@ public class Device extends Item {
     @Override
     public double getLateFees(double lateDays) {
         //calculate and return the late fee, using the ceil function on lateDays
-        return (2*Math.ceil(lateDays))+(0.10*getRentalCost());
+        //if there are any late days return
+        if (lateDays > 0) {
+            return (2*Math.ceil(lateDays))+(0.10*getRentalCost());
+        }
+        //otherwise only return 0.0
+        return 0.0;
     }
 
     /**
@@ -98,17 +115,17 @@ public class Device extends Item {
      */
     @Override
     public String toString() {
+        //adds to the implementation in Item class
         return super.toString()+"\n"+getClass().getSimpleName()+" Rental Cost: "+rentalCost;
     }
 
     /**
-     * Overrides default equals method in Object class.
+     * Overrides default equals method in Object class, currently same implementation as Item, not needed but good for flexibility.
      * @param obj The object to compare against current instance.
      * @return True if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
-        Device device = (Device) obj;
-        return (this == device);
+        return super.equals(obj);
     }
 }

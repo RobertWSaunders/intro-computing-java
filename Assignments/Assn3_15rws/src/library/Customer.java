@@ -21,7 +21,7 @@ public class Customer {
     //the id of the customer
     private int customerId;
     //the rentals the customer has
-    private ArrayList<Rental> customerRentals = new ArrayList<Rental>();
+    private ArrayList<Rental> customerRentals;
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -30,9 +30,23 @@ public class Customer {
     //define a incrementer for the item id, increments every time an item is created.
     private static int idIncrementer = -1;
 
+    /**
+     * Default constructor for the customer class.
+     */
+    Customer() {
+        //Set customer name to an unknown value
+        setName("Unknown");
+        //set the customer rentals to an empty list
+        setCustomerRentals(new ArrayList<Rental>());
+        //set the id of the customer
+        setCustomerId();
+    }
+
     Customer(String name) {
         //set the name of the customer
         setName(name);
+        //set the customer rentals to an empty list
+        setCustomerRentals(new ArrayList<Rental>());
         //set the customer id
         setCustomerId();
     }
@@ -193,6 +207,14 @@ public class Customer {
         return (this.getName() == customer.getName());
     }
 
+    //////////////////////
+    /* UTILITY METHODS */
+    ////////////////////
+
+    /**
+     * Makes the customers rentals represented as a string.
+     * @return The customers rentals as a string.
+     */
     public String stringCustomerRentals() {
         StringBuilder builder = new StringBuilder();
         builder.append("\n****************CUSTOMER RENTALS*****************\n");

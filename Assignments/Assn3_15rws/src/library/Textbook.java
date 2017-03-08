@@ -13,6 +13,14 @@ public class Textbook extends Book {
     /////////////////
 
     /**
+     * Default constructor for textbok class.
+     * Not needed as just calling super but here for consistency.
+     */
+    Textbook() {
+        super();
+    }
+
+    /**
      * Textbook constructor that has every attribute.
      * @param name The name of the textbook.
      * @param authors The authors of the textbook.
@@ -43,6 +51,7 @@ public class Textbook extends Book {
      */
     @Override
     public double getLateFees(double lateDays) {
+        //no need to check if late days is zero because multiplying
         //calculate and return the late fee, using the ceil function on lateDays
         return 1*Math.ceil(lateDays);
     }
@@ -73,7 +82,6 @@ public class Textbook extends Book {
      */
     @Override
     public boolean equals(Object obj) {
-        Textbook textbook = (Textbook) obj;
-        return (this == textbook);
+        return super.equals(obj);
     }
 }
