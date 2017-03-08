@@ -1,6 +1,7 @@
 /**
  * Rental is a class that represents a rental within the library system.
  * NOTE: In my version I have added a rentalDate and rentalExpectedReturnDate so I can see if item that is being rented is late.
+ * I have also added a rental id to distinguish between rentals.
  *
  * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
@@ -8,6 +9,7 @@
 
 package library;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -70,16 +72,18 @@ public class Rental {
      * @param copyRental The rental that is to be copied.
      */
     Rental(Rental copyRental) {
+        //check if passed copyRental is null
         if (copyRental == null) {
             System.out.print("Passing null object to copy, fatal error. [Rental --> Rental(Rental copyRental)]");
             System.exit(0);
         }
-        setRentalItem(copyRental.rentalItem);
+        //map copyRental values to the new rental instance
+        setRentalItem(copyRental.getRentalItem());
         setNumDaysLate(copyRental.getExpectedReturnDate());
-        setNumRentalDays(copyRental.numRentalDays);
-        setCustomerId(copyRental.customerId);
-        setRentalDate(copyRental.rentalDate);
-        setExpectedReturnDate(copyRental.expectedReturnDate);
+        setNumRentalDays(copyRental.getNumRentalDays());
+        setCustomerId(copyRental.getCustomerId());
+        setRentalDate(copyRental.getRentalDate());
+        setExpectedReturnDate(copyRental.getExpectedReturnDate());
         setRentalId();
     }
 
@@ -116,6 +120,7 @@ public class Rental {
      * @param expectedReturnDate The the day the item is to be returned.
      */
     public void setNumDaysLate(Date expectedReturnDate) {
+        //determines the number of days late and then sets it
         this.numDaysLate = determineNumberOfDaysLate(expectedReturnDate,getRentalDate());
     }
 
@@ -194,6 +199,10 @@ public class Rental {
         return expectedReturnDate;
     }
 
+    /**
+     * Gets the rental id for the rental.
+     * @return The rental id as an integer.
+     */
     public int getRentalId() {
         return rentalId;
     }
@@ -222,14 +231,14 @@ public class Rental {
     }
 
     /**
-     * Overrides default equals method in Object class.
+     * Overrides default equals method in Object class, compares rental identifiers.
      * @param obj The object to compare against current instance.
      * @return True if the objects are equal, false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
         Rental rental = (Rental)obj;
-        return (this == rental);
+        return (this.getRentalId() == rental.getRentalId());
     }
 
     ////////////////////////////
@@ -259,9 +268,11 @@ public class Rental {
      */
     public static double determineNumberOfDaysLate(Date expectedReturnDate, Date rentalDate) {
         double difference = (rentalDate.getTime() - expectedReturnDate.getTime()) / (1000 * 60 * 60 * 24);
+        //if the difference between the dates is negative then the rental is no late
         if (difference < 0.0) {
             return 0.0;
         }
+        //otherwise return the difference
         return difference;
     }
 }

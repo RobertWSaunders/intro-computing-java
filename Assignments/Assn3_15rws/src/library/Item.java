@@ -58,7 +58,7 @@ public abstract class Item {
             System.exit(0);
         }
         //set the name of the copy item to be that of the same as the copy item
-        setName(copyItem.name);
+        setName(copyItem.getName());
         //set the id of the copy item, note this is not copied, an item must have a unique id.
         setId();
     }

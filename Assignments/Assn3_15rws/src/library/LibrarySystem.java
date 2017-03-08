@@ -51,7 +51,7 @@ public class LibrarySystem {
             System.exit(0);
         }
         //set the rental list
-        setRentalList(copyLibrarySystem.rentalList);
+        setRentalList(copyLibrarySystem.getRentalList());
     }
 
     //////////////

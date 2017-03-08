@@ -58,8 +58,8 @@ public class Customer {
             //exit the program as a result of a fatal error.
             System.exit(0);
         }
-        setName(copyCustomer.name);
-        setCustomerRentals(copyCustomer.customerRentals);
+        setName(copyCustomer.getName());
+        setCustomerRentals(copyCustomer.getCustomerRentals());
         setCustomerId();
     }
 

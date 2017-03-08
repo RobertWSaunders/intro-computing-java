@@ -13,7 +13,7 @@ public class Textbook extends Book {
     /////////////////
 
     /**
-     * Default constructor for textbok class.
+     * Default constructor for textbook class.
      * Not needed as just calling super but here for consistency.
      */
     Textbook() {
