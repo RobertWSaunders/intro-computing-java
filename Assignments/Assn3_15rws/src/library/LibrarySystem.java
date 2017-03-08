@@ -16,22 +16,53 @@ public class LibrarySystem {
     ////////////////////
 
     //create a list to store rentals
-    ArrayList rentalList = new ArrayList();
+    private ArrayList<Rental> rentalList;
 
     ///////////////////////////
     /* SYSTEM LOGIC METHODS */
     /////////////////////////
 
-    public void addTransaction(Item item) {
-        rentalList.add(item);
+    /**
+     * Adds a rental to the library systems rental list.
+     * @param rental The rental to be added to the rental list.
+     */
+    public void addTransaction(Rental rental) {
+        //add the rental to the rental list
+        rentalList.add(rental);
     }
 
+    /**
+     * Gets the total late fees that are owed to the library system.
+     * @return The total late fees that are owed to the library system as a double.
+     */
     public double getTotalLateFees() {
-        return 0.0;
+        //define the late fees double
+        double totalLateFees = 0.0;
+        //iterate through the library systems rental list
+        for (Rental rental : rentalList) {
+            //add to the total late fees
+            totalLateFees += rental.getRentalItem().getLateFees(rental.getNumDaysLate());
+        }
+        //return the total late fees
+        return totalLateFees;
     }
 
+    /**
+     * Gets the total rental costs of the items being rented in the library system.
+     * @return The total rental costs of items being rented in the library system as a double.
+     * NOTE: Only devices can have a rental cost.
+     */
     public double getTotalRentalCosts() {
-        return 0.0;
+        //define the total rental costs
+        double totalRentalCosts = 0.0;
+        for (Rental rental : rentalList) {
+            //only devices have a rental cost so check if the item is an instance of Device
+            if (rental.getRentalItem() instanceof Device) {
+                totalRentalCosts += ((Device) rental.getRentalItem()).getRentalCost();
+            }
+        }
+        //return the total rental costs
+        return totalRentalCosts;
     }
 
     /////////////////////////////
@@ -39,13 +70,16 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
-        //create a library system
+        //create a library system to rent from
         LibrarySystem librarySystem = new LibrarySystem();
-
         //create a customer who will be renting things
         Customer customer = new Customer();
         //the customer wants to rent a book
-        //create a book
-
+        //create a book that will be rented by the customer
+        Book book = new Book();
+        //create the rental for the book
+        Rental rental = new Rental();
+        //let the customer rent the book
+        customer.rent(rental,librarySystem);
     }
 }

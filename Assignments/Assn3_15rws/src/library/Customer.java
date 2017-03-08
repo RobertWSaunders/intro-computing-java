@@ -21,7 +21,7 @@ public class Customer {
     //the id of the customer
     private int customerId;
     //the rentals the customer has
-    private ArrayList customerRentals;
+    private ArrayList<Rental> customerRentals;
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -31,8 +31,11 @@ public class Customer {
     private static int idIncrementer = -1;
 
     Customer(String name, ArrayList customerRentals) {
+        //set the name of the customer
         setName(name);
+        //set the customer id
         setCustomerId();
+        //set the customer rentals
         setCustomerRentals(customerRentals);
     }
 
@@ -103,6 +106,39 @@ public class Customer {
         return customerRentals;
     }
 
+
+    ///////////////////////
+    /* INSTANCE METHODS */
+    /////////////////////
+
+    /**
+     * Will rent an item given the rental object and the library system being rented from.
+     * Adds rental to the library systems rental list and the customers rental list.
+     * @param rental The rental being rented.
+     * @param librarySystem The library system from which the item is being rented from.
+     */
+    public void rent(Rental rental, LibrarySystem librarySystem) {
+        //add the rental to the library system
+        librarySystem.addTransaction(rental);
+        //add the rental to the customers rentals
+        addRentalToCustomerRentals(rental);
+    }
+
+    public double getCustomersLateFees() {
+        double lateFee = 0.0;
+        for (Rental rental : customerRentals) {
+            lateFee += rental.getRentalItem().getLateFees(rental.getNumDaysLate());
+        }
+    }
+
+    /**
+     * Adds a rental to the customers rental list.
+     * @param rental The item to be added to the customers rental list.
+     */
+    public void addRentalToCustomerRentals(Rental rental) {
+        //add to the customer rentals ArrayList
+        customerRentals.add(rental);
+    }
 
     ////////////////
     /* OVERRIDES */
