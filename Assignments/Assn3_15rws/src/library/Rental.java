@@ -172,6 +172,26 @@ public class Rental {
         return expectedReturnDate;
     }
 
+    //////////////
+    /* GETTERS */
+    ////////////
+
+    @Override
+    public Magazine clone() {
+        return new Magazine(this);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+" [Magazine]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Magazine magazine = (Magazine) obj;
+        return (this == magazine);
+    }
+
     ////////////////////////////
     /* CLASS UTILITY METHODS */
     //////////////////////////

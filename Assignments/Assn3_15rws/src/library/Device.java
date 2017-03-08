@@ -79,22 +79,19 @@ public class Device extends Item {
         return (2*Math.ceil(lateDays))+(0.10*getRentalCost());
     }
 
-    /**
-     * Overridden version of Object's clone method, improved for Device.
-     * @return
-     */
     @Override
     public Device clone() {
-        return this(this);
+        return new Device(this);
     }
 
     @Override
     public String toString() {
-        return "Hello From Device";
+        return super.toString()+" - Rental Cost: "+rentalCost;
     }
 
-    Override
-    public boolean equals(Device device) {
+    @Override
+    public boolean equals(Object obj) {
+        Device device = (Device) obj;
         return (this == device);
     }
 }

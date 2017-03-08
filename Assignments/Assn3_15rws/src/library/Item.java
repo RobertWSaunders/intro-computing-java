@@ -105,4 +105,19 @@ public abstract class Item {
      */
     public abstract double getLateFees(double lateDays);
 
+    ////////////////
+    /* OVERRIDES */
+    //////////////
+
+
+    @Override
+    public String toString() {
+        return name+" "+"["+id+"]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Item item = (Item) obj;
+        return (this == item);
+    }
 }

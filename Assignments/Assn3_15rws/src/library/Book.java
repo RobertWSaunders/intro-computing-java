@@ -120,4 +120,20 @@ public class Book extends Item {
         //calculate and return the late fee, using the ceil function on lateDays
         return 0.5*Math.ceil(lateDays);
     }
+
+    @Override
+    public Book clone() {
+        return new Book(this);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+" [Book]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Book book = (Book) obj;
+        return (this == book);
+    }
 }

@@ -49,4 +49,20 @@ public class Adaptor extends Device {
         return (2.5*Math.ceil(lateDays))+(0.15*getRentalCost());
     }
 
+    @Override
+    public Adaptor clone() {
+        return new Adaptor(this);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+" [Adapter]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Adaptor adaptor = (Adaptor) obj;
+        return (this == adaptor);
+    }
+
 }

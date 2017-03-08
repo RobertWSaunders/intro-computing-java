@@ -46,4 +46,20 @@ public class Textbook extends Book {
         //calculate and return the late fee, using the ceil function on lateDays
         return 1*Math.ceil(lateDays);
     }
+
+    @Override
+    public Textbook clone() {
+        return new Textbook(this);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+" [Textbook]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Textbook textbook = (Textbook) obj;
+        return (this == textbook);
+    }
 }
