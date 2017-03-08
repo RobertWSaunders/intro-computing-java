@@ -53,14 +53,6 @@ public abstract class Item {
         setId();
     }
 
-    /**
-     * Default constructor for an item.
-     */
-    Item() {
-         setName("Unknown");
-         setId();
-    }
-
     //////////////
     /* SETTERS */
     ////////////

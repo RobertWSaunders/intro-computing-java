@@ -41,5 +41,10 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
+        //create a customer who will be renting things
+        Customer customer = new Customer();
+        //the customer wants to rent a book
+        //create a book
+
     }
 }

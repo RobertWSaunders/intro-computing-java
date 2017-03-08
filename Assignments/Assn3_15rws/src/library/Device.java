@@ -78,4 +78,23 @@ public class Device extends Item {
         //calculate and return the late fee, using the ceil function on lateDays
         return (2*Math.ceil(lateDays))+(0.10*getRentalCost());
     }
+
+    /**
+     * Overridden version of Object's clone method, improved for Device.
+     * @return
+     */
+    @Override
+    public Device clone() {
+        return this(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Hello From Device";
+    }
+
+    Override
+    public boolean equals(Device device) {
+        return (this == device);
+    }
 }
