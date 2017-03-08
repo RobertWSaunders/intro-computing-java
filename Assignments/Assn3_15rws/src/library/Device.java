@@ -79,16 +79,30 @@ public class Device extends Item {
         return (2*Math.ceil(lateDays))+(0.10*getRentalCost());
     }
 
+    /**
+     * Overrides default clone method in Object class.
+     * @return Returns a clone of current instance object.
+     * NOTE: Using copy constructor to create a clone.
+     */
     @Override
     public Device clone() {
         return new Device(this);
     }
 
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the Device object.
+     */
     @Override
     public String toString() {
         return super.toString()+" - Rental Cost: "+rentalCost;
     }
 
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         Device device = (Device) obj;

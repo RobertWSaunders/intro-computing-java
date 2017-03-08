@@ -172,24 +172,38 @@ public class Rental {
         return expectedReturnDate;
     }
 
+    ////////////////
+    /* OVERRIDES */
     //////////////
-    /* GETTERS */
-    ////////////
 
+    /**
+     * Overrides default clone method in Object class.
+     * @return Returns a clone of current instance object.
+     * NOTE: Using copy constructor to create a clone.
+     */
     @Override
-    public Magazine clone() {
-        return new Magazine(this);
+    public Rental clone() {
+        return new Rental(this);
     }
 
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the Rental object.
+     */
     @Override
     public String toString() {
-        return super.toString()+" [Magazine]";
+        return super.toString()+" [Rental]";
     }
 
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
-        Magazine magazine = (Magazine) obj;
-        return (this == magazine);
+        Rental rental = (Rental)obj;
+        return (this == rental);
     }
 
     ////////////////////////////

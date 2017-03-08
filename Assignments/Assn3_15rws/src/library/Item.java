@@ -109,12 +109,20 @@ public abstract class Item {
     /* OVERRIDES */
     //////////////
 
-
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the Item object.
+     */
     @Override
     public String toString() {
         return name+" "+"["+id+"]";
     }
 
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         Item item = (Item) obj;

@@ -47,4 +47,34 @@ public class Laptop extends Device {
         //calculate and return the late fee, using the ceil function on lateDays
         return (5*Math.ceil(lateDays))+(0.20*getRentalCost());
     }
+
+    /**
+     * Overrides default clone method in Object class.
+     * @return Returns a clone of current instance object.
+     * NOTE: Using copy constructor to create a clone.
+     */
+    @Override
+    public Laptop clone() {
+        return new Laptop(this);
+    }
+
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the Laptop object.
+     */
+    @Override
+    public String toString() {
+        return super.toString()+" [Laptop]";
+    }
+
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        Laptop laptop = (Laptop) obj;
+        return (this == laptop);
+    }
 }

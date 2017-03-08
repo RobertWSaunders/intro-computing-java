@@ -121,16 +121,30 @@ public class Book extends Item {
         return 0.5*Math.ceil(lateDays);
     }
 
+    /**
+     * Overrides default clone method in Object class.
+     * @return Returns a clone of current instance object.
+     * NOTE: Using copy constructor to create a clone.
+     */
     @Override
     public Book clone() {
         return new Book(this);
     }
 
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the Book object.
+     */
     @Override
     public String toString() {
         return super.toString()+" [Book]";
     }
 
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         Book book = (Book) obj;

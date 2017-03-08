@@ -1,5 +1,5 @@
 /**
- * Item is an abstract class that provides the underlining structure for all other objects in the library system.
+ * LibrarySystem is a class represents the entire library system.
  *
  * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
@@ -7,8 +7,6 @@
 
 package library;
 
-//import the array list class
-//essentially creates a mutable array
 import java.util.ArrayList;
 
 public class LibrarySystem {
@@ -24,8 +22,8 @@ public class LibrarySystem {
     /* SYSTEM LOGIC METHODS */
     /////////////////////////
 
-    public void addTransaction() {
-
+    public void addTransaction(Item item) {
+        rentalList.add(item);
     }
 
     public double getTotalLateFees() {
@@ -41,6 +39,9 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
+        //create a library system
+        LibrarySystem librarySystem = new LibrarySystem();
+
         //create a customer who will be renting things
         Customer customer = new Customer();
         //the customer wants to rent a book
