@@ -34,8 +34,6 @@ public class Customer {
 
     }
 
-
-
     //////////////
     /* SETTERS */
     ////////////
@@ -73,6 +71,40 @@ public class Customer {
      */
     public String getName() {
         return name;
+    }
+
+    ////////////////
+    /* OVERRIDES */
+    //////////////
+
+    /**
+     * Overrides default clone method in Object class.
+     * @return Returns a clone of current instance object.
+     * NOTE: Using copy constructor to create a clone.
+     */
+    @Override
+    public Customer clone() {
+        return new Customer(this);
+    }
+
+    /**
+     * Overrides default toString method in Object class.
+     * @return A string to represent the Device object.
+     */
+    @Override
+    public String toString() {
+        return name+" "+"["+customerId+"]";
+    }
+
+    /**
+     * Overrides default equals method in Object class.
+     * @param obj The object to compare against current instance.
+     * @return True if the objects are equal, false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        Customer customer = (Customer) obj;
+        return (this == customer);
     }
 
 }
