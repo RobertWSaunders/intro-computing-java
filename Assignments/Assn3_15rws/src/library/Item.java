@@ -39,10 +39,16 @@ public abstract class Item {
      * General constructor that sets each class attribute.
      */
     Item(String name) {
-        //set the name of the item
-        setName(name);
-        //set the id of the item
-        setId();
+        //check if the name is null or empty
+        if (!(name == null && name.isEmpty())) {
+            //set the name of the item
+            setName(name);
+            //set the id of the item
+            setId();
+        }
+        else {
+            System.out.println("Cannot create an item with an empty name!");
+        }
     }
 
     /**
