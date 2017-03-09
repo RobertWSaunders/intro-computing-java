@@ -48,6 +48,8 @@ public abstract class Item {
         }
         else {
             System.out.println("Cannot create an item with an empty name!");
+            //exit the program as a result of a fatal error.
+            System.exit(0);
         }
     }
 
