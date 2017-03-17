@@ -13,11 +13,15 @@ import java.util.Date;
 
 public class LibrarySystem {
 
-    //////////////////////
-    /* CLASS VARIABLES */
-    ////////////////////
+    /////////////////////////
+    /* INSTANCE VARIABLES */
+    ///////////////////////
 
-    //create a list to store rentals
+    //create a list to store all unique items in list
+    private ArrayList<Item> itemList;
+    //create a list to store all customers in library system
+    private ArrayList<Customer> customerList;
+    //create a list to store rentals, i.e. rental transactions
     private ArrayList<Rental> rentalList;
 
     ///////////////////

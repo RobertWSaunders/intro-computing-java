@@ -29,8 +29,8 @@ public class Rental {
     /* CLASS ATTRIBUTES */
     /////////////////////
 
-    //the rental identifier
-    private int rentalId;
+    //the rental identifier, i.e. transaction id
+    private int id;
     //the item being rented
     private Item rentalItem;
     //the customer that is renting the item

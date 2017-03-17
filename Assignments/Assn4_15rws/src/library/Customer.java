@@ -39,7 +39,7 @@ public class Customer {
     //the name of the customer
     private String name;
     //the id of the customer
-    private int customerId;
+    private int id;
     //the rentals the customer has
     private ArrayList<Rental> customerRentals;
     //define an attribute that declares the type of customer

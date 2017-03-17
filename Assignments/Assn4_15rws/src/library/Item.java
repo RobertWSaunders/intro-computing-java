@@ -31,8 +31,8 @@ public abstract class Item {
     Item() {
         //set the name to an unknown value
         setName("Unknown");
-        //set the id
-        setId();
+        //set the id to be that of the incremented version of idIncrementer
+        incrementAndSetNewId();
     }
 
     /**
@@ -43,8 +43,8 @@ public abstract class Item {
         if (!(name == null && name.isEmpty())) {
             //set the name of the item
             setName(name);
-            //set the id of the item
-            setId();
+            //set the id to be that of the incremented version of idIncrementer
+            incrementAndSetNewId();
         }
         else {
             System.out.println("Cannot create an item with an empty name!");
@@ -76,8 +76,8 @@ public abstract class Item {
         }
         //set the name of the copy item to be that of the same as the copy item
         setName(copyItem.getName());
-        //set the id of the copy item, note this is not copied, an item must have a unique id.
-        setId();
+        //set the id to be that of the incremented version of idIncrementer
+        incrementAndSetNewId();
     }
 
     //////////////
@@ -93,10 +93,11 @@ public abstract class Item {
     }
 
     /**
-     * Sets the id of the item by incrementing the idIncrementer variable.
+     * Set the id of the item.
+     * @param id The id to be set.
      */
-    public void setId() {
-        this.id = ++idIncrementer;
+    public void setId(int id) {
+        this.id = id;
     }
 
     //////////////
@@ -157,4 +158,17 @@ public abstract class Item {
         Item item = (Item) obj;
         return (this.getId() == item.getId());
     }
+
+    ////////////////////////////
+    /* CLASS UTILITY METHODS */
+    //////////////////////////
+
+    /**
+     * Increments the idIncrementer class variable and sets the id for a new item when no id is given.
+     */
+    private void incrementAndSetNewId() {
+        //set the id to the incremented version of idIncrementer
+        this.id = ++idIncrementer;
+    }
+
 }
