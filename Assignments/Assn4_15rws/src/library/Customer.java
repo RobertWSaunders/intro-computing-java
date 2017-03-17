@@ -19,14 +19,17 @@ public class Customer {
     /**
      * Define the enum for the different type of customers.
      */
-    enum customerType {
+    enum type {
         student,
         employee
     }
 
-    enum departments {
-        technology,
-
+    /**
+     * Define the enum for the different type of departments.
+     */
+    enum department {
+        none,
+        technology
     }
 
     ///////////////////////
@@ -37,11 +40,12 @@ public class Customer {
     private String name;
     //the id of the customer
     private int customerId;
-    9
     //the rentals the customer has
     private ArrayList<Rental> customerRentals;
     //define an attribute that declares the type of customer
-    private customerType type;
+    private type customerType;
+    //define an attribute that declares the customers department
+    private department customerDepartment;
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -62,6 +66,10 @@ public class Customer {
         setCustomerId();
     }
 
+    /**
+     * Constructor for the customer class that takes a name string as a parameter.
+     * @param name The name of the customer to be set.
+     */
     Customer(String name) {
         //set the name of the customer
         setName(name);
@@ -71,6 +79,10 @@ public class Customer {
         setCustomerId();
     }
 
+    /**
+     * Copy constructor for the customer class.
+     * @param copyCustomer The customer to be copied.
+     */
     Customer(Customer copyCustomer) {
         if (copyCustomer == null) {
             //let the user know the error and tell them where it is in the code

@@ -21,6 +21,14 @@ public class Textbook extends Book {
     }
 
     /**
+     * Constructor that takes an id.
+     * @param id The id to be set as the textbook id.
+     */
+    Textbook(int id) {
+
+    }
+
+    /**
      * Textbook constructor that has every attribute.
      * @param name The name of the textbook.
      * @param authors The authors of the textbook.

@@ -22,6 +22,14 @@ public class Magazine extends Book {
     }
 
     /**
+     * Constructor that takes an id.
+     * @param id The id to be set as the magazine id.
+     */
+    Magazine(int id) {
+
+    }
+
+    /**
      * Magazine constructor that has every attribute.
      * @param name The name of the magazine.
      * @param authors The authors of the magazine.

@@ -54,6 +54,15 @@ public abstract class Item {
     }
 
     /**
+     * Constructor that takes an id.
+     * @param id The id to be set as the item id.
+     */
+    Item(int id) {
+
+    }
+
+
+    /**
      * Copy constructor, takes a item and copy it to new item.
      * @param copyItem The item that is to be copied.
      */
@@ -70,7 +79,6 @@ public abstract class Item {
         //set the id of the copy item, note this is not copied, an item must have a unique id.
         setId();
     }
-
 
     //////////////
     /* SETTERS */

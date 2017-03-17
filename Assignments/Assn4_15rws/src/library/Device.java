@@ -44,6 +44,14 @@ public class Device extends Item {
     }
 
     /**
+     * Constructor that takes an id.
+     * @param id The id to be set as the device id.
+     */
+    Device(int id) {
+
+    }
+
+    /**
      * Copy constructor for the device class.
      * @param copyDevice The device to be copied.
      */

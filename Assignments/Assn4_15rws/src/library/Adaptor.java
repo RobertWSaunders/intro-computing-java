@@ -22,6 +22,14 @@ public class Adaptor extends Device {
     }
 
     /**
+     * Constructor that takes an id.
+     * @param id The id to be set as the adaptor id.
+     */
+    Adaptor(int id) {
+
+    }
+
+    /**
      * Adaptor constructor that has every attribute.
      * @param name The name of the adaptor.
      * @param rentalCost The rental cost of the adaptor.

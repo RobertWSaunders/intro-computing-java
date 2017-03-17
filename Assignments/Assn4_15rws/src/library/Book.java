@@ -56,6 +56,14 @@ public class Book extends Item {
     }
 
     /**
+     * Constructor that takes an id.
+     * @param id The id to be set as the book id.
+     */
+    Book(int id) {
+
+    }
+
+    /**
      * Copy constructor for the book class.
      * @param copyBook The book to be copied.
      */
