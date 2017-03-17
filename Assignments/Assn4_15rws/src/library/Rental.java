@@ -1,7 +1,5 @@
 /**
  * Rental is a class that represents a rental within the library system.
- * NOTE: In my version I have added a rentalDate and rentalExpectedReturnDate so I can see if item that is being rented is late.
- * I have also added a rental id to distinguish between rentals.
  *
  * @author Robert Saunders (NetID: 15rws, Student #: 10194030)
  * @version 1.0.0
@@ -9,32 +7,41 @@
 
 package library;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 
 public class Rental {
 
+    //////////////////
+    /* DEFINITIONS */
+    ////////////////
+
+    /**
+     * Define the enum for the different statuses a rental can be in.
+     */
+    enum rentalStatus {
+        active, //the rental transaction is created and the item is with the customer
+        late, //the item is not returned by the estimated return Date/Time
+        closed //the rental transaction is closed and the item is returned
+    }
+
     ///////////////////////
     /* CLASS ATTRIBUTES */
     /////////////////////
 
+    //the rental identifier
+    private int rentalId;
     //the item being rented
     private Item rentalItem;
-    //the customer id that is renting the item
-    private int customerId;
-    //the number of rental days
-    private int numRentalDays;
-    //the number of days the rental late
-    private double numDaysLate;
-
-    //NOTE: Extensions to assignment
-    //makes sense to have a rental id
-    private int rentalId;
+    //the customer that is renting the item
+    private Customer customer;
     //date at which the rental occurred
     private Date rentalDate;
     //the expected return date
     private Date expectedReturnDate;
+    //the actual return date
+    private Date actualReturnDate;
+
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -207,6 +214,30 @@ public class Rental {
         return rentalId;
     }
 
+    /**
+     * Calculates the late fee based on the rental dates.
+     * @return The late fee for the rental as a double.
+     */
+    public double getLateFee() {
+
+    }
+
+    /**
+     * The rental cost for the rental, without late fee.
+     * @return The rental cost of the rental, as a double.
+     */
+    public double getRentalCost() {
+
+    }
+
+    /**
+     * The total amount to be paid by the customer, including any discounts.
+     * @return The total amount to be paid by the customer including any discounts as a double.
+     */
+    public double getTotalToBePaid() {
+
+    }
+
     ////////////////
     /* OVERRIDES */
     //////////////
@@ -239,6 +270,25 @@ public class Rental {
     public boolean equals(Object obj) {
         Rental rental = (Rental)obj;
         return (this.getRentalId() == rental.getRentalId());
+    }
+
+    //////////////////////////////
+    /* STATUS MODIFIER METHODS */
+    ////////////////////////////
+
+    /**
+     * Checks to see if a item is late, if it is changes the status.
+     * @return True if the item is late, false otherwise.
+     */
+    public boolean isLate() {
+        return true;
+    }
+
+    /**
+     * Sets the return date of a rental and sets the rental status to closed.
+     */
+    public void itemReturned() {
+
     }
 
     ////////////////////////////
