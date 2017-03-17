@@ -71,6 +71,7 @@ public abstract class Item {
         setId();
     }
 
+
     //////////////
     /* SETTERS */
     ////////////

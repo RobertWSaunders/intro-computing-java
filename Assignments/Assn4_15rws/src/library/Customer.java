@@ -12,6 +12,14 @@ import java.util.ArrayList;
 
 public class Customer {
 
+    /**
+     * Define the enum for the different type of customers.
+     */
+    enum customerType {
+        student,
+        employee
+    }
+
     ///////////////////////
     /* CLASS ATTRIBUTES */
     /////////////////////
@@ -22,6 +30,8 @@ public class Customer {
     private int customerId;
     //the rentals the customer has
     private ArrayList<Rental> customerRentals;
+    //define an attribute that declares the type of student
+    private customerType type = customerType.student;
 
     ///////////////////
     /* CONSTRUCTORS */
