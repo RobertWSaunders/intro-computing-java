@@ -8,6 +8,7 @@
 
 package library;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,19 +30,31 @@ public class LibrarySystem {
     /////////////////
 
     /**
-     * Default constructor for the library system, initializes a empty rental list.
+     * Default constructor for the library system, initializes a empty lists.
      */
     LibrarySystem() {
+        //set the lists in the system to new empty collections
+        //set the rental list
         setRentalList(new ArrayList<Rental>());
+        //set the customer list
+        setCustomerList(new ArrayList<Customer>());
+        //set the item list
+        setItemList(new ArrayList<Item>());
     }
 
     /**
-     * Constructor to set a rental list.
+     * Constructor to set all of the different lists in the library system.
      * @param rentalList The rental list to be set.
+     * @param customerList The customer list to be set.
+     * @param itemList The item list to be set.
      */
-    LibrarySystem(ArrayList rentalList) {
+    LibrarySystem(ArrayList<Rental> rentalList, ArrayList<Customer> customerList, ArrayList<Item> itemList) {
         //set the rental list
         setRentalList(rentalList);
+        //set the customer list
+        setCustomerList(customerList);
+        //set the item list
+        setItemList(itemList);
     }
 
     /**
@@ -56,6 +69,10 @@ public class LibrarySystem {
         }
         //set the rental list
         setRentalList(copyLibrarySystem.getRentalList());
+        //set the customer list
+        setCustomerList(copyLibrarySystem.getCustomerList());
+        //set the item list
+        setItemList(copyLibrarySystem.getItemList());
     }
 
     //////////////
@@ -70,6 +87,22 @@ public class LibrarySystem {
         this.rentalList = rentalList;
     }
 
+    /**
+     * Sets the customer list to the passed customer list.
+     * @param customerList The customer list to be set.
+     */
+    public void setCustomerList(ArrayList<Customer> customerList) {
+        this.customerList = customerList;
+    }
+
+    /**
+     * Sets the item list to the passed item list.
+     * @param itemList The item list to be set.
+     */
+    public void setItemList(ArrayList<Item> itemList) {
+        this.itemList = itemList;
+    }
+
     //////////////
     /* GETTERS */
     ////////////
@@ -80,6 +113,22 @@ public class LibrarySystem {
      */
     public ArrayList<Rental> getRentalList() {
         return rentalList;
+    }
+
+    /**
+     * Gets the customer list for the system.
+     * @return The customer list for the system.
+     */
+    public ArrayList<Customer> getCustomerList() {
+        return customerList;
+    }
+
+    /**
+     * Gets the item list for the system.
+     * @return The item list for the sytem.
+     */
+    public ArrayList<Item> getItemList() {
+        return itemList;
     }
 
     ///////////////////////////
