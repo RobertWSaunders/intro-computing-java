@@ -41,7 +41,8 @@ public class Rental {
     private Date expectedReturnDate;
     //the actual return date
     private Date actualReturnDate;
-
+    //the status of the rental
+    private rentalStatus status;
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -52,26 +53,49 @@ public class Rental {
 
     /**
      * Rental constructor that has every attribute.
+     * NOTE: This is a useful constructor if a rental needs to be entered into system after it has happened.
      * @param rentalItem The item that is being rented.
-     * @param customerId The identifier of the customer renting the item.
-     * @param numRentalDays The number of days the item is to be rented for.
-     * @param rentalDate The date the rental occurred.
+     * @param customer The customer renting the item.
+     * @param expectedReturnDate The date that the item is expected to be returned.
+     * @param actualReturnDate The date the item was actually returned.
+     * @param status The status of the rental.
      */
-    Rental(Item rentalItem, int customerId, int numRentalDays, Date rentalDate) {
+    Rental(Item rentalItem, Customer customer, Date rentalDate, Date expectedReturnDate, Date actualReturnDate, rentalStatus status) {
         //set the item that is being rented
         setRentalItem(rentalItem);
-        //set the id of the customer
-        setCustomerId(customerId);
-        //set the number of rental days
-        setNumRentalDays(numRentalDays);
+        //set the customer
+        setCustomer(customer);
         //set the date at which the rental occurred
         setRentalDate(rentalDate);
-        //set and determine the expected return date of the rental
-        setExpectedReturnDate(determineExpectedReturnDate(rentalDate,numRentalDays));
-        //set and determine the number days the rental is late
-        //note this will always most likely be zero but give flexibility to create a rental that may have not been logged at the time of rental
-        setNumDaysLate(getExpectedReturnDate());
-        setRentalId();
+        //set the expected return date
+        setExpectedReturnDate(expectedReturnDate);
+        //set the actual return date
+        setActualReturnDate(actualReturnDate);
+        //set the rental status
+        setStatus(status);
+        //set the rental id
+        incrementAndSetNewId();
+    }
+
+    /**
+     * General constructor for a rental, will be used most.
+     * NOTE: This one automatically sets status to active and does not set actual return date.
+     * @param rentalItem The item being rented.
+     * @param customer The customer renting the item.
+     * @param rentalDate The date the item was rented.
+     * @param expectedReturnDate The date the item is expected to be returned.
+     */
+    Rental(Item rentalItem, Customer customer, Date rentalDate, Date expectedReturnDate) {
+        //set the item that is being rented
+        setRentalItem(rentalItem);
+        //set the customer
+        setCustomer(customer);
+        //set the date at which the rental occurred
+        setRentalDate(rentalDate);
+        //set the expected return date
+        setExpectedReturnDate(expectedReturnDate);
+        //set the rental id
+        incrementAndSetNewId();
     }
 
     /**
@@ -85,18 +109,31 @@ public class Rental {
             System.exit(0);
         }
         //map copyRental values to the new rental instance
+        //set the rental item
         setRentalItem(copyRental.getRentalItem());
-        setNumDaysLate(copyRental.getExpectedReturnDate());
-        setNumRentalDays(copyRental.getNumRentalDays());
-        setCustomerId(copyRental.getCustomerId());
+        //set the customer
+        setCustomer(copyRental.getCustomer());
+        //set the rental date
         setRentalDate(copyRental.getRentalDate());
+        //set the expected return date
         setExpectedReturnDate(copyRental.getExpectedReturnDate());
-        setRentalId();
+        //set the actual return date
+        setActualReturnDate(copyRental.getActualReturnDate());
+        //set the rental id, not copied, must be unique
+        incrementAndSetNewId();
     }
 
     //////////////
     /* SETTERS */
     ////////////
+
+    /**
+     * Sets the id of an item.
+     * @param id The id to be set.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * Sets the rental item.
@@ -107,28 +144,11 @@ public class Rental {
     }
 
     /**
-     * Sets the customer id.
-     * @param id The id of the customer renting an item.
+     * Sets the customer.
+     * @param customer The customer renting an item.
      */
-    public void setCustomerId(int id) {
-        this.customerId = id;
-    }
-
-    /**
-     * Sets the number of rental days for the item being rented.
-     * @param numRentalDays The number of days the item is to be rented for.
-     */
-    public void setNumRentalDays(int numRentalDays) {
-        this.numRentalDays = numRentalDays;
-    }
-
-    /**
-     * Sets the number of days the item is late base on its rental date and expected return date.
-     * @param expectedReturnDate The the day the item is to be returned.
-     */
-    public void setNumDaysLate(Date expectedReturnDate) {
-        //determines the number of days late and then sets it
-        this.numDaysLate = determineNumberOfDaysLate(expectedReturnDate,getRentalDate());
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     /**
@@ -148,15 +168,44 @@ public class Rental {
     }
 
     /**
-     * Sets the id of the rental by incrementing the idIncrementer variable.
+     * Sets the actual return date of a rental.
+     * @param actualReturnDate The actual return date of a rental.
      */
-    public void setRentalId() {
-        this.rentalId = ++idIncrementer;
+    public void setActualReturnDate(Date actualReturnDate) {
+        this.actualReturnDate = actualReturnDate;
+    }
+
+    /**
+     * Sets the status of the rental.
+     * @param status The rental status to be set.
+     */
+    public void setStatus(rentalStatus status) {
+        this.status = status;
+    }
+
+    //******************//
+    /* SPECIAL SETTER */
+    //*****************//
+
+    /**
+     * Increments the idIncrementer class variable and sets the id for a new rental when no id is given.
+     */
+    private void incrementAndSetNewId() {
+        //set the id to the incremented version of idIncrementer
+        this.id = ++idIncrementer;
     }
 
     //////////////
     /* GETTERS */
     ////////////
+
+    /**
+     * Gets the id for the rental.
+     * @return The id as an integer.
+     */
+    public int id() {
+        return id;
+    }
 
     /**
      * Gets the item that is being rented.
@@ -167,27 +216,11 @@ public class Rental {
     }
 
     /**
-     * Gets the customer id of the customer renting the item.
-     * @return The identifier of the customer.
+     * Gets the customer renting the item.
+     * @return The customer renting the item.
      */
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    /**
-     * Gets the number of rental days.
-     * @return The number of rental days.
-     */
-    public int getNumRentalDays() {
-        return numRentalDays;
-    }
-
-    /**
-     * Gets the number of days the item is late.
-     * @return The number of days the item late.
-     */
-    public double getNumDaysLate() {
-        return numDaysLate;
+    public Customer getCustomer() {
+        return customer;
     }
 
     /**
@@ -207,12 +240,24 @@ public class Rental {
     }
 
     /**
-     * Gets the rental id for the rental.
-     * @return The rental id as an integer.
+     * Gets the actual return date of the rental.
+     * @return The actual return date of the rental.
      */
-    public int getRentalId() {
-        return rentalId;
+    public Date getActualReturnDate() {
+        return actualReturnDate;
     }
+
+    /**
+     * Gets the rental status of the rental.
+     * @return The rental status.
+     */
+    public rentalStatus getStatus() {
+        return status;
+    }
+
+    ////////////////////
+    /* LOGIC GETTERS */
+    //////////////////
 
     /**
      * Calculates the late fee based on the rental dates.
@@ -235,6 +280,26 @@ public class Rental {
      * @return The total amount to be paid by the customer including any discounts as a double.
      */
     public double getTotalToBePaid() {
+
+    }
+
+
+    //////////////////////////////
+    /* STATUS MODIFIER METHODS */
+    ////////////////////////////
+
+    /**
+     * Checks to see if a item is late, if it is changes the status.
+     * @return True if the item is late, false otherwise.
+     */
+    public boolean isLate() {
+        return true;
+    }
+
+    /**
+     * Sets the return date of a rental and sets the rental status to closed.
+     */
+    public void itemReturned() {
 
     }
 
@@ -270,25 +335,6 @@ public class Rental {
     public boolean equals(Object obj) {
         Rental rental = (Rental)obj;
         return (this.getRentalId() == rental.getRentalId());
-    }
-
-    //////////////////////////////
-    /* STATUS MODIFIER METHODS */
-    ////////////////////////////
-
-    /**
-     * Checks to see if a item is late, if it is changes the status.
-     * @return True if the item is late, false otherwise.
-     */
-    public boolean isLate() {
-        return true;
-    }
-
-    /**
-     * Sets the return date of a rental and sets the rental status to closed.
-     */
-    public void itemReturned() {
-
     }
 
     ////////////////////////////

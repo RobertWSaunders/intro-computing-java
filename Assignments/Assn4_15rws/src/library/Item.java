@@ -104,6 +104,18 @@ public abstract class Item {
         this.id = id;
     }
 
+    //******************//
+    /* SPECIAL SETTER */
+    //*****************//
+
+    /**
+     * Increments the idIncrementer class variable and sets the id for a new rental when no id is given.
+     */
+    private void incrementAndSetNewId() {
+        //set the id to the incremented version of idIncrementer
+        this.id = ++idIncrementer;
+    }
+
     //////////////
     /* GETTERS */
     ////////////
@@ -163,16 +175,5 @@ public abstract class Item {
         return (this.getId() == item.getId());
     }
 
-    ////////////////////////////
-    /* CLASS UTILITY METHODS */
-    //////////////////////////
-
-    /**
-     * Increments the idIncrementer class variable and sets the id for a new item when no id is given.
-     */
-    private void incrementAndSetNewId() {
-        //set the id to the incremented version of idIncrementer
-        this.id = ++idIncrementer;
-    }
 
 }
