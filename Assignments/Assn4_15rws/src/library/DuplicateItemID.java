@@ -5,4 +5,7 @@ package library;
  */
 public class DuplicateItemID extends Exception {
 
+    DuplicateItemID() {
+
+    }
 }

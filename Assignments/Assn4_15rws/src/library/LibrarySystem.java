@@ -86,6 +86,10 @@ public class LibrarySystem {
     /* SYSTEM LOGIC METHODS */
     /////////////////////////
 
+    public void addItem(Item item) {
+
+    }
+
     /**
      * Adds a rental to the library systems rental list.
      * @param rental The rental to be added to the rental list.
@@ -129,6 +133,38 @@ public class LibrarySystem {
         }
         //return the total rental costs
         return totalRentalCosts;
+    }
+
+    //////////////////////////////////////////
+    /* READING/WRITING/PRINTING FROM FILES */
+    ////////////////////////////////////////
+
+    public void readItems(String filename) {
+
+    }
+
+    public void readCustomers(String filename) {
+
+    }
+
+    public void writeItems(String filename) {
+
+    }
+
+    public void listTransactions() {
+
+    }
+
+    ////////////////////////
+    /* SEARCHING METHODS */
+    //////////////////////
+
+    public void searchTransaction() {
+
+    }
+
+    public void searchItem() {
+
     }
 
     ////////////////
@@ -191,109 +227,18 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
-        //create a library system to rent from
-        LibrarySystem librarySystem = new LibrarySystem();
-
-        //create a customer who will be renting things, this customer is named "Robert Saunders"
-        Customer customer = new Customer("Robert Saunders");
-
-        //the customer wants to rent a book
-        //create a book that will be rented by the customer
-        //create an array for the authors of the book
-        String[] authors = new String[1];
-        //Add the author to the array
-        authors[0] = "Orson Scott Card";
-        //create the instance of the book
-        Book book = new Book("Ender's Game",authors,"Tor Books",1985);
-
-        //create the rental for the book
-        //how many days is the book being rented?
-        int rentalDays = 5;
-        //create the rental date, for testing purposes it is being rented today
-        Date rentalDate = new Date();
-        //create the rental instance
-        Rental rental = new Rental(book,customer.getCustomerId(),rentalDays,rentalDate);
-
-        //now let the customer rent the book
-        customer.rent(rental,librarySystem);
-
-        //print the customer to the console
-        System.out.println(customer);
-        //print the customers rental to the console
-        System.out.println(rental);
-
-        //now the customer wants to rent a laptop
-        //create a laptop for the customer to rent, this MacBook Pro is $10 to rent
-        Laptop myLaptop = new Laptop("MacBook Pro",10.0);
-
-        //now create the rental for the customer
-        Rental laptopRental = new Rental(myLaptop,customer.getCustomerId(),rentalDays,rentalDate);
-
-        //now let the customer rent the laptop
-        customer.rent(laptopRental,librarySystem);
-        //now print the customers new laptop rental to the console
-        System.out.println(laptopRental);
-
-        //now lets print out all of the rentals in the library system
-        System.out.println(librarySystem.toString());
-
-        //now lets print out the customers rentals
-        System.out.println(customer.stringCustomerRentals());
-
-        //now lets print the customers total rental costs, should be 10.0 because the book has no rental cost
-        System.out.println("Customer Rental Costs: "+customer.getCustomersRentalCosts());
-
-        //now lets print the library systems total rental costs, should be 10.0 because only the laptop has a rental cost
-        System.out.println("Library System Rental Costs: "+librarySystem.getTotalRentalCosts());
-
-        //now lets print the customers total rental costs, should be 0 because no rental is late
-        System.out.println("Customer Rental Late Fees: "+customer.getCustomersLateFees());
-
-        //now lets print the library systems rental costs, should be 0 because no rentals are late
-        System.out.println("Library System Rental Costs: "+librarySystem.getTotalLateFees());
-
-        //now lets create another customer
-        Customer customer1 = new Customer("Johnny Appleseed");
-        //now lets print out the customers rentals
-        System.out.println(customer1.stringCustomerRentals());
-
-        //now the new customer wants to rent an adaptor
-        //lets create an adaptor, this adaptor costs $5
-        Adaptor adaptor = new Adaptor("MacBook Charger",5.0);
-        //now create the rental for the customer
-        Rental rental1 = new Rental(adaptor,customer1.getCustomerId(),rentalDays,rentalDate);
-        //now let the customer rent it
-        customer1.rent(rental1,librarySystem);
-
-        //now print the customers rentals
-        System.out.println(customer1.stringCustomerRentals());
-
-        //now lets print out all of the rentals in the library system
-        System.out.println(librarySystem.toString());
-
-        //now the customer wants another exact same adaptor
-        //lets create that adaptor using the copy constructor
-        Adaptor adaptor1 = new Adaptor(adaptor);
-        //now lets create another rental for the customer
-        Rental rental2 = new Rental(adaptor1,customer1.getCustomerId(),rentalDays,rentalDate);
-        //now let the customer rent it
-        customer1.rent(rental2,librarySystem);
-
-        //now print the customers rentals
-        System.out.println(customer1.stringCustomerRentals());
-
-        //now lets print out all of the rentals in the library system
-        System.out.println(librarySystem.toString());
-
-        //now the library wants to back up its system so it wants to make a clone
-        //lets clone it using the overridden method
-        LibrarySystem backupSystem = librarySystem.clone();
-        //lets print the backup system to show its the same
-        System.out.println(backupSystem.toString());
-
-        //now my manager suspects a customer is making a duplicate in the system, lets check if customer is equal to customer1
-        System.out.println("Are there duplicate customers? " +customer.equals(customer1));
-
-        //All done, hope I demonstrated enough. :)
+        /*
+        Load items from  a file stored on the file system
+        Load customers information from another file.
+        Add few new items
+        Create few transactions with old dates
+        Close the transactions and calculate the late and total cost.
+        Search for old transaction
+        Print all late transactions
+        Before the program ends:
+        Store all items back to file
+        Store all transactions back to the file
+         */
     }
+
 }

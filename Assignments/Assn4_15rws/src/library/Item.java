@@ -54,11 +54,15 @@ public abstract class Item {
     }
 
     /**
-     * Constructor that takes an id.
+     * Constructor that takes a id and a name.
      * @param id The id to be set as the item id.
+     * @param name The name to be set as the item name.
      */
-    Item(int id) {
-
+    Item(int id, String name) {
+        //set the id of the item
+        setId(id);
+        //set the name of the item
+        setName(name);
     }
 
 
