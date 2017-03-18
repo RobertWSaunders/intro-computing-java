@@ -126,8 +126,8 @@
       <file leaf-file-name="Rental.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/library/Rental.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="329" column="66" lean-forward="false" selection-start-line="329" selection-start-column="66" selection-end-line="329" selection-end-column="66" />
+            <state relative-caret-position="870">
+              <caret line="318" column="0" lean-forward="true" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -703,12 +703,12 @@
       <workItem from="1489713260336" duration="5102000" />
       <workItem from="1489865558549" duration="1675000" />
       <workItem from="1489877544124" duration="17000" />
-      <workItem from="1489877600494" duration="2301000" />
+      <workItem from="1489877600494" duration="3109000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9675000" />
+    <option name="totallyTimeSpent" value="10483000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-557" y="-1670" width="3008" height="1670" extended-state="6" />
@@ -1170,8 +1170,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/library/Rental.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="329" column="66" lean-forward="false" selection-start-line="329" selection-start-column="66" selection-end-line="329" selection-end-column="66" />
+        <state relative-caret-position="870">
+          <caret line="318" column="0" lean-forward="true" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />

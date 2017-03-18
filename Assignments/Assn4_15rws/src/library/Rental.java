@@ -291,16 +291,30 @@ public class Rental {
     /**
      * Checks to see if a item is late, if it is changes the status.
      * @return True if the item is late, false otherwise.
+     * NOTE: This is inclusive with rentalDate and expectedReturnDate.
      */
     public boolean isLate() {
-        return true;
+        //create a date that represents the current date
+        Date todayDate = new Date();
+        //check if today's date is between expected return date and rental date, inclusive.
+        if (!this.rentalDate.after(todayDate) && !this.expectedReturnDate.before(todayDate))
+            return false;
+        else {
+            //update the status if the item is late
+            setStatus(rentalStatus.late);
+            //return true if the item is late
+            return true;
+        }
     }
 
     /**
-     * Sets the return date of a rental and sets the rental status to closed.
+     * Sets the actual return date of a rental and sets the rental status to closed.
      */
     public void itemReturned() {
-
+        //set the actual return date to the current date
+        setActualReturnDate(new Date());
+        //set the status to be closed
+        setStatus(rentalStatus.closed);
     }
 
     ////////////////
