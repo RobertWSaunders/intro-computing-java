@@ -8,7 +8,7 @@
 package library;
 
 import java.util.Date;
-import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class Rental {
 
@@ -334,6 +334,27 @@ public class Rental {
         setStatus(rentalStatus.closed);
     }
 
+    ////////////////////////////
+    /* CLASS UTILITY METHODS */
+    //////////////////////////
+
+    /**
+     * Determines the number of days between two dates but specifically determines number of days a rental is late.
+     * @return The number of days between the dates.
+     */
+    public double determineNumberOfDaysLate() {
+        Date today = new Date();
+        //get the difference between the current date and the expected return date
+        long difference = this.getExpectedReturnDate().getTime() - today.getTime();
+        //if the difference is negative then it is late
+        if (difference < 0) {
+            //therefore return the difference
+            return TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+        }
+        //otherwise return zero days late
+       return 0;
+    }
+
     ////////////////
     /* OVERRIDES */
     //////////////
@@ -365,41 +386,6 @@ public class Rental {
     @Override
     public boolean equals(Object obj) {
         Rental rental = (Rental)obj;
-        return (this.getRentalId() == rental.getRentalId());
-    }
-
-    ////////////////////////////
-    /* CLASS UTILITY METHODS */
-    //////////////////////////
-
-    /**
-     * Calculates the expected return date of a rental based on rental date and rental length.
-     * @param rentalDate The day the rental started.
-     * @param rentalLength The length of the rental.
-     * @return The expected return date of the rental.
-     */
-    public static Date determineExpectedReturnDate(Date rentalDate, int rentalLength) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(rentalDate);
-        calendar.add(Calendar.DAY_OF_MONTH, rentalLength);
-        return calendar.getTime();
-    }
-
-    /**
-     * Determines the number of days between two dates but specifically determines number of days a rental is late.
-     * NOTE: This function does not account for daylight savings and is not accurate to a calendar but demonstrates concept.
-     * IMPROVEMENT: Could be modified to work for daylight savings and calendar, would use JodaTime API.
-     * @param rentalDate The date at which the rental occurred.
-     * @param expectedReturnDate The expected return date of the rental.
-     * @return The number of days between the dates.
-     */
-    public static double determineNumberOfDaysLate() {
-        double difference = (this.rentalDate.getTime() - this.expectedReturnDate.getTime()) / (1000 * 60 * 60 * 24);
-        //if the difference between the dates is negative then the rental is no late
-        if (difference < 0.0) {
-            return 0.0;
-        }
-        //otherwise return the difference
-        return difference;
+        return (this.id() == rental.id());
     }
 }
