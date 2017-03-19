@@ -25,6 +25,9 @@ public class Rental {
         closed //the rental transaction is closed and the item is returned
     }
 
+    //define the student discount as constant, set to 25%
+    private final double STUDENT_DISCOUNT = 0.25;
+
     ///////////////////////
     /* CLASS ATTRIBUTES */
     /////////////////////
@@ -264,15 +267,17 @@ public class Rental {
      * @return The late fee for the rental as a double.
      */
     public double getLateFee() {
-
+        this.rentalItem.getLateFees();
     }
 
     /**
      * The rental cost for the rental, without late fee.
+     * NOTE: Students get a 25% discount.
      * @return The rental cost of the rental, as a double.
      */
     public double getRentalCost() {
-
+        if (this.customer.ge)
+        return
     }
 
     /**

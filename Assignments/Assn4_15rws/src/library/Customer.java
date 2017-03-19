@@ -36,12 +36,10 @@ public class Customer {
     /* CLASS ATTRIBUTES */
     /////////////////////
 
-    //the name of the customer
-    private String name;
     //the id of the customer
     private int id;
-    //the rentals the customer has
-    private ArrayList<Rental> customerRentals;
+    //the name of the customer
+    private String name;
     //define an attribute that declares the type of customer
     private type customerType;
     //define an attribute that declares the customers department
@@ -58,25 +56,31 @@ public class Customer {
      * Default constructor for the customer class.
      */
     Customer() {
-        //Set customer name to an unknown value
+        //set customer name to an unknown value
         setName("Unknown");
-        //set the customer rentals to an empty list
-        setCustomerRentals(new ArrayList<Rental>());
+        //set the type of the customer, defaults to student
+        setCustomerType(type.student);
+        //set the department of the customer, defaults to none
+        setCustomerDepartment(department.none);
         //set the id of the customer
-        setCustomerId();
+        setId();
     }
 
     /**
-     * Constructor for the customer class that takes a name string as a parameter.
+     * Constructor for the customer class that takes a name, type, and department as parameters.
      * @param name The name of the customer to be set.
+     * @param customerDepartment The customer's department.
+     * @param customerType The type of customer.
      */
-    Customer(String name) {
+    Customer(String name, type customerType, department customerDepartment) {
         //set the name of the customer
         setName(name);
-        //set the customer rentals to an empty list
-        setCustomerRentals(new ArrayList<Rental>());
-        //set the customer id
-        setCustomerId();
+        //set the type of the customer
+        setCustomerType(customerType);
+        //set the department of the customer
+        setCustomerDepartment(customerDepartment);
+        //set the id of the customer
+        setId();
     }
 
     /**
@@ -90,9 +94,14 @@ public class Customer {
             //exit the program as a result of a fatal error.
             System.exit(0);
         }
+        //set the name of the customer
         setName(copyCustomer.getName());
-        setCustomerRentals(copyCustomer.getCustomerRentals());
-        setCustomerId();
+        //set the type of the customer
+        setCustomerType(copyCustomer.getCustomerType());
+        //set the department of the customer
+        setCustomerDepartment(copyCustomer.getCustomerDepartment());
+        //set the id of the customer
+        setId();
     }
 
     //////////////
@@ -100,26 +109,38 @@ public class Customer {
     ////////////
 
     /**
-     * Sets the name of the item.
-     * @param name The name of the item to be set.
+     * Sets the name of the customer.
+     * @param name The name of the customer to be set.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Sets the id of the customer by incrementing the idIncrementer variable.
+     * Sets the type of the customer.
+     * @param customerType The type of the customer to be set.
      */
-    public void setCustomerId() {
-        this.customerId = ++idIncrementer;
+    public void setCustomerType(type customerType) {
+        this.customerType = customerType;
     }
 
     /**
-     * Sets the customers rentals.
-     * @param customerRentals The customer rentals to be set.
+     * Sets the customer department.
+     * @param customerDepartment The department the customer is in.
      */
-    public void setCustomerRentals(ArrayList customerRentals) {
-        this.customerRentals = customerRentals;
+    public void setCustomerDepartment(department customerDepartment) {
+        this.customerDepartment = customerDepartment;
+    }
+
+    //******************//
+    /* SPECIAL SETTER */
+    //*****************//
+
+    /**
+     * Sets the id of the customer by incrementing the idIncrementer variable.
+     */
+    public void setId() {
+        this.id = ++idIncrementer;
     }
 
     //////////////
@@ -130,8 +151,8 @@ public class Customer {
      * Gets the id of the customer.
      * @return The id as an integer.
      */
-    public int getCustomerId() {
-        return customerId;
+    public int getId() {
+        return id;
     }
 
     /**
@@ -143,66 +164,19 @@ public class Customer {
     }
 
     /**
-     * Gets the customers rentals.
-     * @return The customer rentals as a ArrayList..
+     * Gets the type of customer.
+     * @return The type of customer.
      */
-    public ArrayList getCustomerRentals() {
-        return customerRentals;
-    }
-
-
-    ///////////////////////
-    /* INSTANCE METHODS */
-    /////////////////////
-
-    /**
-     * Will rent an item given the rental object and the library system being rented from.
-     * Adds rental to the library systems rental list and the customers rental list.
-     * @param rental The rental being rented.
-     * @param librarySystem The library system from which the item is being rented from.
-     */
-    public void rent(Rental rental, LibrarySystem librarySystem) {
-        //add the rental to the library system
-        librarySystem.addTransaction(rental);
-        //add the rental to the customers rentals
-        addRentalToCustomerRentals(rental);
+    public type getCustomerType() {
+        return customerType;
     }
 
     /**
-     * Gets the customers late fees based on their rentals at the time.
-     * @return The late fee for the customers rentals as a double.
+     * Gets the department of the customer.
+     * @return The department the customer belongs to.
      */
-    public double getCustomersLateFees() {
-        double lateFee = 0.0;
-        for (Rental rental : customerRentals) {
-            lateFee += rental.getRentalItem().getLateFees(rental.getNumDaysLate());
-        }
-        return lateFee;
-    }
-
-    /**
-     * Gets the customers rental costs for the items they have rented.
-     * @return The customers rental costs for items they are renting.
-     * NOTE: Only devices can have a rental cost.
-     */
-    public double getCustomersRentalCosts() {
-        double rentalCosts = 0.0;
-        for (Rental rental : customerRentals) {
-            if (rental.getRentalItem() instanceof Device) {
-                rentalCosts += ((Device) rental.getRentalItem()).getRentalCost();
-            }
-        }
-        return rentalCosts;
-    }
-
-
-    /**
-     * Adds a rental to the customers rental list.
-     * @param rental The item to be added to the customers rental list.
-     */
-    public void addRentalToCustomerRentals(Rental rental) {
-        //add to the customer rentals ArrayList
-        customerRentals.add(rental);
+    public department getCustomerDepartment() {
+        return customerDepartment;
     }
 
     ////////////////
@@ -237,32 +211,5 @@ public class Customer {
     public boolean equals(Object obj) {
         Customer customer = (Customer) obj;
         return (this.getName() == customer.getName());
-    }
-
-    //////////////////////
-    /* UTILITY METHODS */
-    ////////////////////
-
-    /**
-     * Makes the customers rentals represented as a string.
-     * @return The customers rentals as a string.
-     */
-    public String stringCustomerRentals() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n****************CUSTOMER RENTALS*****************\n");
-        builder.append(toString() + "\n");
-        if (customerRentals.size() == 0 ) {
-            builder.append("\nCustomer has no rentals!\n");
-        }
-        else {
-            for (Rental rental : customerRentals) {
-                builder.append("\nRental ID: " + rental.getRentalId() + "\n");
-                builder.append("Rental Item Type: " + rental.getRentalItem().getClass().getSimpleName() + "\n");
-                builder.append("Rental Item: " + rental.getRentalItem().toString());
-                builder.append("\n");
-            }
-        }
-        builder.append("\n**************************************************\n");
-        return builder.toString();
     }
 }
