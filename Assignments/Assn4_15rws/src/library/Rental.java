@@ -267,7 +267,8 @@ public class Rental {
      * @return The late fee for the rental as a double.
      */
     public double getLateFee() {
-        this.rentalItem.getLateFees();
+        //return the late fees, using utility method to determine number of days the item is late
+        return this.rentalItem.getLateFees(determineNumberOfDaysLate());
     }
 
     /**
@@ -276,8 +277,19 @@ public class Rental {
      * @return The rental cost of the rental, as a double.
      */
     public double getRentalCost() {
-        if (this.customer.ge)
-        return
+        //there is only rental cost if the item is a device
+        if (this.rentalItem instanceof Device) {
+            //check if the customer is a student add the student discount
+            if (this.customer.getCustomerType() == Customer.type.student) {
+                //subtract the student discount amount
+                return (((Device) this.rentalItem).getRentalCost() - ((Device) this.rentalItem).getRentalCost()*STUDENT_DISCOUNT);
+            } else {
+                //just return the rental cost from the device class
+                return ((Device) this.rentalItem).getRentalCost();
+            }
+        }
+        //if not a device then return zero
+        return 0.0;
     }
 
     /**
@@ -285,9 +297,9 @@ public class Rental {
      * @return The total amount to be paid by the customer including any discounts as a double.
      */
     public double getTotalToBePaid() {
-
+        //just return the rental cost added with any late fees
+        return getRentalCost()+getLateFee();
     }
-
 
     //////////////////////////////
     /* STATUS MODIFIER METHODS */
@@ -381,8 +393,8 @@ public class Rental {
      * @param expectedReturnDate The expected return date of the rental.
      * @return The number of days between the dates.
      */
-    public static double determineNumberOfDaysLate(Date expectedReturnDate, Date rentalDate) {
-        double difference = (rentalDate.getTime() - expectedReturnDate.getTime()) / (1000 * 60 * 60 * 24);
+    public static double determineNumberOfDaysLate() {
+        double difference = (this.rentalDate.getTime() - this.expectedReturnDate.getTime()) / (1000 * 60 * 60 * 24);
         //if the difference between the dates is negative then the rental is no late
         if (difference < 0.0) {
             return 0.0;
