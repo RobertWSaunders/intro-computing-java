@@ -28,7 +28,8 @@ public class Laptop extends Device {
      * @param id The id to be set as the laptop id.
      */
     Laptop(int id) {
-
+        //call the superclass id constructor
+        super(id);
     }
 
     /**

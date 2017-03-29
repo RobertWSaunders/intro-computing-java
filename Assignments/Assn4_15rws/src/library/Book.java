@@ -32,7 +32,7 @@ public class Book extends Item {
         setAuthors(new String[1]);
         //set publisher to an unknown value
         setPublisher("Unknown");
-        //set the year to be current year
+        //set the year to be 2017 by default
         setYear(2017);
     }
 
@@ -60,7 +60,14 @@ public class Book extends Item {
      * @param id The id to be set as the book id.
      */
     Book(int id) {
-
+        //call the superclass id constructor
+        super(id);
+        //set authors to an empty array
+        setAuthors(new String[1]);
+        //set publisher to an unknown value
+        setPublisher("Unknown");
+        //set the year to be 2017 by default
+        setYear(2017);
     }
 
     /**

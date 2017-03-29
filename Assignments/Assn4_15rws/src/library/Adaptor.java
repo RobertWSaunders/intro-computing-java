@@ -26,7 +26,8 @@ public class Adaptor extends Device {
      * @param id The id to be set as the adaptor id.
      */
     Adaptor(int id) {
-
+        //call the superclass id constructor
+        super(id);
     }
 
     /**

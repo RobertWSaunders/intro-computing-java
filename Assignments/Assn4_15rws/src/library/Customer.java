@@ -24,14 +24,6 @@ public class Customer {
         employee
     }
 
-    /**
-     * Define the enum for the different type of departments.
-     */
-    enum department {
-        none,
-        technology
-    }
-
     ///////////////////////
     /* CLASS ATTRIBUTES */
     /////////////////////
@@ -43,7 +35,8 @@ public class Customer {
     //define an attribute that declares the type of customer
     private type customerType;
     //define an attribute that declares the customers department
-    private department customerDepartment;
+    //NOTE: Could implement department using enums but flexibility is bad
+    private String customerDepartment;
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -61,7 +54,7 @@ public class Customer {
         //set the type of the customer, defaults to student
         setCustomerType(type.student);
         //set the department of the customer, defaults to none
-        setCustomerDepartment(department.none);
+        setCustomerDepartment("None");
         //set the id of the customer
         setId();
     }
@@ -72,7 +65,7 @@ public class Customer {
      * @param customerDepartment The customer's department.
      * @param customerType The type of customer.
      */
-    Customer(String name, type customerType, department customerDepartment) {
+    Customer(String name, type customerType, String customerDepartment) {
         //set the name of the customer
         setName(name);
         //set the type of the customer
@@ -128,7 +121,7 @@ public class Customer {
      * Sets the customer department.
      * @param customerDepartment The department the customer is in.
      */
-    public void setCustomerDepartment(department customerDepartment) {
+    public void setCustomerDepartment(String customerDepartment) {
         this.customerDepartment = customerDepartment;
     }
 
@@ -175,7 +168,7 @@ public class Customer {
      * Gets the department of the customer.
      * @return The department the customer belongs to.
      */
-    public department getCustomerDepartment() {
+    public String getCustomerDepartment() {
         return customerDepartment;
     }
 

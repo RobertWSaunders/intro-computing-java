@@ -26,7 +26,8 @@ public class Magazine extends Book {
      * @param id The id to be set as the magazine id.
      */
     Magazine(int id) {
-
+        //call the superclass id constructor
+        super(id);
     }
 
     /**
