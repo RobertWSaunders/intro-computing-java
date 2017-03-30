@@ -10,7 +10,7 @@ package library;
 public class DuplicateTransactionID extends Exception {
 
     //define the rental that has a duplicated id
-    private Customer invalidTransaction;
+    private Rental invalidTransaction;
 
     /**
      * Default constructor for the exception.
@@ -40,7 +40,7 @@ public class DuplicateTransactionID extends Exception {
      * Gets the invalid item.
      * @return The invalid item.
      */
-    public Customer getInvalidTransaction() {
+    public Rental getInvalidTransaction() {
         return invalidTransaction;
     }
 }

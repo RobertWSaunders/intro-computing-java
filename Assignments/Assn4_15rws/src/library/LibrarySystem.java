@@ -141,7 +141,7 @@ public class LibrarySystem {
     public void addItem(Item item) throws DuplicateItemID {
         //check if the item with the same id already exists in the system
         if (itemList.containsKey(item.getId()))
-            throw new DuplicateItemID();
+            throw new DuplicateItemID(item);
         else
             //put the item into the item list, with the item id as the key
             itemList.put(item.getId(),item);
@@ -154,10 +154,10 @@ public class LibrarySystem {
     public void addTransaction(Rental rental) throws DuplicateTransactionID, DuplicateCustomerID {
         //check if a rental with the same id already exists in the system
         if (rentalList.containsKey(rental.getId()))
-            throw new DuplicateTransactionID();
+            throw new DuplicateTransactionID(rental);
         //check if a customer with the id already exists in the system
         else if (rentalList.containsKey(rental.getCustomer().getId()))
-            throw new DuplicateCustomerID();
+            throw new DuplicateCustomerID(rental.getCustomer());
         //proceed with registering the transaction if everything checks out
         else {
             //add the rental to the rental list, the rental id is the key
@@ -202,7 +202,6 @@ public class LibrarySystem {
         //return the total rental costs
         return totalRentalCosts;
     }
-
 
     ////////////////
     /* OVERRIDES */
@@ -264,18 +263,7 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
-        /*
-        Load items from  a file stored on the file system
-        Load customers information from another file.
-        Add few new items
-        Create few transactions with old dates
-        Close the transactions and calculate the late and total cost.
-        Search for old transaction
-        Print all late transactions
-        Before the program ends:
-        Store all items back to file
-        Store all transactions back to the file
-         */
+
     }
 
 }

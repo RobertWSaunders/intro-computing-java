@@ -32,7 +32,7 @@ public class DuplicateItemID extends Exception {
      * Constructor that takes in the item that is not valid.
      * @param invalidItem The item that is not valid.
      */
-    public DuplicateCustomerID(Item invalidItem) {
+    public DuplicateItemID(Item invalidItem) {
         super("Duplicate Item ID!");
         this.invalidItem = invalidItem;
     }
@@ -41,7 +41,7 @@ public class DuplicateItemID extends Exception {
      * Gets the invalid item.
      * @return The invalid item.
      */
-    public Customer getInvalidItem() {
+    public Item getInvalidItem() {
         return invalidItem;
     }
 }
