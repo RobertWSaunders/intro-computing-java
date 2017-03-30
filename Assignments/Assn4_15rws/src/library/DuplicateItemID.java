@@ -5,7 +5,11 @@ package library;
  */
 public class DuplicateItemID extends Exception {
 
-    DuplicateItemID() {
+    public DuplicateItemID() {
+        super("Duplicate Item ID!");
+    }
 
+    public DuplicateItemID(String message) {
+        super(message);
     }
 }
