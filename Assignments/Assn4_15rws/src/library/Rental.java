@@ -206,7 +206,7 @@ public class Rental {
      * Gets the id for the rental.
      * @return The id as an integer.
      */
-    public int id() {
+    public int getId() {
         return id;
     }
 
@@ -268,7 +268,7 @@ public class Rental {
      */
     public double getLateFee() {
         //return the late fees, using utility method to determine number of days the item is late
-        return this.rentalItem.getLateFees(determineNumberOfDaysLate());
+        return getRentalItem().getLateFees(determineNumberOfDaysLate());
     }
 
     /**
@@ -278,17 +278,17 @@ public class Rental {
      */
     public double getRentalCost() {
         //there is only rental cost if the item is a device
-        if (this.rentalItem instanceof Device) {
+        if (getRentalItem() instanceof Device) {
             //check if the customer is a student add the student discount
-            if (this.customer.getCustomerType() == Customer.type.student) {
+            if (getCustomer().getCustomerType() == Customer.type.student) {
                 //subtract the student discount amount
-                return (((Device) this.rentalItem).getRentalCost() - ((Device) this.rentalItem).getRentalCost()*STUDENT_DISCOUNT);
+                return (((Device) getRentalItem()).getRentalCost() - ((Device) getRentalItem()).getRentalCost()*STUDENT_DISCOUNT);
             } else {
                 //just return the rental cost from the device class
-                return ((Device) this.rentalItem).getRentalCost();
+                return ((Device) getRentalItem()).getRentalCost();
             }
         }
-        //if not a device then return zero
+        //if not a device then return zero, as devices only have rental costs
         return 0.0;
     }
 
@@ -297,7 +297,7 @@ public class Rental {
      * @return The total amount to be paid by the customer including any discounts as a double.
      */
     public double getTotalToBePaid() {
-        //just return the rental cost added with any late fees
+        //just return the rental cost added to any late fees
         return getRentalCost()+getLateFee();
     }
 
@@ -306,7 +306,7 @@ public class Rental {
     ////////////////////////////
 
     /**
-     * Checks to see if a item is late, if it is changes the status.
+     * Checks to see if an item is late, if it is changes the status.
      * @return True if the item is late, false otherwise.
      * NOTE: This is inclusive with rentalDate and expectedReturnDate.
      */

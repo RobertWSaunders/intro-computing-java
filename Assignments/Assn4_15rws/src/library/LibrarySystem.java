@@ -8,9 +8,7 @@
 
 package library;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 public class LibrarySystem {
 
@@ -18,12 +16,12 @@ public class LibrarySystem {
     /* INSTANCE VARIABLES */
     ///////////////////////
 
-    //create a list to store all unique items in list
-    private ArrayList<Item> itemList;
-    //create a list to store all customers in library system
-    private ArrayList<Customer> customerList;
-    //create a list to store rentals, i.e. rental transactions
-    private ArrayList<Rental> rentalList;
+    //create a list to store all unique items in list, the item id is the key
+    private HashMap<Integer,Item> itemList;
+    //create a list to store all customers in library system, the customer id is the key
+    private HashMap<Integer,Customer> customerList;
+    //create a list to store rentals, i.e. rental transactions, the rental id is the key
+    private HashMap<Integer,Rental> rentalList;
 
     ///////////////////
     /* CONSTRUCTORS */
@@ -35,11 +33,11 @@ public class LibrarySystem {
     LibrarySystem() {
         //set the lists in the system to new empty collections
         //set the rental list
-        setRentalList(new ArrayList<Rental>());
+        setRentalList(new HashMap<Integer,Rental>());
         //set the customer list
-        setCustomerList(new ArrayList<Customer>());
+        setCustomerList(new HashMap<Integer,Customer>());
         //set the item list
-        setItemList(new ArrayList<Item>());
+        setItemList(new HashMap<Integer,Item>());
     }
 
     /**
@@ -48,7 +46,7 @@ public class LibrarySystem {
      * @param customerList The customer list to be set.
      * @param itemList The item list to be set.
      */
-    LibrarySystem(ArrayList<Rental> rentalList, ArrayList<Customer> customerList, ArrayList<Item> itemList) {
+    LibrarySystem(HashMap<Integer,Rental> rentalList, HashMap<Integer,Customer> customerList, HashMap<Integer,Item> itemList) {
         //set the rental list
         setRentalList(rentalList);
         //set the customer list
@@ -83,7 +81,7 @@ public class LibrarySystem {
      * Sets the rental list to the passed rental list.
      * @param rentalList The rental list to be set.
      */
-    public void setRentalList(ArrayList<Rental> rentalList) {
+    public void setRentalList(HashMap<Integer,Rental> rentalList) {
         this.rentalList = rentalList;
     }
 
@@ -91,7 +89,7 @@ public class LibrarySystem {
      * Sets the customer list to the passed customer list.
      * @param customerList The customer list to be set.
      */
-    public void setCustomerList(ArrayList<Customer> customerList) {
+    public void setCustomerList(HashMap<Integer,Customer> customerList) {
         this.customerList = customerList;
     }
 
@@ -99,7 +97,7 @@ public class LibrarySystem {
      * Sets the item list to the passed item list.
      * @param itemList The item list to be set.
      */
-    public void setItemList(ArrayList<Item> itemList) {
+    public void setItemList(HashMap<Integer,Item> itemList) {
         this.itemList = itemList;
     }
 
@@ -111,7 +109,7 @@ public class LibrarySystem {
      * Gets the rental list for the system.
      * @return The rental list for the system.
      */
-    public ArrayList<Rental> getRentalList() {
+    public HashMap<Integer,Rental> getRentalList() {
         return rentalList;
     }
 
@@ -119,7 +117,7 @@ public class LibrarySystem {
      * Gets the customer list for the system.
      * @return The customer list for the system.
      */
-    public ArrayList<Customer> getCustomerList() {
+    public HashMap<Integer,Customer> getCustomerList() {
         return customerList;
     }
 
@@ -127,7 +125,7 @@ public class LibrarySystem {
      * Gets the item list for the system.
      * @return The item list for the sytem.
      */
-    public ArrayList<Item> getItemList() {
+    public HashMap<Integer,Item> getItemList() {
         return itemList;
     }
 
@@ -135,8 +133,13 @@ public class LibrarySystem {
     /* SYSTEM LOGIC METHODS */
     /////////////////////////
 
+    /**
+     * Adds an item to the library sytems item list.
+     * @param item The item to be added to the item list.
+     */
     public void addItem(Item item) {
-
+        //put the item into the item list, with the item id as the key
+        itemList.put(item.getId(),item);
     }
 
     /**
@@ -144,8 +147,10 @@ public class LibrarySystem {
      * @param rental The rental to be added to the rental list.
      */
     public void addTransaction(Rental rental) {
-        //add the rental to the rental list
-        rentalList.add(rental);
+        //add the rental to the rental list, the rental id is the key
+        rentalList.put(rental.getId(),rental);
+        //add the customer who is renting to the customer list
+        customerList.put(rental.getCustomer().getId(), rental.getCustomer());
     }
 
     /**
@@ -156,9 +161,9 @@ public class LibrarySystem {
         //define the late fees double
         double totalLateFees = 0.0;
         //iterate through the library systems rental list
-        for (Rental rental : rentalList) {
+        for (Rental rental : rentalList.values()) {
             //add to the total late fees
-            totalLateFees += rental.getRentalItem().getLateFees(rental.getNumDaysLate());
+            totalLateFees += rental.getRentalItem().getLateFees(rental.determineNumberOfDaysLate());
         }
         //return the total late fees
         return totalLateFees;
@@ -173,7 +178,7 @@ public class LibrarySystem {
         //define the total rental costs
         double totalRentalCosts = 0.0;
         //iterate through the rentals in the system
-        for (Rental rental : rentalList) {
+        for (Rental rental : rentalList.values()) {
             //only devices have a rental cost so check if the item is an instance of Device
             if (rental.getRentalItem() instanceof Device) {
                 //add to the total rental costs
@@ -184,37 +189,6 @@ public class LibrarySystem {
         return totalRentalCosts;
     }
 
-    //////////////////////////////////////////
-    /* READING/WRITING/PRINTING FROM FILES */
-    ////////////////////////////////////////
-
-    public void readItems(String filename) {
-
-    }
-
-    public void readCustomers(String filename) {
-
-    }
-
-    public void writeItems(String filename) {
-
-    }
-
-    public void listTransactions() {
-
-    }
-
-    ////////////////////////
-    /* SEARCHING METHODS */
-    //////////////////////
-
-    public void searchTransaction() {
-
-    }
-
-    public void searchItem() {
-
-    }
 
     ////////////////
     /* OVERRIDES */
