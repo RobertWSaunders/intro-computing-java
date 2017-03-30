@@ -232,9 +232,9 @@ public class LibrarySystem {
         //iterate through the rental list to print the rentals in the library system
         for (Rental rental : rentalList) {
             //print the rental id
-            builder.append("\nRental ID: "+rental.getRentalId()+"\n");
+            builder.append("\nRental ID: "+rental.getId()+"\n");
             //print the customer id for the rental
-            builder.append("Rental Customer ID: "+rental.getCustomerId()+"\n");
+            builder.append("Rental Customer ID: "+rental.getCustomer().getId()+"\n");
             //print the rental item type
             builder.append("Rental Item Type: "+rental.getRentalItem().getClass().getSimpleName()+"\n");
             //print the rental item

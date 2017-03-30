@@ -276,9 +276,12 @@ public class Rental {
      * NOTE: Students get a 25% discount.
      * @return The rental cost of the rental, as a double.
      */
-    public double getRentalCost() {
+    public double getRentalCost() throws WrongRentalCostException {
         //there is only rental cost if the item is a device
         if (getRentalItem() instanceof Device) {
+            if (((Device) getRentalItem()).getRentalCost() < 0) {
+                throw new WrongRentalCostException();
+            }
             //check if the customer is a student add the student discount
             if (getCustomer().getCustomerType() == Customer.type.student) {
                 //subtract the student discount amount
