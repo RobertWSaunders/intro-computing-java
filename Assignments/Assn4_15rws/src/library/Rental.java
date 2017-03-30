@@ -63,7 +63,7 @@ public class Rental {
      * @param actualReturnDate The date the item was actually returned.
      * @param status The status of the rental.
      */
-    Rental(Item rentalItem, Customer customer, Date rentalDate, Date expectedReturnDate, Date actualReturnDate, rentalStatus status) {
+    Rental(Item rentalItem, Customer customer, Date rentalDate, Date expectedReturnDate, Date actualReturnDate, rentalStatus status) throws DateReturnedBeforeDateRented {
         //set the item that is being rented
         setRentalItem(rentalItem);
         //set the customer
@@ -326,12 +326,18 @@ public class Rental {
 
     /**
      * Sets the actual return date of a rental and sets the rental status to closed.
+     * @throws DateReturnedBeforeDateRented when an item is being returned check if it is being returned before its rented date, cannot occur
      */
-    public void itemReturned() {
-        //set the actual return date to the current date
-        setActualReturnDate(new Date());
-        //set the status to be closed
-        setStatus(rentalStatus.closed);
+    public void itemReturned() throws DateReturnedBeforeDateRented {
+        //check for the exception when the item is returned
+        if (new Date().before(getRentalDate()))
+            throw new DateReturnedBeforeDateRented();
+        else {
+            //set the actual return date to the current date
+            setActualReturnDate(new Date());
+            //set the status to be closed
+            setStatus(rentalStatus.closed);
+        }
     }
 
     ////////////////////////////

@@ -136,21 +136,35 @@ public class LibrarySystem {
     /**
      * Adds an item to the library sytems item list.
      * @param item The item to be added to the item list.
+     * @throws DuplicateItemID There cannot exist two items in the system with the same id.
      */
-    public void addItem(Item item) {
-        //put the item into the item list, with the item id as the key
-        itemList.put(item.getId(),item);
+    public void addItem(Item item) throws DuplicateItemID {
+        //check if the item with the same id already exists in the system
+        if (itemList.containsKey(item.getId()))
+            throw new DuplicateItemID();
+        else
+            //put the item into the item list, with the item id as the key
+            itemList.put(item.getId(),item);
     }
 
     /**
      * Adds a rental to the library systems rental list.
      * @param rental The rental to be added to the rental list.
      */
-    public void addTransaction(Rental rental) {
-        //add the rental to the rental list, the rental id is the key
-        rentalList.put(rental.getId(),rental);
-        //add the customer who is renting to the customer list
-        customerList.put(rental.getCustomer().getId(), rental.getCustomer());
+    public void addTransaction(Rental rental) throws DuplicateTransactionID, DuplicateCustomerID {
+        //check if a rental with the same id already exists in the system
+        if (rentalList.containsKey(rental.getId()))
+            throw new DuplicateTransactionID();
+        //check if a customer with the id already exists in the system
+        else if (rentalList.containsKey(rental.getCustomer().getId()))
+            throw new DuplicateCustomerID();
+        //proceed with registering the transaction if everything checks out
+        else {
+            //add the rental to the rental list, the rental id is the key
+            rentalList.put(rental.getId(), rental);
+            //add the customer who is renting to the customer list
+            customerList.put(rental.getCustomer().getId(), rental.getCustomer());
+        }
     }
 
     /**
