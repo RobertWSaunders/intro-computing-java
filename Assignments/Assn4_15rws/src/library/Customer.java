@@ -18,8 +18,8 @@ public class Customer {
      * Define the enum for the different type of customers.
      */
     enum type {
-        student,
-        employee
+        STUDENT,
+        EMPLOYEE
     }
 
     ///////////////////////
@@ -50,7 +50,7 @@ public class Customer {
         //set customer name to an unknown value
         setName("Unknown");
         //set the type of the customer, defaults to student
-        setCustomerType(type.student);
+        setCustomerType(type.STUDENT);
         //set the department of the customer, defaults to none
         setCustomerDepartment("None");
         //set the id of the customer

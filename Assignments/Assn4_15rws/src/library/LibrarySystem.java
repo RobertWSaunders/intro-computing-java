@@ -329,7 +329,8 @@ public class LibrarySystem {
         LibrarySystem queensLibrary = new LibrarySystem();
 
         //create a customer who wants to rent some items
-        Customer customer = new Customer("Robert Saunders", Customer.type.student,"Unspecified");
+        //NOTE: You can toggle the customer type to employee and you will see that the student discount works
+        Customer customer = new Customer("Robert Saunders", Customer.type.STUDENT,"Unspecified");
 
         //create a few items that the customer wants to rent
         Adaptor adaptor = new Adaptor("VGA Connector", 10);

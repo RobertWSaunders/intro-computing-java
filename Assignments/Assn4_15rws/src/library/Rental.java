@@ -20,9 +20,9 @@ public class Rental {
      * Define the enum for the different statuses a rental can be in.
      */
     enum rentalStatus {
-        active, //the rental transaction is created and the item is with the customer
-        late, //the item is not returned by the estimated return Date/Time
-        closed //the rental transaction is closed and the item is returned
+        ACTIVE, //the rental transaction is created and the item is with the customer
+        LATE, //the item is not returned by the estimated return Date/Time
+        CLOSED //the rental transaction is closed and the item is returned
     }
 
     //define the student discount as constant, set to 25%
@@ -97,6 +97,8 @@ public class Rental {
         setRentalDate(rentalDate);
         //set the expected return date
         setExpectedReturnDate(expectedReturnDate);
+        //set the default status
+        setStatus(rentalStatus.ACTIVE);
         //set the rental id
         incrementAndSetNewId();
     }
@@ -122,6 +124,8 @@ public class Rental {
         setExpectedReturnDate(copyRental.getExpectedReturnDate());
         //set the actual return date
         setActualReturnDate(copyRental.getActualReturnDate());
+        //set the status to be equal to that of the copy rental
+        setStatus(copyRental.getStatus());
         //set the rental id, not copied, must be unique
         incrementAndSetNewId();
     }
@@ -283,7 +287,7 @@ public class Rental {
                 throw new WrongRentalCostException();
             }
             //check if the customer is a student add the student discount
-            if (getCustomer().getCustomerType() == Customer.type.student) {
+            if (getCustomer().getCustomerType() == Customer.type.STUDENT) {
                 //subtract the student discount amount
                 return (((Device) getRentalItem()).getRentalCost() - ((Device) getRentalItem()).getRentalCost()*STUDENT_DISCOUNT);
             } else {
@@ -329,7 +333,7 @@ public class Rental {
             return false;
         else {
             //update the status if the item is late
-            setStatus(rentalStatus.late);
+            setStatus(rentalStatus.LATE);
             //return true if the item is late
             return true;
         }
@@ -347,7 +351,7 @@ public class Rental {
             //set the actual return date to the current date
             setActualReturnDate(new Date());
             //set the status to be closed
-            setStatus(rentalStatus.closed);
+            setStatus(rentalStatus.CLOSED);
         }
     }
 
