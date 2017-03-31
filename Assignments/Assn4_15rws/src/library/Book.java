@@ -59,9 +59,9 @@ public class Book extends Item {
      * Constructor that takes an id.
      * @param id The id to be set as the book id.
      */
-    Book(int id) {
+    Book(int id, String name) {
         //call the superclass id constructor
-        super(id);
+        super(id, name);
         //set authors to an empty array
         setAuthors(new String[1]);
         //set publisher to an unknown value

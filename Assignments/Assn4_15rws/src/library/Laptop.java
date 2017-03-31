@@ -27,9 +27,9 @@ public class Laptop extends Device {
      * Constructor that takes an id.
      * @param id The id to be set as the laptop id.
      */
-    Laptop(int id) {
+    Laptop(int id, String name) {
         //call the superclass id constructor
-        super(id);
+        super(id, name);
     }
 
     /**

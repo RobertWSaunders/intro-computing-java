@@ -24,9 +24,9 @@ public class Textbook extends Book {
      * Constructor that takes an id.
      * @param id The id to be set as the textbook id.
      */
-    Textbook(int id) {
+    Textbook(int id, String name) {
         //call the superclass id constructor
-        super(id);
+        super(id, name);
     }
 
     /**

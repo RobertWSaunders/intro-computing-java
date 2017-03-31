@@ -229,7 +229,7 @@ public class LibrarySystem {
         //add header to the string
         builder.append("\n*************LIBRARY SYSTEM RENTALS*************\n");
         //iterate through the rental list to print the rentals in the library system
-        for (Rental rental : rentalList) {
+        for (Rental rental : rentalList.values()) {
             //print the rental id
             builder.append("\nRental ID: "+rental.getId()+"\n");
             //print the customer id for the rental
@@ -263,6 +263,47 @@ public class LibrarySystem {
     ///////////////////////////
 
     public static void main(String[] args) {
+        //create a library system that we will be testing
+        LibrarySystem queensLibrary = new LibrarySystem();
+
+        //create a customer who wants to rent some items
+        Customer customer = new Customer("Robert Saunders", Customer.type.student,"Unspecified");
+
+        //create a few items that the customer wants to rent
+        Adaptor adaptor = new Adaptor("VGA Connector", 10);
+        Textbook textbook = new Textbook(3,"Ender's Game");
+        //using the id constructor
+        Laptop laptop = new Laptop(2, "MacBook");
+
+        //add these items to the library system
+        try {
+            //add the items into the
+            queensLibrary.addItem(adaptor);
+            //add the laptop
+            queensLibrary.addItem(laptop);
+            //add the textbook
+            queensLibrary.addItem(textbook);
+        }
+        catch (DuplicateItemID e) {
+            //retrieve the invalid item from the exception
+            //not going to do anything with it but just demonstrating that I can retrieve it
+            Item badItem = e.getInvalidItem();
+            //print the exception error to the console
+            System.out.println(e.getMessage());
+        }
+
+        //print the items in the library system
+        queensLibrary.
+
+        //create some old dates to use for testing purposes
+
+        //create a rental object for these two items that want to be rented
+        //NOTE: not relating to the items already in the system because searching functions were moved to assignment #5
+        Rental rental = new Rental(adaptor,customer,)
+        //add these items to the library system
+        try {
+
+        }
 
     }
 

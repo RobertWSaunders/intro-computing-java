@@ -47,9 +47,9 @@ public class Device extends Item {
      * Constructor that takes an id.
      * @param id The id to be set as the device id.
      */
-    Device(int id) {
+    Device(int id, String name) {
         //call the superclass constructor to set the id
-        super(id);
+        super(id,name);
         //set the default rental cost be $10
         setRentalCost(10.0);
     }

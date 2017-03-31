@@ -57,12 +57,12 @@ public abstract class Item {
      * Constructor that takes a id.
      * @param id The id to be set as the item id.
      */
-    Item(int id) {
+    Item(int id, String name) {
         //set the id of the item
         setId(id);
         //set the name of the item to be unknown
         //instructions are vague so my id constructor includes name
-        setName("Unknown");
+        setName(name);
     }
 
 
