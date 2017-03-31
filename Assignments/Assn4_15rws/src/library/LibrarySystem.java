@@ -9,6 +9,8 @@
 package library;
 
 import java.util.HashMap;
+import java.util.Calendar;
+import java.util.Date;
 
 public class LibrarySystem {
 
@@ -203,6 +205,66 @@ public class LibrarySystem {
         return totalRentalCosts;
     }
 
+    //////////////////////
+    /* UTILITY METHODS */
+    ////////////////////
+
+    /**
+     * Prints all of the items in the library system.
+     */
+    public void printAllItems() {
+        //create a string builder
+        StringBuilder builder = new StringBuilder();
+        //add header to the string
+        builder.append("\n*************LIBRARY SYSTEM ITEMS*************\n");
+        //iterate through the rental list to print the rentals in the library system
+        for (Item item : itemList.values()) {
+            //print the item id
+            builder.append("\nItem ID: "+item.getId()+"\n");
+            //print the item name
+            builder.append("Item Name: "+item.getName()+"\n");
+        }
+        //add the footer of the note
+        builder.append("\n*************************************************\n");
+        //print the string
+        System.out.println(builder.toString());
+    }
+
+    /**
+     * Prints all of the rentals in the library system.
+     */
+    public void printAllRentals() {
+        //the toString method will by default print all the rentals so just call that
+        System.out.println(this.toString());
+    }
+
+    public void printAllLateRentals() {
+        //create a string builder
+        StringBuilder builder = new StringBuilder();
+        //add header to the string
+        builder.append("\n*************LATE RENTAL ITEMS*************\n");
+        //iterate through the rental list to print the rentals in the library system
+        for (Rental rental : rentalList.values()) {
+            //note that calling isLate() will modify the status of a closed rental as well, if an item is late then it will always stay late.
+            //this could be improved by not having late as a status but rather a boolean attribute, therefore closed rentals could still be seen as late.
+            if (rental.isLate()) {
+                //print the rental id
+                builder.append("\nRental ID: "+rental.getId()+"\n");
+                //print the customer id for the rental
+                builder.append("Rental Customer ID: "+rental.getCustomer().getId()+"\n");
+                //print the rental item type
+                builder.append("Rental Item Type: "+rental.getRentalItem().getClass().getSimpleName()+"\n");
+                //print the rental item
+                builder.append("Rental Item: "+rental.getRentalItem().toString());
+                builder.append("\n");
+            }
+        }
+        //add the footer of the note
+        builder.append("\n*************************************************\n");
+        //print the string
+        System.out.println(builder.toString());
+    }
+
     ////////////////
     /* OVERRIDES */
     //////////////
@@ -293,18 +355,74 @@ public class LibrarySystem {
         }
 
         //print the items in the library system
-        queensLibrary.
+        queensLibrary.printAllItems();
 
         //create some old dates to use for testing purposes
+        //create instance of a calendar
+        final Calendar cal = Calendar.getInstance();
+        //make a date in the past as the rental date
+        cal.add(Calendar.DATE, -4);
+        //put calendar into date
+        Date rentalDate = cal.getTime();
 
-        //create a rental object for these two items that want to be rented
+        //print the return date for clarity
+        System.out.println("Rental date is: " + rentalDate);
+
+        //now make the expected return date
+        cal.add(Calendar.DATE, +2);
+        //put calendar into date
+        Date expectedReturnDate = cal.getTime();
+
+        //print the expected return date for clarity
+        System.out.println("Expected Return date is: " + expectedReturnDate);
+
+        //create a rental object for the item that the customer wants to rent
         //NOTE: not relating to the items already in the system because searching functions were moved to assignment #5
-        Rental rental = new Rental(adaptor,customer,)
-        //add these items to the library system
-        try {
+        Rental rental = new Rental(adaptor,customer,rentalDate,expectedReturnDate);
 
+        //add this rental to the library system
+        try {
+            //add the items into the
+            queensLibrary.addTransaction(rental);
+        }
+        catch (DuplicateTransactionID e) {
+            //retrieve the invalid item from the exception
+            //not going to do anything with it but just demonstrating that I can retrieve it
+            Rental badRental = e.getInvalidTransaction();
+            //print the exception error to the console
+            System.out.println(e.getMessage());
+        }
+        catch (DuplicateCustomerID e) {
+            //retrieve the invalid item from the exception
+            //not going to do anything with it but just demonstrating that I can retrieve it
+            Customer badCustomer = e.getInvalidCustomer();
+            //print the exception error to the console
+            System.out.println(e.getMessage());
         }
 
-    }
+        //lets print the rentals in the library system
+        queensLibrary.printAllRentals();
 
+        //now lets try to return the rental (close)
+        try {
+            //return the item
+            rental.itemReturned();
+        } catch(DateReturnedBeforeDateRented e) {
+            //print the exception error to the console
+            System.out.println(e.getMessage());
+        }
+
+        //lets print the late fee associated with that rental
+        System.out.println("Late Fee: $" + rental.getLateFee());
+        //lets print out the total cost of that rental, including the discount on the rental cost
+        //NOTE: getTotalToBePaid will handle the WrongRentalCost exception, so not account for in the main program
+        System.out.println("Total Cost: $" + rental.getTotalToBePaid());
+
+        //now lets print all of the late rentals
+        //my implementation prints all late rentals regardless of their status, see comments in method
+        //can easily be changed to just print open late rentals but instructions do not clarify
+        queensLibrary.printAllLateRentals();
+
+        //All done :)
+    }
 }

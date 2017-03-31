@@ -190,7 +190,7 @@ public class Customer {
      */
     @Override
     public String toString() {
-        return "\nCustomer Name: "+name+"\n"+"Customer ID: "+customerId;
+        return "\nCustomer Name: "+name+"\n"+"Customer ID: "+getId();
     }
 
     /**

@@ -301,7 +301,15 @@ public class Rental {
      */
     public double getTotalToBePaid() {
         //just return the rental cost added to any late fees
-        return getRentalCost()+getLateFee();
+        try {
+            return getRentalCost()+getLateFee();
+        }
+        catch (WrongRentalCostException e) {
+            //print the error message if the exception is thrown
+            System.out.println(e.getMessage());
+            //return zero if exception thrown
+            return 0;
+        }
     }
 
     //////////////////////////////
@@ -309,8 +317,8 @@ public class Rental {
     ////////////////////////////
 
     /**
-     * Checks to see if an item is late, if it is changes the status.
-     * @return True if the item is late, false otherwise.
+     * Checks to see if an rental is late, if it is changes the status.
+     * @return True if the rental is late, false otherwise.
      * NOTE: This is inclusive with rentalDate and expectedReturnDate.
      */
     public boolean isLate() {
@@ -358,7 +366,7 @@ public class Rental {
         //if the difference is negative then it is late
         if (difference < 0) {
             //therefore return the difference
-            return TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+            return Math.abs(TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS));
         }
         //otherwise return zero days late
        return 0;
@@ -384,7 +392,7 @@ public class Rental {
      */
     @Override
     public String toString() {
-        return "\nRental Type: "+ rentalItem.getClass().getSimpleName()+"\n"+"Rental Length: "+numRentalDays+" Days"+"\n"+rentalItem.toString();
+        return "\nRental Type: "+ rentalItem.getClass().getSimpleName()+rentalItem.toString();
     }
 
     /**
@@ -395,6 +403,6 @@ public class Rental {
     @Override
     public boolean equals(Object obj) {
         Rental rental = (Rental)obj;
-        return (this.id() == rental.id());
+        return (this.getId() == rental.getId());
     }
 }
