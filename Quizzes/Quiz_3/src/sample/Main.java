@@ -169,7 +169,7 @@ public class Main extends Application {
                         bmrValue = (10*weight)+(6.25*height)-(5*age)+5;
                     //otherwise the female option is selected
                     else
-                        bmrValue = (10*weight)+(6.25*height)-(5-age)-161;
+                        bmrValue = (10*weight)+(6.25*height)-(5*age)-161;
 
                     //output the result
                     outputLabel.setText("BMR = "+bmrValue+" Calories");
