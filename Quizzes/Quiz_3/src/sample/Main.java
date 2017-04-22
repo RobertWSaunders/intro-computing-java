@@ -151,30 +151,28 @@ public class Main extends Application {
             // EVENT HANDLERS /
             //////////////////
 
-            //event handler for the calculate button
-            calculateButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    //retrieve the values from the textfields
-                    Double age = Double.parseDouble(ageTextfield.getText());
-                    Double height = Double.parseDouble(heightTextfield.getText());
-                    Double weight = Double.parseDouble(weightTextfield.getText());
+            calculateButton.setOnAction((event) -> {
+                //retrieve the values from the textfields
+                Double age = Double.parseDouble(ageTextfield.getText());
+                Double height = Double.parseDouble(heightTextfield.getText());
+                Double weight = Double.parseDouble(weightTextfield.getText());
 
-                    //create double that will store our bmrValue
-                    double bmrValue;
+                //create double that will store our bmrValue
+                double bmrValue;
 
-                    //based on the gender set the brmValue
-                    //if the male option is selected
-                    if(maleOption.isSelected())
-                        bmrValue = (10*weight)+(6.25*height)-(5*age)+5;
+                //based on the gender set the brmValue
+                //if the male option is selected
+                if(maleOption.isSelected())
+                    bmrValue = (10*weight)+(6.25*height)-(5*age)+5;
                     //otherwise the female option is selected
-                    else
-                        bmrValue = (10*weight)+(6.25*height)-(5*age)-161;
+                else
+                    bmrValue = (10*weight)+(6.25*height)-(5*age)-161;
 
-                    //output the result
-                    outputLabel.setText("BMR = "+bmrValue+" Calories");
-                }
+                //output the result
+                outputLabel.setText("BMR = "+bmrValue+" Calories");
             });
+
+
             //set the scen for the stage
             primaryStage.setScene(scene);
             //shoe the stage
